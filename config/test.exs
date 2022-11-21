@@ -1,5 +1,8 @@
 import Config
 
+# Don't run data processes (e.g. the API stream) during test
+config :alerts_viewer, start_data_processes: false
+
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :alerts_viewer, AlertsViewerWeb.Endpoint,
@@ -8,8 +11,7 @@ config :alerts_viewer, AlertsViewerWeb.Endpoint,
   server: false
 
 # In test we don't send emails.
-config :alerts_viewer, AlertsViewer.Mailer,
-  adapter: Swoosh.Adapters.Test
+config :alerts_viewer, AlertsViewer.Mailer, adapter: Swoosh.Adapters.Test
 
 # Print only warnings and errors during test
 config :logger, level: :warn
