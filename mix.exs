@@ -33,19 +33,22 @@ defmodule AlertsViewer.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bypass, "~> 2.1", only: :test},
+      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:floki, ">= 0.30.0", only: :test},
+      {:gen_stage, "~> 1.1"},
+      {:gettext, "~> 0.18"},
+      {:jason, "~> 1.2"},
       {:phoenix, "~> 1.6.15"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
-      {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.6"},
-      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:plug_cowboy, "~> 2.5"},
+      {:server_sent_event_stage, "~> 1.1"},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
-      {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.18"},
-      {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:telemetry_poller, "~> 1.0"}
     ]
   end
 

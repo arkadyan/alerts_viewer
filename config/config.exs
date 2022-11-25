@@ -7,6 +7,12 @@
 # General application configuration
 import Config
 
+config :alerts_viewer,
+  # Default. Can be configured via environment variable, which is loaded in application.ex
+  api_url: {:system, "API_URL"},
+  api_key: {:system, "API_KEY"},
+  start_data_processes: true
+
 # Configures the endpoint
 config :alerts_viewer, AlertsViewerWeb.Endpoint,
   url: [host: "localhost"],
