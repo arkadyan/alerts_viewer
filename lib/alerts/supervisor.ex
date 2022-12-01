@@ -33,9 +33,11 @@ defmodule Alerts.Supervisor do
       )
 
     [
+      {Registry, keys: :duplicate, name: :alerts_subscriptions_registry},
       {ServerSentEventStage, sses_opts},
       {Api.Stream, name: Alerts.Api, subscribe_to: Alerts.Api.SSES},
-      {Alerts.Stream, subscribe_to: Alerts.Api}
+      {Alerts.Stream, subscribe_to: Alerts.Api},
+      Alerts.AlertsPubSub
     ]
   end
 end
