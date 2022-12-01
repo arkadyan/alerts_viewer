@@ -22,6 +22,8 @@ defmodule Alerts.Alert do
     :url
   ]
 
+  @type id :: String.t()
+
   @type cause ::
           :accident
           | :amtrak
@@ -152,7 +154,7 @@ defmodule Alerts.Alert do
   @type severity :: 0..10
 
   @type t :: %__MODULE__{
-          id: String.t(),
+          id: id(),
           active_period: [datetime_pair()],
           banner: String.t() | nil,
           cause: cause(),
