@@ -157,7 +157,7 @@ defmodule Alerts.Alert do
           banner: String.t() | nil,
           cause: cause(),
           created_at: DateTime.t(),
-          description: String.t(),
+          description: String.t() | nil,
           effect: effect(),
           header: String.t(),
           informed_entity: [informed_entity()],
