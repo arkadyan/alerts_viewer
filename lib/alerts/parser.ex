@@ -14,7 +14,7 @@ defmodule Alerts.Parser do
       banner: trimmed_or_nil(attributes["banner"]),
       cause: cause(attributes["cause"]),
       created_at: parse_time(attributes["created_at"]),
-      description: String.trim(attributes["description"]),
+      description: trimmed_or_nil(attributes["description"]),
       effect: effect(attributes["effect"]),
       header: String.trim(attributes["header"]),
       informed_entity: Enum.map(attributes["informed_entity"], &informed_entity/1),
