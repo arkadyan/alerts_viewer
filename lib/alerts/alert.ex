@@ -49,8 +49,10 @@ defmodule Alerts.Alert do
           | :maintenance
           | :mechanical_problem
           | :medical_emergency
+          | :other_cause
           | :parade
           | :police_action
+          | :police_activity
           | :power_problem
           | :severe_weather
           | :signal_problem
@@ -58,11 +60,14 @@ defmodule Alerts.Alert do
           | :snow
           | :special_event
           | :speed_restriction
+          | :strike
           | :switch_problem
+          | :technical_problem
           | :tie_replacement
           | :track_problem
           | :track_work
           | :traffic
+          | :unknown_cause
           | :unruly_passenger
           | :weather
 

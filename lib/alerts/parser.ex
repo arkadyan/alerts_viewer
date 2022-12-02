@@ -81,8 +81,10 @@ defmodule Alerts.Parser do
   defp cause("MAINTENANCE"), do: :maintenance
   defp cause("MECHANICAL_PROBLEM"), do: :mechanical_problem
   defp cause("MEDICAL_EMERGENCY"), do: :medical_emergency
+  defp cause("OTHER_CAUSE"), do: :other_cause
   defp cause("PARADE"), do: :parade
   defp cause("POLICE_ACTION"), do: :police_action
+  defp cause("POLICE_ACTIVITY"), do: :police_activity
   defp cause("POWER_PROBLEM"), do: :power_problem
   defp cause("SEVERE_WEATHER"), do: :severe_weather
   defp cause("SIGNAL_PROBLEM"), do: :signal_problem
@@ -90,11 +92,14 @@ defmodule Alerts.Parser do
   defp cause("SNOW"), do: :snow
   defp cause("SPECIAL_EVENT"), do: :special_event
   defp cause("SPEED_RESTRICTION"), do: :speed_restriction
+  defp cause("STRIKE"), do: :strike
   defp cause("SWITCH_PROBLEM"), do: :switch_problem
+  defp cause("TECHNICAL_PROBLEM"), do: :technical_problem
   defp cause("TIE_REPLACEMENT"), do: :tie_replacement
   defp cause("TRACK_PROBLEM"), do: :track_problem
   defp cause("TRACK_WORK"), do: :track_work
   defp cause("TRAFFIC"), do: :traffic
+  defp cause("UNKNOWN_CAUSE"), do: :unknown_cause
   defp cause("UNRULY_PASSENGER"), do: :unruly_passenger
   defp cause("WEATHER"), do: :weather
 
