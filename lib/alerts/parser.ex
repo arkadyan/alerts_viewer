@@ -22,7 +22,7 @@ defmodule Alerts.Parser do
       service_effect: String.trim(attributes["service_effect"]),
       severity: attributes["severity"],
       short_header: String.trim(attributes["short_header"]),
-      timeframe: String.trim(attributes["timeframe"]),
+      timeframe: trimmed_or_nil(attributes["timeframe"]),
       updated_at: parse_time(attributes["updated_at"]),
       url: trimmed_or_nil(attributes["url"])
     }

@@ -165,7 +165,7 @@ defmodule Alerts.Alert do
           service_effect: String.t(),
           severity: severity(),
           short_header: String.t(),
-          timeframe: String.t(),
+          timeframe: String.t() | nil,
           updated_at: DateTime.t(),
           url: String.t() | nil
         }
