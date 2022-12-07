@@ -57,7 +57,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:reset, [@alert]})
 
-      assert_receive {:alerts, [@alert]}
+      assert_receive {:reset, [@alert]}
     end
   end
 
@@ -82,7 +82,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:add, [@alert]})
 
-      assert_receive {:alerts, [@alert]}
+      assert_receive {:add, [@alert]}
     end
   end
 
@@ -111,7 +111,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:update, [@alert]})
 
-      assert_receive {:alerts, [@alert]}
+      assert_receive {:update, [@alert]}
     end
   end
 
@@ -140,7 +140,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:remove, ["12345"]})
 
-      assert_receive {:alerts, []}
+      assert_receive {:remove, ["12345"]}
     end
   end
 end

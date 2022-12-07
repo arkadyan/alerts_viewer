@@ -14,7 +14,11 @@ defmodule Alerts.AlertsPubSub do
           store: Store.t()
         }
 
-  @type broadcast_message :: {:alerts, [Alert.t()]}
+  @type broadcast_message ::
+          {:reset, [Alert.t()]}
+          | {:add, [Alert.t()]}
+          | {:update, [Alert.t()]}
+          | {:remove, [Alert.id()]}
 
   # Client
 
@@ -61,7 +65,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.reset(store, alerts)
     }
 
-    broadcast(new_state)
+    broadcast({:reset, alerts})
 
     {:noreply, new_state}
   end
@@ -73,7 +77,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.add(store, new_alerts)
     }
 
-    broadcast(new_state)
+    broadcast({:add, new_alerts})
 
     {:noreply, new_state}
   end
@@ -85,7 +89,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.update(store, updated_alerts)
     }
 
-    broadcast(new_state)
+    broadcast({:update, updated_alerts})
 
     {:noreply, new_state}
   end
@@ -96,20 +100,20 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.remove(store, alert_ids_to_remove)
     }
 
-    broadcast(new_state)
+    broadcast({:remove, alert_ids_to_remove})
 
     {:noreply, new_state}
   end
 
-  @spec broadcast(t()) :: :ok
-  defp broadcast(state) do
+  @spec broadcast(broadcast_message()) :: :ok
+  defp broadcast(msg) do
     registry_key = self()
 
     Registry.dispatch(:alerts_subscriptions_registry, registry_key, fn entries ->
-      Enum.each(entries, &send_data(&1, state))
+      Enum.each(entries, &send_data(&1, msg))
     end)
   end
 
-  @spec send_data({pid, any()}, t()) :: broadcast_message()
-  defp send_data({pid, _}, %__MODULE__{store: store}), do: send(pid, {:alerts, Store.all(store)})
+  @spec send_data({pid(), any()}, broadcast_message()) :: broadcast_message()
+  defp send_data({pid, _}, msg), do: send(pid, msg)
 end
