@@ -18,6 +18,8 @@ defmodule AlertsViewerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/alerts", AlertsLive
   end
 
   # Other scopes may use custom stacks.

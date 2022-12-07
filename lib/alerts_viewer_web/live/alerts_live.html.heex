@@ -1,0 +1,59 @@
+<h1 class="pb-6">Alerts</h1>
+
+<%!-- TODO: Turn into a component like the existing `table` --%>
+<div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
+  <table class="mt-11 w-[40rem] sm:w-full">
+    <thead class="text-left text-[0.8125rem] leading-6 text-zinc-500">
+      <tr>
+        <th class="p-0 pb-4 pr-6 font-normal">Route</th>
+        <th class="p-0 pb-4 pr-6 font-normal">ID</th>
+        <th class="p-0 pb-4 pr-6 font-normal">Message</th>
+        <th class="p-0 pb-4 pr-6 font-normal">Start</th>
+        <th class="p-0 pb-4 pr-6 font-normal">End</th>
+      </tr>
+    </thead>
+    <tbody id="alerts" phx-update={@update_action} class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
+      <%= for alert <- @alerts do %>
+        <tr id={alert.id} class="relative group hover:bg-zinc-50">
+          <td class="p-0">
+            <span class="absolute h-full w-4 top-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
+            <span class="absolute h-full w-4 top-0 -right-4 group-hover:bg-zinc-50 sm:rounded-r-xl" />  
+            <div class="block py-4 pr-6">
+              <span class="relative">
+                <%= alert.informed_entity |> Enum.map(&Map.get(&1, :route)) |> Enum.filter(& &1) |> Enum.uniq() |> Enum.join(", ") %>
+              </span>
+            </div>
+          </td>
+          <td class="p-0">
+            <div class="block py-4 pr-6">
+              <span class="relative">
+                <%= alert.id %>
+              </span>
+            </div>
+          </td>
+          <td class="p-0">
+            <div class="block py-4 pr-6">
+              <span class="relative">
+                <%= alert.short_header %>
+              </span>
+            </div>
+          </td>
+          <td class="p-0">
+            <div class="block py-4 pr-6">
+              <span class="relative">
+                <%= alert.active_period |> List.first() |> elem(0) %>
+              </span>
+            </div>
+          </td>
+          <td class="p-0">
+            <div class="block py-4 pr-6">
+              <span class="relative">
+                <%= alert.active_period |> List.first() |> elem(1) %>
+              </span>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

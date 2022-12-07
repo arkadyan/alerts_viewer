@@ -15,10 +15,10 @@ defmodule Alerts.AlertsPubSub do
         }
 
   @type broadcast_message ::
-          {:reset, [Alert.t()]}
-          | {:add, [Alert.t()]}
-          | {:update, [Alert.t()]}
-          | {:remove, [Alert.id()]}
+          {:alerts_reset, [Alert.t()]}
+          | {:alerts_added, [Alert.t()]}
+          | {:alerts_updated, [Alert.t()]}
+          | {:alerts_removed, [Alert.id()]}
 
   # Client
 
@@ -65,7 +65,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.reset(store, alerts)
     }
 
-    broadcast({:reset, alerts})
+    broadcast({:alerts_reset, alerts})
 
     {:noreply, new_state}
   end
@@ -77,7 +77,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.add(store, new_alerts)
     }
 
-    broadcast({:add, new_alerts})
+    broadcast({:alerts_added, new_alerts})
 
     {:noreply, new_state}
   end
@@ -89,7 +89,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.update(store, updated_alerts)
     }
 
-    broadcast({:update, updated_alerts})
+    broadcast({:alerts_updated, updated_alerts})
 
     {:noreply, new_state}
   end
@@ -100,7 +100,7 @@ defmodule Alerts.AlertsPubSub do
       | store: Store.remove(store, alert_ids_to_remove)
     }
 
-    broadcast({:remove, alert_ids_to_remove})
+    broadcast({:alerts_removed, alert_ids_to_remove})
 
     {:noreply, new_state}
   end
