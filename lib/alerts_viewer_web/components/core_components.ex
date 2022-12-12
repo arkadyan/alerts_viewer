@@ -486,6 +486,63 @@ defmodule AlertsViewerWeb.CoreComponents do
     """
   end
 
+  @doc ~S"""
+  Renders a table with generic styling.
+
+  ## Examples
+
+      <.live_table id="users" rows={@users}>
+        <:col :let={user} label="id"><%= user.id %></:col>
+        <:col :let={user} label="username"><%= user.username %></:col>
+      </.table>
+  """
+  attr :collection_id, :string, required: true
+  attr :rows, :list, required: true
+  attr :item_id, :atom, required: true
+  attr :update_action, :string, default: "replace"
+  attr :row_click, :any, default: nil
+
+  slot :col, required: true do
+    attr :label, :string
+  end
+
+  def live_table(assigns) do
+    ~H"""
+    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
+      <table class="mt-11 w-[40rem] sm:w-full">
+        <thead class="text-left text-[0.8125rem] leading-6 text-zinc-500">
+          <tr>
+            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+          </tr>
+        </thead>
+        <tbody
+          id={@collection_id}
+          phx-update={@update_action}
+          class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700"
+        >
+          <tr :for={row <- @rows} id={Map.get(row, @item_id)} class="relative group hover:bg-zinc-50">
+            <td
+              :for={{col, i} <- Enum.with_index(@col)}
+              phx-click={@row_click && @row_click.(row)}
+              class={["p-0", @row_click && "hover:cursor-pointer"]}
+            >
+              <div :if={i == 0}>
+                <span class="absolute h-full w-4 top-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
+                <span class="absolute h-full w-4 top-0 -right-4 group-hover:bg-zinc-50 sm:rounded-r-xl" />
+              </div>
+              <div class="block py-4 pr-6">
+                <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>
+                  <%= render_slot(col, row) %>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    """
+  end
+
   @doc """
   Renders a data list.
 
