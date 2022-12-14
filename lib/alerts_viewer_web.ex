@@ -86,6 +86,7 @@ defmodule AlertsViewerWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import AlertsViewerWeb.CoreComponents
+      import AlertsViewerWeb.IconComponents
       import AlertsViewerWeb.Gettext
       import AlertsViewerWeb.DateTimeHelpers
 

@@ -12,7 +12,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: "#165C96",
+        brand: "#165c96",
+        bus: "#ffc72c",
+        cr: "#80276c"
       }
     },
   },

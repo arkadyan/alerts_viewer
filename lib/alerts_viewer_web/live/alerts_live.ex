@@ -15,6 +15,8 @@ defmodule AlertsViewerWeb.AlertsLive do
   end
 
   def handle_info({:alerts_reset, alerts}, socket) do
+    IO.inspect(length(alerts), label: "RESET length(alerts)")
+
     socket = assign(socket, alerts: alerts, update_action: :replace)
 
     {:noreply, socket}
@@ -45,6 +47,8 @@ defmodule AlertsViewerWeb.AlertsLive do
   end
 
   def handle_info({:alerts_removed, alert_ids_to_remove}, socket) do
+    IO.inspect(length(alert_ids_to_remove), label: "REMOVED length(alert_ids_to_remove)")
+
     socket =
       socket
       |> update(
@@ -57,7 +61,11 @@ defmodule AlertsViewerWeb.AlertsLive do
   end
 
   @spec route(Alert.t()) :: String.t()
-  def route(%Alert{informed_entity: informed_entity}) do
+  def route(%Alert{informed_entity: informed_entity} = alert) do
+    if alert.id == "463485" do
+      IO.inspect(informed_entity, label: "informed_entity")
+    end
+
     informed_entity
     |> Enum.map(&Map.get(&1, :route))
     |> Enum.filter(& &1)

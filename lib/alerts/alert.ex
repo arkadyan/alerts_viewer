@@ -129,8 +129,23 @@ defmodule Alerts.Alert do
           | :using_escalator
           | :using_wheelchair
 
+  @facility_activies [
+    :bringing_bike,
+    :park_car,
+    :store_bike,
+    :using_escalator,
+    :using_wheelchair
+  ]
+  @type facility_activity ::
+          :bringing_bike
+          | :park_car
+          | :store_bike
+          | :using_escalator
+          | :using_wheelchair
+
   @type direction_id :: 0 | 1
 
+  @type route_id :: String.t()
   @type route_type :: 0 | 1 | 2 | 3 | 4
   @type informed_entity :: %{
           optional(:activities) => [activity()],
@@ -171,4 +186,27 @@ defmodule Alerts.Alert do
           updated_at: DateTime.t(),
           url: String.t() | nil
         }
+
+  @spec entities_with_icons(t()) :: [String.t()]
+  def entities_with_icons(%__MODULE__{informed_entity: entities}) do
+    entities
+    |> Enum.flat_map(&routes_or_facilities/1)
+    |> Enum.uniq()
+  end
+
+  @spec routes_or_facilities(informed_entity()) :: [String.t()]
+  defp routes_or_facilities(%{route: route_id}), do: [route_id]
+
+  defp routes_or_facilities(%{activities: activities}) do
+    activities
+    |> Enum.filter(&Enum.member?(@facility_activies, &1))
+    |> Enum.map(&combine_bike_activities/1)
+    |> Enum.map(&Atom.to_string/1)
+  end
+
+  defp routes_or_facilities(_), do: []
+
+  defp combine_bike_activities(:bringing_bike), do: :bike
+  defp combine_bike_activities(:store_bike), do: :bike
+  defp combine_bike_activities(other), do: other
 end

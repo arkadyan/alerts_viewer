@@ -12,7 +12,7 @@ defmodule AlertsViewerWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import AlertsViewerWeb.{DateTimeHelpers, Gettext}
+  import AlertsViewerWeb.{DateTimeHelpers, Gettext, IconComponents}
 
   @doc """
   Renders a modal.
@@ -540,6 +540,32 @@ defmodule AlertsViewerWeb.CoreComponents do
         </tbody>
       </table>
     </div>
+    """
+  end
+
+  @doc """
+  Renders a list of icons representing an alert's informed entities.
+  """
+  attr :entities, :list, required: true
+
+  def informed_entity_icons(assigns) do
+    ~H"""
+    <ul class="flex gap-1">
+      <li :for={entity <- @entities}>
+        <.icon type={entity} />
+      </li>
+    </ul>
+    """
+  end
+
+  @doc """
+  Render an icon representing an activity
+  """
+  attr :activity, :atom, required: true
+
+  def activity_icon(assigns) do
+    ~H"""
+    <span><%= @activity %></span>
     """
   end
 
