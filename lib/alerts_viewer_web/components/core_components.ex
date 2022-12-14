@@ -12,7 +12,7 @@ defmodule AlertsViewerWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import AlertsViewerWeb.Gettext
+  import AlertsViewerWeb.{DateTimeHelpers, Gettext}
 
   @doc """
   Renders a modal.
@@ -540,6 +540,23 @@ defmodule AlertsViewerWeb.CoreComponents do
         </tbody>
       </table>
     </div>
+    """
+  end
+
+  @doc """
+  Renders a list of date-times using human-friendly formatting.
+  """
+  attr :date_times, :list, required: true
+  attr :more, :boolean, default: false
+
+  def list_date_times(assigns) do
+    ~H"""
+    <ol>
+      <li :for={date_time <- @date_times} class="whitespace-nowrap">
+        <%= friendly_date_time(date_time) %>
+      </li>
+      <li :if={@more}>…</li>
+    </ol>
     """
   end
 

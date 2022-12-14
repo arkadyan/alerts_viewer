@@ -11,23 +11,15 @@
     <%= alert.short_header %>
   </:col>
   <:col :let={alert} label="Start">
-    <span class="whitespace-nowrap">
-      <%= 
-        alert.active_period
-        |> List.first()
-        |> elem(0)
-        |> friendly_date_time()
-      %>
-    </span>
+    <.list_date_times
+      date_times={alert.active_period |> Enum.take(3) |> Enum.map(&elem(&1, 0))}
+      more={length(alert.active_period) > 3}
+    />
   </:col>
   <:col :let={alert} label="End">
-    <span class="whitespace-nowrap">
-      <%= 
-        alert.active_period
-        |> List.first()
-        |> elem(1)
-        |> friendly_date_time()
-      %>
-    </span>
+    <.list_date_times
+      date_times={alert.active_period |> Enum.take(3) |> Enum.map(&elem(&1, 1))}
+      more={length(alert.active_period) > 3}
+    />
   </:col>
 </.live_table>
