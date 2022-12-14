@@ -4,7 +4,7 @@ defmodule AlertsViewerWeb.AlertsLive do
   """
   use AlertsViewerWeb, :live_view
 
-  alias Alerts.AlertsPubSub
+  alias Alerts.{Alert, AlertsPubSub}
 
   def mount(_params, _session, socket) do
     alerts = if connected?(socket), do: AlertsPubSub.subscribe(), else: []
@@ -54,5 +54,14 @@ defmodule AlertsViewerWeb.AlertsLive do
       |> assign(update_action: :replace)
 
     {:noreply, socket}
+  end
+
+  @spec route(Alert.t()) :: String.t()
+  def route(%Alert{informed_entity: informed_entity}) do
+    informed_entity
+    |> Enum.map(&Map.get(&1, :route))
+    |> Enum.filter(& &1)
+    |> Enum.uniq()
+    |> Enum.join(", ")
   end
 end

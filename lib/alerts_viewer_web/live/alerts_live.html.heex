@@ -1,9 +1,33 @@
 <h1 class="pb-6">Alerts</h1>
 
 <.live_table collection_id="users" rows={@alerts} item_id={:id} update_action={@update_action}>
-  <:col :let={alert} label="ID"><%= alert.id %></:col>
-  <:col :let={alert} label="Route"><%= alert.informed_entity |> Enum.map(&Map.get(&1, :route)) |> Enum.filter(& &1) |> Enum.uniq() |> Enum.join(", ") %></:col>
-  <:col :let={alert} label="Message"><%= alert.short_header %></:col>
-  <:col :let={alert} label="Start"><%= alert.active_period |> List.first() |> elem(0) %></:col>
-  <:col :let={alert} label="End"><%= alert.active_period |> List.first() |> elem(1) %></:col>
+  <:col :let={alert} label="ID">
+    <%= alert.id %>
+  </:col>
+  <:col :let={alert} label="Route">
+    <%= route(alert) %>
+  </:col>
+  <:col :let={alert} label="Message">
+    <%= alert.short_header %>
+  </:col>
+  <:col :let={alert} label="Start">
+    <span class="whitespace-nowrap">
+      <%= 
+        alert.active_period
+        |> List.first()
+        |> elem(0)
+        |> friendly_date_time()
+      %>
+    </span>
+  </:col>
+  <:col :let={alert} label="End">
+    <span class="whitespace-nowrap">
+      <%= 
+        alert.active_period
+        |> List.first()
+        |> elem(1)
+        |> friendly_date_time()
+      %>
+    </span>
+  </:col>
 </.live_table>

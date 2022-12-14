@@ -87,6 +87,7 @@ defmodule AlertsViewerWeb do
       # Core UI components and translation
       import AlertsViewerWeb.CoreComponents
       import AlertsViewerWeb.Gettext
+      import AlertsViewerWeb.DateTimeHelpers
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

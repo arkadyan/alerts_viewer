@@ -7,6 +7,8 @@
 # General application configuration
 import Config
 
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 config :alerts_viewer,
   # Default. Can be configured via environment variable, which is loaded in application.ex
   api_url: {:system, "API_URL"},

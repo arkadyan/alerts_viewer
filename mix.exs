@@ -50,7 +50,8 @@ defmodule AlertsViewer.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:bypass, "~> 2.1", only: :test},
       {:gen_stage, "~> 1.1"},
-      {:server_sent_event_stage, "~> 1.1"}
+      {:server_sent_event_stage, "~> 1.1"},
+      {:tzdata, "~> 1.1"}
     ]
   end
 
