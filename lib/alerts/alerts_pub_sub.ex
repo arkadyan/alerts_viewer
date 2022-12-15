@@ -14,11 +14,7 @@ defmodule Alerts.AlertsPubSub do
           store: Store.t()
         }
 
-  @type broadcast_message ::
-          {:alerts_reset, [Alert.t()]}
-          | {:alerts_added, [Alert.t()]}
-          | {:alerts_updated, [Alert.t()]}
-          | {:alerts_removed, [Alert.id()]}
+  @type broadcast_message :: {:alerts, [Alert.t()]}
 
   # Client
 
@@ -42,6 +38,10 @@ defmodule Alerts.AlertsPubSub do
     alerts
   end
 
+  @spec all() :: [Alert.t()]
+  @spec all(GenServer.server()) :: [Alert.t()]
+  def all(server \\ __MODULE__), do: GenServer.call(server, {:all})
+
   # Server
 
   @impl GenServer
@@ -59,61 +59,76 @@ defmodule Alerts.AlertsPubSub do
   end
 
   @impl GenServer
+  def handle_call({:all}, _from, %__MODULE__{store: store} = state) do
+    {:reply, Store.all(store), state}
+  end
+
+  @impl GenServer
   def handle_info({:reset, alerts}, %__MODULE__{store: store} = state) do
-    new_state = %__MODULE__{
+    store = Store.reset(store, alerts)
+
+    state = %__MODULE__{
       state
-      | store: Store.reset(store, alerts)
+      | store: store
     }
 
-    broadcast({:alerts_reset, alerts})
+    broadcast(store)
 
-    {:noreply, new_state}
+    {:noreply, state}
   end
 
   @impl GenServer
   def handle_info({:add, new_alerts}, %__MODULE__{store: store} = state) do
-    new_state = %__MODULE__{
+    store = Store.add(store, new_alerts)
+
+    state = %__MODULE__{
       state
-      | store: Store.add(store, new_alerts)
+      | store: store
     }
 
-    broadcast({:alerts_added, new_alerts})
+    broadcast(store)
 
-    {:noreply, new_state}
+    {:noreply, state}
   end
 
   @impl GenServer
   def handle_info({:update, updated_alerts}, %__MODULE__{store: store} = state) do
-    new_state = %__MODULE__{
+    store = Store.update(store, updated_alerts)
+
+    state = %__MODULE__{
       state
-      | store: Store.update(store, updated_alerts)
+      | store: store
     }
 
-    broadcast({:alerts_updated, updated_alerts})
+    broadcast(store)
 
-    {:noreply, new_state}
+    {:noreply, state}
   end
 
   def handle_info({:remove, alert_ids_to_remove}, %__MODULE__{store: store} = state) do
-    new_state = %__MODULE__{
+    store = Store.remove(store, alert_ids_to_remove)
+
+    state = %__MODULE__{
       state
-      | store: Store.remove(store, alert_ids_to_remove)
+      | store: store
     }
 
-    broadcast({:alerts_removed, alert_ids_to_remove})
+    broadcast(store)
 
-    {:noreply, new_state}
+    {:noreply, state}
   end
 
-  @spec broadcast(broadcast_message()) :: :ok
-  defp broadcast(msg) do
+  @spec broadcast(Store.t()) :: :ok
+  defp broadcast(store) do
     registry_key = self()
 
+    alerts = Store.all(store)
+
     Registry.dispatch(:alerts_subscriptions_registry, registry_key, fn entries ->
-      Enum.each(entries, &send_data(&1, msg))
+      Enum.each(entries, &send_data(&1, alerts))
     end)
   end
 
-  @spec send_data({pid(), any()}, broadcast_message()) :: broadcast_message()
-  defp send_data({pid, _}, msg), do: send(pid, msg)
+  @spec send_data({pid(), any()}, [Alert.t()]) :: broadcast_message()
+  defp send_data({pid, _}, alerts), do: send(pid, {:alerts, alerts})
 end

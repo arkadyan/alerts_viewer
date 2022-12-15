@@ -36,6 +36,27 @@ defmodule Alerts.AlertsPubSubTest do
     end
   end
 
+  describe "all/1" do
+    setup do
+      subscribe_fn = fn _, _ -> :ok end
+      {:ok, pid} = AlertsPubSub.start_link(name: :subscribe, subscribe_fn: subscribe_fn)
+
+      {:ok, pid: pid}
+    end
+
+    test "returns all stored alerts", %{pid: pid} do
+      :sys.replace_state(pid, fn state ->
+        store =
+          Store.init()
+          |> Store.add([@alert])
+
+        Map.put(state, :store, store)
+      end)
+
+      assert AlertsPubSub.all(pid) == [@alert]
+    end
+  end
+
   describe "handle_info/2 - {:reset, alerts}" do
     setup do
       start_supervised({Registry, keys: :duplicate, name: :alerts_subscriptions_registry})
@@ -57,7 +78,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:reset, [@alert]})
 
-      assert_receive {:alerts_reset, [@alert]}
+      assert_receive {:alerts, [@alert]}
     end
   end
 
@@ -82,7 +103,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:add, [@alert]})
 
-      assert_receive {:alerts_added, [@alert]}
+      assert_receive {:alerts, [@alert]}
     end
   end
 
@@ -111,7 +132,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:update, [@alert]})
 
-      assert_receive {:alerts_updated, [@alert]}
+      assert_receive {:alerts, [@alert]}
     end
   end
 
@@ -140,7 +161,7 @@ defmodule Alerts.AlertsPubSubTest do
 
       send(pid, {:remove, ["12345"]})
 
-      assert_receive {:alerts_removed, ["12345"]}
+      assert_receive {:alerts, []}
     end
   end
 end

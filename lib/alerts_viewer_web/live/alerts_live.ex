@@ -4,72 +4,66 @@ defmodule AlertsViewerWeb.AlertsLive do
   """
   use AlertsViewerWeb, :live_view
 
-  alias Alerts.{Alert, AlertsPubSub}
+  alias Alerts.Alert
 
   def mount(_params, _session, socket) do
-    alerts = if connected?(socket), do: AlertsPubSub.subscribe(), else: []
-
-    socket = assign(socket, alerts: alerts, update_action: :prepend)
-
-    {:ok, socket, temporary_assigns: [alerts: []]}
+    alerts = if(connected?(socket), do: Alerts.subscribe(), else: [])
+    socket = update_alerts_and_filter(socket, alerts, effect: "")
+    {:ok, socket}
   end
 
-  def handle_info({:alerts_reset, alerts}, socket) do
-    IO.inspect(length(alerts), label: "RESET length(alerts)")
-
-    socket = assign(socket, alerts: alerts, update_action: :replace)
-
+  def handle_info({:alerts, alerts}, %{assigns: %{effect: effect}} = socket) do
+    socket = update_alerts_and_filter(socket, alerts, effect: effect)
     {:noreply, socket}
   end
 
-  def handle_info({:alerts_added, new_alerts}, socket) do
-    socket =
-      socket
-      |> update(
-        :alerts,
-        fn alerts -> new_alerts ++ alerts end
-      )
-      |> assign(:update_action, :prepend)
-
+  def handle_event("filter", %{"effect" => effect_input}, socket) do
+    effect = if effect_input == "All Effects", do: "", else: effect_input
+    socket = update_alerts_and_filter(socket, Alerts.all(), effect: effect)
     {:noreply, socket}
   end
 
-  def handle_info({:alerts_updated, updated_alerts}, socket) do
-    socket =
-      socket
-      |> update(
-        :alerts,
-        fn alerts -> updated_alerts ++ alerts end
-      )
-      |> assign(:update_action, :prepend)
-
-    {:noreply, socket}
+  @spec effect_filter_options() :: [tuple()]
+  def effect_filter_options() do
+    Alerts.Alert.all_effects()
+    |> Enum.map(fn effect_atom -> {humanized_effect_name(effect_atom), effect_atom} end)
   end
 
-  def handle_info({:alerts_removed, alert_ids_to_remove}, socket) do
-    IO.inspect(length(alert_ids_to_remove), label: "REMOVED length(alert_ids_to_remove)")
+  @doc """
+  Return a human-friendly name for an effect atom.
 
-    socket =
-      socket
-      |> update(
-        :alerts,
-        fn alerts -> Enum.reject(alerts, &Enum.member?(alert_ids_to_remove, &1)) end
-      )
-      |> assign(update_action: :replace)
-
-    {:noreply, socket}
+  iex> AlertsViewerWeb.AlertsLive.humanized_effect_name(:delay)
+  "Delay"
+  iex> AlertsViewerWeb.AlertsLive.humanized_effect_name(:service_change)
+  "Service Change"
+  """
+  @spec humanized_effect_name(atom) :: String.t()
+  def humanized_effect_name(effect_atom) do
+    effect_atom
+    |> Atom.to_string()
+    |> String.split("_")
+    |> Enum.map(&String.capitalize/1)
+    |> Enum.join(" ")
   end
 
-  @spec route(Alert.t()) :: String.t()
-  def route(%Alert{informed_entity: informed_entity} = alert) do
-    if alert.id == "463485" do
-      IO.inspect(informed_entity, label: "informed_entity")
-    end
+  @spec update_alerts_and_filter(Phoenix.LiveView.Socket.t(), [Alert.t()], keyword()) ::
+          Phoenix.LiveView.Socket.t()
+  defp update_alerts_and_filter(socket, alerts, filter_params) do
+    alerts = filtered(alerts, filter_params)
+    assign(socket, filter_params ++ [alerts: alerts])
+  end
 
-    informed_entity
-    |> Enum.map(&Map.get(&1, :route))
-    |> Enum.filter(& &1)
-    |> Enum.uniq()
-    |> Enum.join(", ")
+  @spec filtered([Alert.t()], keyword()) :: [Alert.t()]
+  defp filtered(alerts, effect: effect) do
+    alerts
+    |> by_effect(effect)
+  end
+
+  @spec by_effect([Alert.t()], String.t()) :: [Alert.t()]
+  defp by_effect(alerts, ""), do: alerts
+
+  defp by_effect(alerts, effect) do
+    effect_atom = String.to_atom(effect)
+    Enum.filter(alerts, &(&1.effect == effect_atom))
   end
 end

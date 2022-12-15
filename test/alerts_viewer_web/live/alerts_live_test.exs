@@ -5,6 +5,8 @@ defmodule AlertsViewerWeb.AlertsLiveTest do
 
   alias Alerts.{Alert, AlertsPubSub}
 
+  doctest AlertsViewerWeb.AlertsLive
+
   @alert1 %Alert{
     id: "alert1",
     short_header: "alert1",
@@ -31,51 +33,16 @@ defmodule AlertsViewerWeb.AlertsLiveTest do
       assert html =~ ~r/<h1.*>Alerts<\/h1>/
     end
 
-    test "handles alerts_reset", %{conn: conn} do
+    test "handles alerts", %{conn: conn} do
       {:ok, view, _html} = live(conn, "/alerts")
       refute render(view) =~ "alert1"
       refute render(view) =~ "alert2"
 
-      send(view.pid, {:alerts_reset, [@alert1]})
+      send(view.pid, {:alerts, [@alert1]})
       assert render(view) =~ "alert1"
       refute render(view) =~ "alert2"
 
-      send(view.pid, {:alerts_reset, [@alert2]})
-      refute render(view) =~ "alert1"
-      assert render(view) =~ "alert2"
-    end
-
-    test "handles alerts_added", %{conn: conn} do
-      {:ok, view, _html} = live(conn, "/alerts")
-      send(view.pid, {:alerts_reset, [@alert1]})
-      assert render(view) =~ "alert1"
-      refute render(view) =~ "alert2"
-
-      send(view.pid, {:alerts_added, [@alert2]})
-      assert render(view) =~ "alert1"
-      assert render(view) =~ "alert2"
-    end
-
-    test "handles alerts_updated", %{conn: conn} do
-      {:ok, view, _html} = live(conn, "/alerts")
-      send(view.pid, {:alerts_reset, [%Alert{@alert1 | short_header: "alert1x"}, @alert2]})
-      assert render(view) =~ "alert1x"
-      assert render(view) =~ "alert2"
-
-      send(view.pid, {:alerts_updated, [%Alert{@alert1 | short_header: "alert1y"}]})
-      assert render(view) =~ "alert1y"
-      assert render(view) =~ "alert2"
-    end
-
-    # Not currently working and I'm not sure why
-    @tag :skip
-    test "handles alerts_removed", %{conn: conn} do
-      {:ok, view, _html} = live(conn, "/alerts")
-      send(view.pid, {:alerts_reset, [@alert1, @alert2]})
-      assert render(view) =~ "alert1"
-      assert render(view) =~ "alert2"
-
-      send(view.pid, {:alerts_removed, [@alert1]})
+      send(view.pid, {:alerts, [@alert2]})
       refute render(view) =~ "alert1"
       assert render(view) =~ "alert2"
     end

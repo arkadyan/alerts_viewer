@@ -118,6 +118,40 @@ defmodule Alerts.Alert do
           | :suspension
           | :track_change
           | :unknown_effect
+  @effects [
+    :access_issue,
+    :additional_service,
+    :amber_alert,
+    :bike_issue,
+    :cancellation,
+    :delay,
+    :detour,
+    :dock_closure,
+    :dock_issue,
+    :elevator_closure,
+    :escalator_closure,
+    :extra_service,
+    :facility_issue,
+    :modified_service,
+    :no_service,
+    :other_effect,
+    :parking_closure,
+    :parking_issue,
+    :policy_change,
+    :schedule_change,
+    :service_change,
+    :shuttle,
+    :snow_route,
+    :station_closure,
+    :station_issue,
+    :stop_closure,
+    :stop_move,
+    :stop_moved,
+    :summary,
+    :suspension,
+    :track_change,
+    :unknown_effect
+  ]
 
   @type activity ::
           :board
@@ -129,6 +163,12 @@ defmodule Alerts.Alert do
           | :using_escalator
           | :using_wheelchair
 
+  @type facility_activity ::
+          :bringing_bike
+          | :park_car
+          | :store_bike
+          | :using_escalator
+          | :using_wheelchair
   @facility_activies [
     :bringing_bike,
     :park_car,
@@ -136,12 +176,6 @@ defmodule Alerts.Alert do
     :using_escalator,
     :using_wheelchair
   ]
-  @type facility_activity ::
-          :bringing_bike
-          | :park_car
-          | :store_bike
-          | :using_escalator
-          | :using_wheelchair
 
   @type direction_id :: 0 | 1
 
@@ -186,6 +220,9 @@ defmodule Alerts.Alert do
           updated_at: DateTime.t(),
           url: String.t() | nil
         }
+
+  @spec all_effects() :: [atom()]
+  def all_effects(), do: @effects
 
   @spec entities_with_icons(t()) :: [String.t()]
   def entities_with_icons(%__MODULE__{informed_entity: entities}) do

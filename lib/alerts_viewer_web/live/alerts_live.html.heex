@@ -1,6 +1,18 @@
 <h1 class="pb-6">Alerts</h1>
 
-<.live_table collection_id="users" rows={@alerts} item_id={:id} update_action={@update_action}>
+<form phx-change="filter" class="flex">
+  <.input
+    type="select"
+    id="effect-filter"
+    name="effect"
+    prompt="All Effects"
+    value={@effect}
+    options={effect_filter_options()}
+    errors={[]}
+  />
+</form>
+
+<.table id="alerts" rows={@alerts}>
   <:col :let={alert} label="ID">
     <%= alert.id %>
   </:col>
@@ -8,7 +20,7 @@
     <.informed_entity_icons entities={Alerts.Alert.entities_with_icons(alert)} />
   </:col>
   <:col :let={alert} label="Effect">
-    <%= alert.effect |> Atom.to_string() |> String.replace("_", " ") |> String.capitalize() %>
+    <%= humanized_effect_name(alert.effect) %>
   </:col>
   <:col :let={alert} label="Message">
     <%= alert.short_header %>
@@ -25,4 +37,4 @@
       more={length(alert.active_period) > 3}
     />
   </:col>
-</.live_table>
+</.table>
