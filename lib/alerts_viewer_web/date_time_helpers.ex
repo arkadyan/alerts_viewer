@@ -1,4 +1,8 @@
 defmodule AlertsViewerWeb.DateTimeHelpers do
+  @moduledoc """
+  Utility functions for formatting dates and times.
+  """
+
   @doc """
   Return a human-friendly date-time string relative to "now".
   Use the time if today, the month and day if this year, and the month and

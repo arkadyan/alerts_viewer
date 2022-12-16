@@ -51,8 +51,8 @@ defmodule AlertsViewer.Application do
   and replace them with the value in the given environment variable.
 
   """
-  @spec load_runtime_config() :: :ok
-  def load_runtime_config() do
+  @spec load_runtime_config :: :ok
+  def load_runtime_config do
     application_keys = [
       :api_url,
       :api_key

@@ -221,8 +221,8 @@ defmodule Alerts.Alert do
           url: String.t() | nil
         }
 
-  @spec all_effects() :: [atom()]
-  def all_effects(), do: @effects
+  @spec all_effects :: [atom()]
+  def all_effects, do: @effects
 
   @spec entities_with_icons(t()) :: [String.t()]
   def entities_with_icons(%__MODULE__{informed_entity: entities}) do

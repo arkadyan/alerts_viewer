@@ -1,4 +1,8 @@
 defmodule AlertsViewerWeb.ErrorHTML do
+  @moduledoc """
+  Render errors formatted as HTML.
+  """
+
   use AlertsViewerWeb, :html
 
   # If you want to customize your error pages,

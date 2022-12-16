@@ -103,7 +103,7 @@ defmodule Alerts.Parser do
   defp cause("UNRULY_PASSENGER"), do: :unruly_passenger
   defp cause("WEATHER"), do: :weather
 
-  @spec effect(Strin.t()) :: Alert.effect()
+  @spec effect(String.t()) :: Alert.effect()
   defp effect("ACCESS_ISSUE"), do: :access_issue
   defp effect("ADDITIONAL_SERVICE"), do: :additional_service
   defp effect("AMBER_ALERT"), do: :amber_alert

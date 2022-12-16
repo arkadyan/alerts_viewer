@@ -17,14 +17,14 @@ defmodule Alerts.Supervisor do
     |> Supervisor.init(strategy: :one_for_all)
   end
 
-  defp children() do
+  defp children do
     [
       {Phoenix.PubSub, name: Alerts.PubSub}
       | stream_children()
     ]
   end
 
-  defp stream_children() do
+  defp stream_children do
     sses_opts =
       Api.Stream.build_options(
         name: Alerts.Api.SSES,

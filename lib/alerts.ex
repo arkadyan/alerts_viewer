@@ -1,4 +1,8 @@
 defmodule Alerts do
+  @moduledoc """
+  Service alerts.
+  """
+
   alias Alerts.{Alert, AlertsPubSub}
 
   @spec subscribe :: [Alert.t()]

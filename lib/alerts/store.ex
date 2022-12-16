@@ -27,13 +27,11 @@ defmodule Alerts.Store do
 
   @spec by_id(t(), Alert.id()) :: {:ok, Alert.t()} | :not_found
   def by_id(%__MODULE__{ets: ets}, id) do
-    try do
-      alert = :ets.lookup_element(ets, id, 2)
-      {:ok, alert}
-    rescue
-      ArgumentError ->
-        :not_found
-    end
+    alert = :ets.lookup_element(ets, id, 2)
+    {:ok, alert}
+  rescue
+    ArgumentError ->
+      :not_found
   end
 
   @spec reset(t(), [Alert.t()]) :: t()

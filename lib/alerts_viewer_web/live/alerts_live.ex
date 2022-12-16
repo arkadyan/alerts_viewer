@@ -23,8 +23,8 @@ defmodule AlertsViewerWeb.AlertsLive do
     {:noreply, socket}
   end
 
-  @spec effect_filter_options() :: [tuple()]
-  def effect_filter_options() do
+  @spec effect_filter_options :: [tuple()]
+  def effect_filter_options do
     Alerts.Alert.all_effects()
     |> Enum.map(fn effect_atom -> {humanized_effect_name(effect_atom), effect_atom} end)
   end
@@ -42,8 +42,7 @@ defmodule AlertsViewerWeb.AlertsLive do
     effect_atom
     |> Atom.to_string()
     |> String.split("_")
-    |> Enum.map(&String.capitalize/1)
-    |> Enum.join(" ")
+    |> Enum.map_join(" ", &String.capitalize/1)
   end
 
   @spec update_alerts_and_filter(Phoenix.LiveView.Socket.t(), [Alert.t()], keyword()) ::

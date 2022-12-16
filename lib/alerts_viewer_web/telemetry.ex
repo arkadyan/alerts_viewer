@@ -1,4 +1,8 @@
 defmodule AlertsViewerWeb.Telemetry do
+  @moduledoc """
+  Telemetry functionality.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 
