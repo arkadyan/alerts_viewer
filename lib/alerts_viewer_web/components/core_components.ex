@@ -495,7 +495,7 @@ defmodule AlertsViewerWeb.CoreComponents do
 
   def informed_entity_icons(assigns) do
     ~H"""
-    <ul class="flex gap-1">
+    <ul class="flex flex-wrap gap-1">
       <li :for={entity <- @entities}>
         <.icon type={entity} />
       </li>

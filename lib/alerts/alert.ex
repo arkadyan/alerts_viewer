@@ -231,6 +231,25 @@ defmodule Alerts.Alert do
     |> Enum.uniq()
   end
 
+  @type service_type :: route_type() | :access
+  @spec matches_service_type(t(), service_type) :: boolean()
+  def matches_service_type(%__MODULE__{informed_entity: informed_entity}, :access),
+    do: Enum.any?(informed_entity, &activities_inclued_facility_activities/1)
+
+  def matches_service_type(%__MODULE__{informed_entity: informed_entity}, route_type),
+    do: Enum.any?(informed_entity, &matches_route_type(&1, route_type))
+
+  @spec activities_inclued_facility_activities(informed_entity()) :: boolean()
+  defp activities_inclued_facility_activities(%{activities: activities}),
+    do: Enum.any?(activities, &Enum.member?(@facility_activies, &1))
+
+  defp activities_inclued_facility_activities(_),
+    do: false
+
+  @spec matches_route_type(informed_entity(), route_type()) :: boolean()
+  defp matches_route_type(%{route_type: rt}, route_type) when rt == route_type, do: true
+  defp matches_route_type(_, _), do: false
+
   @spec routes_or_facilities(informed_entity()) :: [String.t()]
   defp routes_or_facilities(%{route: route_id}), do: [route_id]
 
