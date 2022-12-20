@@ -30,7 +30,7 @@ defmodule AlertsViewerWeb.AlertsLiveTest do
 
     test "connected mount", %{conn: conn} do
       {:ok, _view, html} = live(conn, "/alerts")
-      assert html =~ ~r/<h1.*>Alerts<\/h1>/
+      assert html =~ ~r/Alerts/
     end
 
     test "handles alerts", %{conn: conn} do
