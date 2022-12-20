@@ -4,19 +4,49 @@ defmodule AlertsViewerWeb.AlertsLive do
   """
   use AlertsViewerWeb, :live_view
 
+  import AlertsViewerWeb.StringHelpers, only: [humanized_atom: 1]
+
   alias Alerts.Alert
 
+  @impl true
   def mount(_params, _session, socket) do
     alerts = if(connected?(socket), do: Alerts.subscribe(), else: [])
     socket = update_alerts_and_filter(socket, alerts, effect: "", service: "")
     {:ok, socket}
   end
 
+  @impl true
+  def handle_params(params, _url, socket) do
+    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  defp apply_action(socket, :show, %{"id" => id}) do
+    case Alerts.get(id) do
+      {:ok, alert} ->
+        socket
+        |> assign(:page_title, "Alert #{id}")
+        |> assign(:alert, alert)
+
+      :not_found ->
+        socket
+        |> put_flash(:error, "Alert not found")
+        |> redirect(to: ~p"/alerts")
+    end
+  end
+
+  defp apply_action(socket, :index, _params) do
+    socket
+    |> assign(:page_title, "Alerts")
+    |> assign(:alert, nil)
+  end
+
+  @impl true
   def handle_info({:alerts, alerts}, %{assigns: %{effect: effect, service: service}} = socket) do
     socket = update_alerts_and_filter(socket, alerts, effect: effect, service: service)
     {:noreply, socket}
   end
 
+  @impl true
   def handle_event("filter", %{"effect" => effect_input, "service" => service_input}, socket) do
     effect = if effect_input == "All Effects", do: "", else: effect_input
     service = if service_input == "All Service Types", do: "", else: service_input
@@ -27,23 +57,7 @@ defmodule AlertsViewerWeb.AlertsLive do
   @spec effect_filter_options :: [tuple()]
   def effect_filter_options do
     Alerts.Alert.all_effects()
-    |> Enum.map(fn effect_atom -> {humanized_effect_name(effect_atom), effect_atom} end)
-  end
-
-  @doc """
-  Return a human-friendly name for an effect atom.
-
-  iex> AlertsViewerWeb.AlertsLive.humanized_effect_name(:delay)
-  "Delay"
-  iex> AlertsViewerWeb.AlertsLive.humanized_effect_name(:service_change)
-  "Service Change"
-  """
-  @spec humanized_effect_name(atom) :: String.t()
-  def humanized_effect_name(effect_atom) do
-    effect_atom
-    |> Atom.to_string()
-    |> String.split("_")
-    |> Enum.map_join(" ", &String.capitalize/1)
+    |> Enum.map(fn effect_atom -> {humanized_atom(effect_atom), effect_atom} end)
   end
 
   @spec update_alerts_and_filter(Phoenix.LiveView.Socket.t(), [Alert.t()], keyword()) ::

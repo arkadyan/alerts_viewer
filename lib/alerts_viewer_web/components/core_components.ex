@@ -524,10 +524,21 @@ defmodule AlertsViewerWeb.CoreComponents do
     ~H"""
     <ol>
       <li :for={date_time <- @date_times} class="whitespace-nowrap">
-        <%= friendly_date_time(date_time) %>
+        <.date_time date_time={date_time} />
       </li>
       <li :if={@more}>…</li>
     </ol>
+    """
+  end
+
+  @doc """
+  Renders a date-time using human-friendly formatting.
+  """
+  attr :date_time, :map, required: true
+
+  def date_time(assigns) do
+    ~H"""
+    <%= friendly_date_time(@date_time) %>
     """
   end
 

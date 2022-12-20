@@ -19,7 +19,8 @@ defmodule AlertsViewerWeb.Router do
 
     get "/", PageController, :home
 
-    live "/alerts", AlertsLive
+    live "/alerts", AlertsLive, :index
+    live "/alerts/:id", AlertsLive, :show
   end
 
   # Other scopes may use custom stacks.

@@ -29,7 +29,7 @@
   />
 </form>
 
-<.table id="alerts" rows={@alerts}>
+<.table id="alerts" rows={@alerts} row_click={&JS.patch(~p"/alerts/#{&1}")}>
   <:col :let={alert} label="ID">
     <%= alert.id %>
   </:col>
@@ -37,7 +37,10 @@
     <.informed_entity_icons entities={Alerts.Alert.entities_with_icons(alert)} />
   </:col>
   <:col :let={alert} label="Effect">
-    <%= humanized_effect_name(alert.effect) %>
+    <%= humanized_atom(alert.effect) %>
+  </:col>
+  <:col :let={alert} label="Lifecycle">
+    <%= humanized_atom(alert.lifecycle) %>
   </:col>
   <:col :let={alert} label="Message">
     <%= alert.short_header %>
@@ -55,3 +58,12 @@
     />
   </:col>
 </.table>
+
+<.modal :if={@live_action == :show} id="alert-modal" show on_cancel={JS.navigate(~p"/alerts")}>
+  <.live_component
+    module={AlertsViewerWeb.AlertComponent}
+    id={@alert.id}
+    title={@page_title}
+    alert={@alert}
+  />
+</.modal>
