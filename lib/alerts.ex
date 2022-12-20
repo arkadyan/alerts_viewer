@@ -10,4 +10,7 @@ defmodule Alerts do
 
   @spec all :: [Alert.t()]
   defdelegate all(), to: AlertsPubSub
+
+  @spec get(Alert.id()) :: {:ok, Alert.t()} | :not_found
+  defdelegate get(id), to: AlertsPubSub
 end

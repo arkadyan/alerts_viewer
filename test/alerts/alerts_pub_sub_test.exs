@@ -57,6 +57,31 @@ defmodule Alerts.AlertsPubSubTest do
     end
   end
 
+  describe "get/2" do
+    setup do
+      subscribe_fn = fn _, _ -> :ok end
+      {:ok, pid} = AlertsPubSub.start_link(name: :subscribe, subscribe_fn: subscribe_fn)
+
+      {:ok, pid: pid}
+    end
+
+    test "returns the requested alert", %{pid: pid} do
+      :sys.replace_state(pid, fn state ->
+        store =
+          Store.init()
+          |> Store.add([@alert])
+
+        Map.put(state, :store, store)
+      end)
+
+      assert AlertsPubSub.get("1", pid) == {:ok, @alert}
+    end
+
+    test "returns :not_found if the requested alert is not in the store", %{pid: pid} do
+      assert AlertsPubSub.get("missing", pid) == :not_found
+    end
+  end
+
   describe "handle_info/2 - {:reset, alerts}" do
     setup do
       start_supervised({Registry, keys: :duplicate, name: :alerts_subscriptions_registry})

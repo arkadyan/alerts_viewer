@@ -42,6 +42,10 @@ defmodule Alerts.AlertsPubSub do
   @spec all(GenServer.server()) :: [Alert.t()]
   def all(server \\ __MODULE__), do: GenServer.call(server, {:all})
 
+  @spec get(Alert.id()) :: {:ok, Alert.t()} | :not_found
+  @spec get(Alert.id(), GenServer.server()) :: {:ok, Alert.t()} | :not_found
+  def get(id, server \\ __MODULE__), do: GenServer.call(server, {:get, id})
+
   # Server
 
   @impl GenServer
@@ -61,6 +65,11 @@ defmodule Alerts.AlertsPubSub do
   @impl GenServer
   def handle_call({:all}, _from, %__MODULE__{store: store} = state) do
     {:reply, Store.all(store), state}
+  end
+
+  @impl GenServer
+  def handle_call({:get, id}, _from, %__MODULE__{store: store} = state) do
+    {:reply, Store.by_id(store, id), state}
   end
 
   @impl GenServer
