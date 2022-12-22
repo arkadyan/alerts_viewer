@@ -368,6 +368,44 @@ defmodule AlertsViewerWeb.CoreComponents do
     do: "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
 
   @doc """
+  Standalone search input field
+
+  A `%Form{}` and field name may be passed to the input
+  to build input names and error messages, or all the attributes and
+  errors may be passed explicitly.
+
+  ## Examples
+
+      <.input field={{f, :email}} type="email" />
+      <.input name="my-input" errors={["oh no!"]} />
+  """
+  attr :id, :any
+  attr :name, :any
+  attr :value, :any
+  attr :errors, :list
+  attr :rest, :global, include: ~w(autocomplete disabled form max maxlength min minlength
+                                   pattern placeholder readonly required size step)
+
+  def search(assigns) do
+    ~H"""
+    <div phx-feedback-for={@name} class="ml-auto">
+      <input
+        type="search"
+        name={@name}
+        id={@id || @name}
+        value={@value}
+        class={[
+          input_border(@errors),
+          "mt-1 block w-full rounded-lg border-zinc-300 py-[7px] px-[11px] text-zinc-900 focus:outline-none focus:ring-4 sm:text-sm sm:leading-6 phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400 phx-no-feedback:focus:ring-zinc-800/5"
+        ]}
+        {@rest}
+      />
+      <.error :for={msg <- @errors}><%= msg %></.error>
+    </div>
+    """
+  end
+
+  @doc """
   Renders a label.
   """
   attr :for, :string, default: nil

@@ -11,7 +11,7 @@ defmodule AlertsViewerWeb.AlertsLive do
   @impl true
   def mount(_params, _session, socket) do
     alerts = if(connected?(socket), do: Alerts.subscribe(), else: [])
-    socket = update_alerts_and_filter(socket, alerts, effect: "", service: "")
+    socket = update_alerts_and_filter(socket, alerts, effect: "", service: "", search: "")
     {:ok, socket}
   end
 
@@ -41,16 +41,32 @@ defmodule AlertsViewerWeb.AlertsLive do
   end
 
   @impl true
-  def handle_info({:alerts, alerts}, %{assigns: %{effect: effect, service: service}} = socket) do
-    socket = update_alerts_and_filter(socket, alerts, effect: effect, service: service)
+  def handle_info(
+        {:alerts, alerts},
+        %{assigns: %{effect: effect, service: service, search: search}} = socket
+      ) do
+    socket =
+      update_alerts_and_filter(socket, alerts, effect: effect, service: service, search: search)
+
     {:noreply, socket}
   end
 
   @impl true
-  def handle_event("filter", %{"effect" => effect_input, "service" => service_input}, socket) do
+  def handle_event(
+        "filter-search",
+        %{"effect" => effect_input, "service" => service_input, "search" => search},
+        socket
+      ) do
     effect = if effect_input == "All Effects", do: "", else: effect_input
     service = if service_input == "All Service Types", do: "", else: service_input
-    socket = update_alerts_and_filter(socket, Alerts.all(), effect: effect, service: service)
+
+    socket =
+      update_alerts_and_filter(socket, Alerts.all(),
+        effect: effect,
+        service: service,
+        search: search
+      )
+
     {:noreply, socket}
   end
 
@@ -63,15 +79,16 @@ defmodule AlertsViewerWeb.AlertsLive do
   @spec update_alerts_and_filter(Phoenix.LiveView.Socket.t(), [Alert.t()], keyword()) ::
           Phoenix.LiveView.Socket.t()
   defp update_alerts_and_filter(socket, alerts, filter_params) do
-    alerts = filtered(alerts, filter_params)
+    alerts = filter_and_search(alerts, filter_params)
     assign(socket, filter_params ++ [alerts: alerts])
   end
 
-  @spec filtered([Alert.t()], keyword()) :: [Alert.t()]
-  defp filtered(alerts, effect: effect, service: service) do
+  @spec filter_and_search([Alert.t()], keyword()) :: [Alert.t()]
+  defp filter_and_search(alerts, effect: effect, service: service, search: search) do
     alerts
     |> by_effect(effect)
     |> by_service(service)
+    |> search(search)
   end
 
   @spec by_effect([Alert.t()], String.t()) :: [Alert.t()]
@@ -90,4 +107,30 @@ defmodule AlertsViewerWeb.AlertsLive do
 
   defp by_service(alerts, route_type_string),
     do: Enum.filter(alerts, &Alert.matches_service_type(&1, String.to_integer(route_type_string)))
+
+  @fields_to_search_on [:id, :header, :description]
+  @spec search([Alert.t()], String.t()) :: [Alert.t()]
+  defp search(alerts, search) do
+    lowercase_search = String.downcase(search)
+
+    Enum.filter(alerts, fn alert ->
+      Enum.any?(@fields_to_search_on, fn field ->
+        alert
+        |> string_value(field)
+        |> String.downcase()
+        |> String.contains?(lowercase_search)
+      end)
+    end)
+  end
+
+  @spec string_value(map(), atom()) :: String.t()
+  defp string_value(map, key) do
+    case Map.get(map, key) do
+      nil ->
+        ""
+
+      str ->
+        str
+    end
+  end
 end

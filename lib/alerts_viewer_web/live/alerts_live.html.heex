@@ -2,7 +2,7 @@
   Alerts
 </.header>
 
-<form phx-change="filter" class="flex gap-2">
+<form phx-change="filter-search" class="flex gap-2">
   <.input
     type="select"
     id="service-filter"
@@ -27,6 +27,8 @@
     options={effect_filter_options()}
     errors={[]}
   />
+
+  <.search id="search" name="search" value={@search} placeholder="Search" errors={[]} />
 </form>
 
 <.table id="alerts" rows={@alerts} row_click={&JS.patch(~p"/alerts/#{&1}")}>
