@@ -42,8 +42,11 @@
   <:col :let={alert} label="Lifecycle">
     <%= humanized_atom(alert.lifecycle) %>
   </:col>
-  <:col :let={alert} label="Message">
-    <%= alert.short_header %>
+  <:col :let={alert} label="Header">
+    <%= alert.header %>
+  </:col>
+  <:col :let={alert} label="Description">
+    <%= alert.description %>
   </:col>
   <:col :let={alert} label="Start">
     <.list_date_times
