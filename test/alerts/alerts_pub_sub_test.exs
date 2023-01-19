@@ -1,5 +1,5 @@
 defmodule Alerts.AlertsPubSubTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
 
   alias Alerts.{Alert, AlertsPubSub, Store}
 

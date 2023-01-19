@@ -185,7 +185,7 @@ defmodule Alerts.Alert do
           optional(:activities) => [activity()],
           optional(:direction_id) => direction_id(),
           optional(:facility) => String.t(),
-          optional(:route) => String.t(),
+          optional(:route) => route_id(),
           optional(:route_type) => route_type(),
           optional(:stop) => String.t(),
           optional(:trip) => String.t()
@@ -239,6 +239,10 @@ defmodule Alerts.Alert do
   def matches_service_type(%__MODULE__{informed_entity: informed_entity}, route_type),
     do: Enum.any?(informed_entity, &matches_route_type(&1, route_type))
 
+  @spec matches_route(t(), route_id()) :: boolean()
+  def matches_route(%__MODULE__{informed_entity: informed_entity}, route_id),
+    do: Enum.any?(informed_entity, &entity_matches_route(&1, route_id))
+
   @spec activities_inclued_facility_activities(informed_entity()) :: boolean()
   defp activities_inclued_facility_activities(%{activities: activities}),
     do: Enum.any?(activities, &Enum.member?(@facility_activies, &1))
@@ -249,6 +253,10 @@ defmodule Alerts.Alert do
   @spec matches_route_type(informed_entity(), route_type()) :: boolean()
   defp matches_route_type(%{route_type: rt}, route_type) when rt == route_type, do: true
   defp matches_route_type(_, _), do: false
+
+  @spec entity_matches_route(informed_entity(), route_id()) :: boolean()
+  defp entity_matches_route(%{route: r}, route_id) when r == route_id, do: true
+  defp entity_matches_route(_, _), do: false
 
   @spec routes_or_facilities(informed_entity()) :: [String.t()]
   defp routes_or_facilities(%{route: route_id}), do: [route_id]

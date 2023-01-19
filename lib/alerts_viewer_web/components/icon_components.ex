@@ -266,6 +266,14 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
+  def alert_icon(assigns) do
+    ~H"""
+    <div class="">
+      <Heroicons.exclamation_triangle mini class="fill-brand h-5 w-5" />
+    </div>
+    """
+  end
+
   defp route_name("CR-" <> line_name), do: line_name
   defp route_name(name), do: name
 end

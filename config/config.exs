@@ -13,6 +13,7 @@ config :alerts_viewer,
   # Default. Can be configured via environment variable, which is loaded in application.ex
   api_url: {:system, "API_URL"},
   api_key: {:system, "API_KEY"},
+  api_cache_size: 10_000,
   start_data_processes: true
 
 # Configures the endpoint

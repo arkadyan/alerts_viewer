@@ -111,4 +111,23 @@ defmodule Alerts.AlertTest do
       refute Alert.matches_service_type(bus_alert, :access)
     end
   end
+
+  describe "matches_route/2" do
+    test "matches by informed entity routes" do
+      a28 = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "28", route_type: 3}
+        ]
+      }
+
+      a69 = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "69", route_type: 3}
+        ]
+      }
+
+      assert Alert.matches_route(a28, "28")
+      refute Alert.matches_route(a69, "28")
+    end
+  end
 end

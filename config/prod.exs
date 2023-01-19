@@ -1,5 +1,8 @@
 import Config
 
+config :alerts_viewer,
+  api_cache_size: 200_000
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.

@@ -55,13 +55,11 @@ defmodule Api.JsonApi do
     }
   end
 
-  @spec parse(String.t()) :: t() | {:error, any}
+  @spec parse(String.t()) :: {:ok, t()} | {:error, any}
   def parse(body) do
     with {:ok, parsed} <- Jason.decode(body),
          {:ok, data} <- parse_data(parsed) do
-      %__MODULE__{
-        data: data
-      }
+      {:ok, %__MODULE__{data: data}}
     else
       {:error, [_ | _] = errors} ->
         {:error, parse_errors(errors)}

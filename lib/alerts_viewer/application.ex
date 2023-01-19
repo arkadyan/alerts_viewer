@@ -18,6 +18,7 @@ defmodule AlertsViewer.Application do
         []
       end ++
         [
+          Api.Cache,
           # Start the Telemetry supervisor
           AlertsViewerWeb.Telemetry,
           # Start the PubSub system

@@ -87,8 +87,10 @@ defmodule Api.Stream do
 
   @spec parse_event(SSES.Event.t()) :: Event.t()
   defp parse_event(%SSES.Event{data: data, event: event}) do
+    {:ok, parsed} = JsonApi.parse(data)
+
     %Event{
-      data: JsonApi.parse(data),
+      data: parsed,
       event: event(event)
     }
   end

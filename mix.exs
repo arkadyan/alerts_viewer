@@ -59,7 +59,8 @@ defmodule AlertsViewer.MixProject do
       {:tzdata, "~> 1.1"},
       {:credo, "~> 1.6", only: [:dev, :test]},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.16", only: :test}
+      {:excoveralls, "~> 0.16", only: :test},
+      {:httpoison, "~> 2.1"}
     ]
   end
 
