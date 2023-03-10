@@ -37,10 +37,10 @@ defmodule AlertsViewer.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.7.0-rc.0", override: true},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix, "~> 1.7"},
+      {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.18.3"},
+      {:phoenix_live_view, "~> 0.18.17"},
       {:heroicons, "~> 0.5"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.7.2"},
@@ -59,7 +59,7 @@ defmodule AlertsViewer.MixProject do
       {:tzdata, "~> 1.1"},
       {:credo, "~> 1.6", only: [:dev, :test]},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.15.1", only: :test}
+      {:excoveralls, "~> 0.16", only: :test}
     ]
   end
 
