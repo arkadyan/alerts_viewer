@@ -69,4 +69,95 @@ defmodule AlertsTest do
       assert Alerts.get("missing") == :not_found
     end
   end
+
+  describe "by_effect/2" do
+    test "filters the list of alerts by effect type" do
+      delay_alert = %Alert{effect: :delay}
+      detour_alert = %Alert{effect: :detour}
+
+      assert Alerts.by_effect([delay_alert, detour_alert], "detour") == [detour_alert]
+    end
+
+    test "returns all alerts when filtering on an empty string" do
+      delay_alert = %Alert{effect: :delay}
+      detour_alert = %Alert{effect: :detour}
+
+      assert Alerts.by_effect([delay_alert, detour_alert], "") == [delay_alert, detour_alert]
+    end
+  end
+
+  describe "by_service/2" do
+    test "filters the list of alerts by service type" do
+      bus_alert = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "28", route_type: 3}
+        ]
+      }
+
+      subway_alert = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "Orange", route_type: 2}
+        ]
+      }
+
+      assert Alerts.by_service([bus_alert, subway_alert], "3") == [bus_alert]
+    end
+
+    test "filters on access service type" do
+      bus_alert = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "28", route_type: 3}
+        ]
+      }
+
+      using_wheelchair_alert = %Alert{
+        informed_entity: [
+          %{activities: [:using_wheelchair], facility: "772", stop: "70511"}
+        ]
+      }
+
+      assert Alerts.by_service([bus_alert, using_wheelchair_alert], "access") == [
+               using_wheelchair_alert
+             ]
+    end
+
+    test "returns all alerts when filtering on an empty string" do
+      bus_alert = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "28", route_type: 3}
+        ]
+      }
+
+      subway_alert = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "Orange", route_type: 2}
+        ]
+      }
+
+      assert Alerts.by_service([bus_alert, subway_alert], "") == [bus_alert, subway_alert]
+    end
+  end
+
+  describe "search/2" do
+    test "searches alerts based on the ID field" do
+      alert_1 = %Alert{id: "1"}
+      alert_2 = %Alert{id: "2"}
+
+      assert Alerts.search([alert_1, alert_2], "2") == [alert_2]
+    end
+
+    test "searches alerts based on the header field" do
+      foo_alert = %Alert{header: "XXX foo YYY"}
+      bar_alert = %Alert{header: "XXX bar YYY"}
+
+      assert Alerts.search([foo_alert, bar_alert], "foo") == [foo_alert]
+    end
+
+    test "searches alerts based on the description field" do
+      foo_alert = %Alert{description: "XXX foo YYY"}
+      bar_alert = %Alert{description: "XXX bar YYY"}
+
+      assert Alerts.search([foo_alert, bar_alert], "foo") == [foo_alert]
+    end
+  end
 end

@@ -86,51 +86,8 @@ defmodule AlertsViewerWeb.AlertsLive do
   @spec filter_and_search([Alert.t()], keyword()) :: [Alert.t()]
   defp filter_and_search(alerts, effect: effect, service: service, search: search) do
     alerts
-    |> by_effect(effect)
-    |> by_service(service)
-    |> search(search)
-  end
-
-  @spec by_effect([Alert.t()], String.t()) :: [Alert.t()]
-  defp by_effect(alerts, ""), do: alerts
-
-  defp by_effect(alerts, effect) do
-    effect_atom = String.to_atom(effect)
-    Enum.filter(alerts, &(&1.effect == effect_atom))
-  end
-
-  @spec by_service([Alert.t()], String.t()) :: [Alert.t()]
-  defp by_service(alerts, ""), do: alerts
-
-  defp by_service(alerts, "access"),
-    do: Enum.filter(alerts, &Alert.matches_service_type(&1, :access))
-
-  defp by_service(alerts, route_type_string),
-    do: Enum.filter(alerts, &Alert.matches_service_type(&1, String.to_integer(route_type_string)))
-
-  @fields_to_search_on [:id, :header, :description]
-  @spec search([Alert.t()], String.t()) :: [Alert.t()]
-  defp search(alerts, search) do
-    lowercase_search = String.downcase(search)
-
-    Enum.filter(alerts, fn alert ->
-      Enum.any?(@fields_to_search_on, fn field ->
-        alert
-        |> string_value(field)
-        |> String.downcase()
-        |> String.contains?(lowercase_search)
-      end)
-    end)
-  end
-
-  @spec string_value(map(), atom()) :: String.t()
-  defp string_value(map, key) do
-    case Map.get(map, key) do
-      nil ->
-        ""
-
-      str ->
-        str
-    end
+    |> Alerts.by_effect(effect)
+    |> Alerts.by_service(service)
+    |> Alerts.search(search)
   end
 end
