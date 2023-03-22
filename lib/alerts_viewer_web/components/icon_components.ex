@@ -268,9 +268,7 @@ defmodule AlertsViewerWeb.IconComponents do
 
   def alert_icon(assigns) do
     ~H"""
-    <div class="">
-      <Heroicons.exclamation_triangle mini class="fill-brand h-5 w-5" />
-    </div>
+    <Heroicons.exclamation_triangle mini class="fill-brand h-5 w-5 " />
     """
   end
 

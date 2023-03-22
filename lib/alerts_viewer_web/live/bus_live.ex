@@ -22,10 +22,9 @@ defmodule AlertsViewerWeb.BusLive do
     {:noreply, socket}
   end
 
-  @spec current_alert?(Route.t(), [Alert.t()]) :: boolean()
-  def current_alert?(%Route{id: route_id}, alerts) do
-    Enum.any?(alerts, &Alert.matches_route(&1, route_id))
-  end
+  @spec alert_count(Route.t(), [Alert.t()]) :: non_neg_integer()
+  def alert_count(%Route{id: route_id}, alerts),
+    do: Enum.count(alerts, &Alert.matches_route(&1, route_id))
 
   @spec filtered_by_bus([Alert.t()]) :: [Alert.t()]
   defp filtered_by_bus(alerts), do: Alerts.by_service(alerts, "3")

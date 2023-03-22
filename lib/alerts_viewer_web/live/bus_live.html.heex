@@ -7,6 +7,10 @@
     <%= Route.name(route) %>
   </:col>
   <:col :let={route} label="Current Alert">
-    <.alert_icon :if={current_alert?(route, @bus_alerts)} />
+    <div class="flex gap-1 items-end">
+      <% alert_count = alert_count(route, @bus_alerts) %>
+      <.alert_icon :if={alert_count > 0} />
+      <span :if={alert_count > 1}>(<%= alert_count %>)</span>
+    </div>
   </:col>
 </.table>
