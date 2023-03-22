@@ -9,7 +9,7 @@ defmodule AlertsViewerWeb.IconComponents do
   """
   attr :type, :string, required: true
 
-  def icon(%{type: "Red"} = assigns) do
+  def mode_icon(%{type: "Red"} = assigns) do
     ~H"""
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
       <g fill="none" fill-rule="evenodd">
@@ -30,7 +30,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Blue"} = assigns) do
+  def mode_icon(%{type: "Blue"} = assigns) do
     ~H"""
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
       <defs>
@@ -67,7 +67,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Orange"} = assigns) do
+  def mode_icon(%{type: "Orange"} = assigns) do
     ~H"""
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
       <defs>
@@ -104,7 +104,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Green-B"} = assigns) do
+  def mode_icon(%{type: "Green-B"} = assigns) do
     ~H"""
     <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path d="M8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8" fill="#00843d" />
@@ -116,7 +116,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Green-C"} = assigns) do
+  def mode_icon(%{type: "Green-C"} = assigns) do
     ~H"""
     <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path d="M8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8" fill="#00843d" />
@@ -128,7 +128,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Green-D"} = assigns) do
+  def mode_icon(%{type: "Green-D"} = assigns) do
     ~H"""
     <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path d="M8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8" fill="#00843d" />
@@ -140,7 +140,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Green-E"} = assigns) do
+  def mode_icon(%{type: "Green-E"} = assigns) do
     ~H"""
     <svg width="20" height="20" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
       <path d="M8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8" fill="#00843d" />
@@ -152,7 +152,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Green"} = assigns) do
+  def mode_icon(%{type: "Green"} = assigns) do
     ~H"""
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
       <defs>
@@ -183,7 +183,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "Mattapan"} = assigns) do
+  def mode_icon(%{type: "Mattapan"} = assigns) do
     ~H"""
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
       <g fill="none" fill-rule="evenodd">
@@ -198,7 +198,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "using_escalator"} = assigns) do
+  def mode_icon(%{type: "using_escalator"} = assigns) do
     ~H"""
     <svg
       width="24px"
@@ -218,7 +218,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "using_wheelchair"} = assigns) do
+  def mode_icon(%{type: "using_wheelchair"} = assigns) do
     ~H"""
     <svg width="15" height="24" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -230,7 +230,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "park_car"} = assigns) do
+  def mode_icon(%{type: "park_car"} = assigns) do
     # Placeholder
     ~H"""
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="22" fill="#175C96">
@@ -240,7 +240,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "bike"} = assigns) do
+  def mode_icon(%{type: "bike"} = assigns) do
     ~H"""
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="22" fill="#175C96">
       <!--! Font Awesome Pro 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -249,7 +249,7 @@ defmodule AlertsViewerWeb.IconComponents do
     """
   end
 
-  def icon(%{type: "CR-" <> _} = assigns) do
+  def mode_icon(%{type: "CR-" <> _} = assigns) do
     ~H"""
     <span class="align-middle bg-cr font-bold h-full py-1 px-2 rounded-3xl text-sm text-white uppercase">
       <%= route_name(@type) %>
@@ -258,7 +258,7 @@ defmodule AlertsViewerWeb.IconComponents do
   end
 
   # Bus
-  def icon(assigns) do
+  def mode_icon(assigns) do
     ~H"""
     <span class="align-middle bg-bus font-bold h-full py-1 px-2 rounded text-black text-sm uppercase">
       <%= route_name(@type) %>
