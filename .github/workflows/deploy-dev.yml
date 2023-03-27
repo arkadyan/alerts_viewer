@@ -11,13 +11,29 @@ on:
     branches: ["main"]
 
 jobs:
-  call-workflow:
-    uses: mbta/workflows/.github/workflows/deploy-ecs.yml@main
-    with:
-      app-name: alerts-viewer
-      environment: ${{ github.event.inputs.environment || 'dev-orange' }}
-    secrets:
-      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      docker-repo: ${{ secrets.DOCKER_REPO }}
-      slack-webhook: ${{ secrets.SLACK_WEBHOOK }}
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.env || 'dev-orange' }}
+    concurrency: ${{ github.event.inputs.env || 'dev-orange' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: mbta/actions/build-push-ecr@v1
+        id: build-push
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          docker-repo: ${{ secrets.DOCKER_REPO }}
+      - uses: mbta/actions/deploy-ecs@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          ecs-cluster: ${{ inputs.cluster || inputs.app-name }}
+          ecs-service: ${{ inputs.app-name }}-${{ inputs.environment }}
+          docker-tag: ${{ steps.build-push.outputs.docker-tag }}
+      - uses: mbta/actions/notify-slack-deploy@v1
+        if: ${{ !cancelled() }}
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          job-status: ${{ job.status }}
+          custom-message: "(${{ env.TARGET }})"
