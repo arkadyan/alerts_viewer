@@ -29,4 +29,9 @@ defmodule Test.Support.Helpers do
       Logger.configure(level: unquote(log_level))
     end
   end
+
+  def fixture_path(path) do
+    fixture_path = Path.expand("./fixtures", __DIR__)
+    Path.expand(path, fixture_path)
+  end
 end

@@ -130,4 +130,43 @@ defmodule Alerts.AlertTest do
       refute Alert.matches_route(a69, "28")
     end
   end
+
+  describe "matches_effect/2" do
+    test "matches by effect type" do
+      delay_affect = %Alert{effect: :delay}
+      detour_affect = %Alert{effect: :detour}
+
+      assert Alert.matches_effect(delay_affect, :delay)
+      refute Alert.matches_effect(detour_affect, :delay)
+    end
+  end
+
+  describe "matches_route_and_effect/3" do
+    test "matches by informed entity routes and effect type" do
+      a28_delay = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "28", route_type: 3}
+        ],
+        effect: :delay
+      }
+
+      a28_detour = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "28", route_type: 3}
+        ],
+        effect: :detour
+      }
+
+      a69_delay = %Alert{
+        informed_entity: [
+          %{activities: [:board, :exit, :ride], route: "69", route_type: 3}
+        ],
+        effect: :delay
+      }
+
+      assert Alert.matches_route_and_effect(a28_delay, "28", :delay)
+      refute Alert.matches_route_and_effect(a28_detour, "28", :delay)
+      refute Alert.matches_route_and_effect(a69_delay, "28", :delay)
+    end
+  end
 end

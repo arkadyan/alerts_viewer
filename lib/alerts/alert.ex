@@ -243,6 +243,16 @@ defmodule Alerts.Alert do
   def matches_route(%__MODULE__{informed_entity: informed_entity}, route_id),
     do: Enum.any?(informed_entity, &entity_matches_route(&1, route_id))
 
+  @spec matches_effect(t(), effect()) :: boolean()
+  def matches_effect(%__MODULE__{effect: alert_effect}, effect) when alert_effect == effect,
+    do: true
+
+  def matches_effect(_, _), do: false
+
+  @spec matches_route_and_effect(t(), route_id(), effect()) :: boolean()
+  def matches_route_and_effect(%__MODULE__{} = alert, route_id, effect),
+    do: matches_route(alert, route_id) and matches_effect(alert, effect)
+
   @spec activities_inclued_facility_activities(informed_entity()) :: boolean()
   defp activities_inclued_facility_activities(%{activities: activities}),
     do: Enum.any?(activities, &Enum.member?(@facility_activies, &1))

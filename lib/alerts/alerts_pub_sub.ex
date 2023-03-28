@@ -1,6 +1,6 @@
 defmodule Alerts.AlertsPubSub do
   @moduledoc """
-  Publish alert udptaes to subscribers.
+  Publish alert updates to subscribers.
   """
 
   use GenServer
