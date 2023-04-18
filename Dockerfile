@@ -37,7 +37,7 @@ RUN addgroup --system alertsviewer && adduser --system --ingroup alertsviewer al
 USER alertsviewer
 
 # Set environment
-ENV MIX_ENV=prod TERM=xterm LANG=C.UTF-8 REPLACE_OS_VARS=true
+ENV MIX_ENV=prod PHX_SERVER=true TERM=xterm LANG=C.UTF-8 REPLACE_OS_VARS=true
 
 WORKDIR /home/alertsviewer
 COPY --from=app-builder --chown=alertsviewer:alertsviewer  /root/_build/prod/rel/alerts_viewer .
