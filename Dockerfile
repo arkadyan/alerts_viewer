@@ -17,8 +17,11 @@ RUN mix deps.get --only prod
 # --- Build Elixir release ---
 FROM elixir-builder as app-builder
 
+ENV LANG=C.UTF-8 MIX_ENV=prod
+
 WORKDIR /root
 RUN mix compile
+RUN mix assets.deploy
 RUN mix phx.digest
 RUN mix release
 
