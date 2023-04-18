@@ -15,6 +15,10 @@ defmodule AlertsViewerWeb.Router do
   end
 
   scope "/", AlertsViewerWeb do
+    get "/_health", HealthController, :index
+  end
+
+  scope "/", AlertsViewerWeb do
     pipe_through :browser
 
     get "/", PageController, :home
