@@ -35,6 +35,9 @@ defmodule AlertsViewerWeb.BusLive do
     {:noreply, socket}
   end
 
+  @spec delay_alert?(Route.t(), [Alert.t()]) :: boolean()
+  def delay_alert?(route, alerts), do: delay_alert_count(route, alerts) > 0
+
   @spec delay_alert_count(Route.t(), [Alert.t()]) :: non_neg_integer()
   def delay_alert_count(%Route{id: route_id}, alerts),
     do: Enum.count(alerts, &Alert.matches_route_and_effect(&1, route_id, :delay))
@@ -61,6 +64,40 @@ defmodule AlertsViewerWeb.BusLive do
     |> schedule_adherence_secs_for_route_for_route(route_id)
     |> Statistics.stdev()
     |> round_to_1_place()
+  end
+
+  # Temporary "fake" algorithm just to get something on the screen
+  @spec suggesting_alert?(Route.t()) :: boolean()
+  def suggesting_alert?(%Route{id: route_id}), do: String.starts_with?(route_id, "1")
+
+  @spec error_icon(Route.t(), [Alert.t()]) :: String.t()
+  def error_icon(route, alerts) do
+    case error(route, alerts) do
+      :pos ->
+        "➕"
+
+      :neg ->
+        "➖"
+
+      :none ->
+        ""
+    end
+  end
+
+  # False positive, false negative, or none
+  @type error_type :: :pos | :neg | :none
+  @spec error(Route.t(), [Alert.t()]) :: error_type()
+  def error(route, alerts) do
+    case {delay_alert?(route, alerts), suggesting_alert?(route)} do
+      {true, false} ->
+        :neg
+
+      {false, true} ->
+        :pos
+
+      _ ->
+        :none
+    end
   end
 
   @spec filtered_by_bus([Alert.t()]) :: [Alert.t()]

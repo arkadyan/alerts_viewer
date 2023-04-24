@@ -18,8 +18,14 @@
   <:col :let={route} label="Current Alert">
     <div class="flex gap-1 items-end">
       <% alert_count = delay_alert_count(route, @bus_alerts) %>
-      <.alert_icon :if={alert_count > 0} />
+      <.alert_icon :if={delay_alert?(route, @bus_alerts)} />
       <span :if={alert_count > 1}>(<%= alert_count %>)</span>
     </div>
+  </:col>
+  <:col :let={route} label="Suggesting Alert">
+    <span :if={suggesting_alert?(route)}>🤖</span>
+  </:col>
+  <:col :let={route} label="Error">
+    <%= error_icon(route, @bus_alerts) %>
   </:col>
 </.table>
