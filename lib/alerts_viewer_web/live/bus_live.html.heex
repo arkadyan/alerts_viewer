@@ -7,6 +7,7 @@
     <.input
       type="select"
       name="algorithm"
+      label="Algorithm"
       value={@current_algorithm}
       options={@algorithm_options}
     />
@@ -20,7 +21,7 @@
   />
 </div>
 
-<div class="flex gap-8">
+<div class="flex mt-4">
   <.controls_form phx-change="set-filter-rows">
     <.input
       type="checkbox"

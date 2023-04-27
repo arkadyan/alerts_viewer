@@ -110,6 +110,7 @@ defmodule AlertsViewerWeb.BusLive do
     |> Atom.to_string()
     |> String.split(".")
     |> List.last()
+    |> String.replace_suffix("Component", "")
   end
 
   @spec filtered_by_bus([Alert.t()]) :: [Alert.t()]
