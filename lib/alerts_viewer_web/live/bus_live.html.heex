@@ -20,7 +20,29 @@
   />
 </div>
 
-<.table id="bus-routes" rows={@bus_routes}>
+<div class="flex gap-8">
+  <.controls_form phx-change="set-filter-rows">
+    <.input
+      type="checkbox"
+      name="filter_rows"
+      value={@filter_rows?}
+      checked={@filter_rows?}
+      label="Filter rows without alerts"
+    />
+  </.controls_form>
+</div>
+
+<.table
+  id="bus-routes"
+  rows={
+    maybe_filtered(
+      @bus_routes,
+      @filter_rows?,
+      @routes_with_current_alerts,
+      @routes_with_recommended_alerts
+    )
+  }
+>
   <:col :let={route} label="Name">
     <%= Route.name(route) %>
   </:col>

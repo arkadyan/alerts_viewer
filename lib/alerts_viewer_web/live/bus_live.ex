@@ -25,6 +25,7 @@ defmodule AlertsViewerWeb.BusLive do
       assign(socket,
         algorithm_options: algorithm_options,
         current_algorithm: current_algorithm,
+        filter_rows?: false,
         bus_routes: bus_routes,
         stats_by_route: stats_by_route,
         routes_with_current_alerts: routes_with_current_alerts,
@@ -38,6 +39,12 @@ defmodule AlertsViewerWeb.BusLive do
   def handle_event("select-algorithm", %{"algorithm" => module_str}, socket) do
     current_algorithm = String.to_atom(module_str)
     {:noreply, assign(socket, current_algorithm: current_algorithm)}
+  end
+
+  @impl true
+  def handle_event("set-filter-rows", %{"filter_rows" => filter_rows_str}, socket) do
+    filter_rows? = filter_rows_str == "true"
+    {:noreply, assign(socket, filter_rows?: filter_rows?)}
   end
 
   @impl true
@@ -107,4 +114,14 @@ defmodule AlertsViewerWeb.BusLive do
 
   @spec filtered_by_bus([Alert.t()]) :: [Alert.t()]
   defp filtered_by_bus(alerts), do: Alerts.by_service(alerts, "3")
+
+  @spec maybe_filtered([Route.t()], boolean(), [Route.t()], [Route.t()]) :: [Route.t()]
+  defp maybe_filtered(routes, true, routes_with_current_alerts, routes_with_recommended_alerts) do
+    Enum.filter(routes, fn route ->
+      Enum.member?(routes_with_current_alerts, route) or
+        Enum.member?(routes_with_recommended_alerts, route)
+    end)
+  end
+
+  defp maybe_filtered(routes, false, _, _), do: routes
 end
