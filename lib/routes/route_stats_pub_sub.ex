@@ -11,13 +11,12 @@ defmodule Routes.RouteStatsPubSub do
   defstruct stats_by_route: %{}
 
   @type vehicles_by_route() :: %{Route.id() => [Vehicle.t()]}
-  @type stats_by_route() :: %{Route.id() => RouteStats.t()}
 
   @type t :: %__MODULE__{
-          stats_by_route: stats_by_route()
+          stats_by_route: RouteStats.stats_by_route()
         }
 
-  @type broadcast_message :: {:stats_by_route, stats_by_route()}
+  @type broadcast_message :: {:stats_by_route, RouteStats.stats_by_route()}
 
   # Client
 
@@ -33,8 +32,8 @@ defmodule Routes.RouteStatsPubSub do
     )
   end
 
-  @spec subscribe() :: stats_by_route()
-  @spec subscribe(GenServer.server()) :: stats_by_route()
+  @spec subscribe() :: RouteStats.stats_by_route()
+  @spec subscribe(GenServer.server()) :: RouteStats.stats_by_route()
   def subscribe(server \\ __MODULE__) do
     {registry_key, stats_by_route} = GenServer.call(server, {:subscribe})
     Registry.register(:route_stats_subscriptions_registry, registry_key, :value_does_not_matter)
@@ -89,6 +88,6 @@ defmodule Routes.RouteStatsPubSub do
     end)
   end
 
-  @spec send_data({pid(), any()}, stats_by_route()) :: broadcast_message()
+  @spec send_data({pid(), any()}, RouteStats.stats_by_route()) :: broadcast_message()
   defp send_data({pid, _}, stats_by_route), do: send(pid, {:stats_by_route, stats_by_route})
 end

@@ -2,30 +2,51 @@
   Bus Routes
 </.header>
 
+<div class="flex gap-8">
+  <.controls_form phx-change="select-algorithm">
+    <.input
+      type="select"
+      name="algorithm"
+      value={@current_algorithm}
+      options={@algorithm_options}
+    />
+  </.controls_form>
+
+  <.live_component
+    module={@current_algorithm}
+    id={:algorithm_controls}
+    routes={@bus_routes}
+    stats_by_route={@stats_by_route}
+  />
+</div>
+
 <.table id="bus-routes" rows={@bus_routes}>
   <:col :let={route} label="Name">
     <%= Route.name(route) %>
   </:col>
   <:col :let={route} label="Individual Vehicle Schedule Adherence (seconds)">
-    <%= individual_vehicles_for_route(@stats_by_route, route) %>
+    <%= @stats_by_route |> RouteStats.vehicles_schedule_adherence_secs(route) |> Enum.join(", ") %>
   </:col>
   <:col :let={route} label="Median Schedule Adherence">
-    <%= median_schedule_adherence(@stats_by_route, route) %>
+    <%= RouteStats.median_schedule_adherence(@stats_by_route, route) %>
   </:col>
   <:col :let={route} label="Standard Deviation">
-    <%= standard_deviation_of_schedule_adherence(@stats_by_route, route) %>
+    <%= RouteStats.standard_deviation_of_schedule_adherence(@stats_by_route, route) %>
   </:col>
   <:col :let={route} label="Current Alert">
     <div class="flex gap-1 items-end">
-      <% alert_count = delay_alert_count(route, @bus_alerts) %>
-      <.alert_icon :if={delay_alert?(route, @bus_alerts)} />
-      <span :if={alert_count > 1}>(<%= alert_count %>)</span>
+      <.alert_icon :if={Enum.member?(@routes_with_current_alerts, route)} />
     </div>
   </:col>
-  <:col :let={route} label="Suggesting Alert">
-    <span :if={suggesting_alert?(route)}>🤖</span>
+  <:col :let={route} label="Recommending Alert">
+    <span :if={Enum.member?(@routes_with_recommended_alerts, route)}>
+      🤖
+    </span>
   </:col>
   <:col :let={route} label="Error">
-    <%= error_icon(route, @bus_alerts) %>
+    <%= error(
+      Enum.member?(@routes_with_current_alerts, route),
+      Enum.member?(@routes_with_recommended_alerts, route)
+    ) %>
   </:col>
 </.table>

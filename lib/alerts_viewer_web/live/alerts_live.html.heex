@@ -2,7 +2,7 @@
   Alerts
 </.header>
 
-<form phx-change="filter-search" class="flex gap-2">
+<.controls_form phx-change="filter-search">
   <.input
     type="select"
     id="service-filter"
@@ -29,7 +29,7 @@
   />
 
   <.search id="search" name="search" value={@search} placeholder="Search" errors={[]} />
-</form>
+</.controls_form>
 
 <.table id="alerts" rows={@alerts} row_click={&JS.patch(~p"/alerts/#{&1}")}>
   <:col :let={alert} label="ID">
