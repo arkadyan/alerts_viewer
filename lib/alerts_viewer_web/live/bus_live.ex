@@ -29,7 +29,8 @@ defmodule AlertsViewerWeb.BusLive do
         bus_routes: bus_routes,
         stats_by_route: stats_by_route,
         routes_with_current_alerts: routes_with_current_alerts,
-        routes_with_recommended_alerts: []
+        routes_with_recommended_alerts: [],
+        prediction_results: prediction_results(bus_routes, routes_with_current_alerts, [])
       )
 
     {:ok, socket}
@@ -54,7 +55,17 @@ defmodule AlertsViewerWeb.BusLive do
     routes_with_current_alerts =
       Enum.filter(socket.assigns.bus_routes, &delay_alert?(&1, bus_alerts))
 
-    socket = assign(socket, routes_with_current_alerts: routes_with_current_alerts)
+    socket =
+      assign(socket,
+        routes_with_current_alerts: routes_with_current_alerts,
+        prediction_results:
+          prediction_results(
+            socket.assigns.bus_routes,
+            routes_with_current_alerts,
+            socket.assigns.routes_with_recommended_alerts
+          )
+      )
+
     {:noreply, socket}
   end
 
@@ -69,7 +80,17 @@ defmodule AlertsViewerWeb.BusLive do
         {:updated_routes_with_recommended_alerts, routes_with_recommended_alerts},
         socket
       ) do
-    socket = assign(socket, routes_with_recommended_alerts: routes_with_recommended_alerts)
+    socket =
+      assign(socket,
+        routes_with_recommended_alerts: routes_with_recommended_alerts,
+        prediction_results:
+          prediction_results(
+            socket.assigns.bus_routes,
+            socket.assigns.routes_with_current_alerts,
+            routes_with_recommended_alerts
+          )
+      )
+
     {:noreply, socket}
   end
 
@@ -77,25 +98,35 @@ defmodule AlertsViewerWeb.BusLive do
   def delay_alert?(%Route{id: route_id}, alerts),
     do: Enum.any?(alerts, &Alert.matches_route_and_effect(&1, route_id, :delay))
 
-  # False positive, false negative, or none
-  @type error_type :: :pos | :neg | :none
+  @doc """
+  Display the results of a prediction.
 
-  @spec error(control_result :: boolean(), test_result :: boolean()) :: String.t()
-  def error(control_result, test_result) do
-    control_result
-    |> error_type(test_result)
-    |> error_icon()
+  ## Examples
+
+      <.result prediction={false} target={true} />
+  """
+  attr(:prediction, :boolean)
+  attr(:target, :boolean)
+
+  def result(assigns) do
+    ~H"""
+    <div class={
+      if PredictionResults.true_result?(@prediction, @target),
+        do: "text-green-700",
+        else: "text-red-700"
+    }>
+      <%= PredictionResults.to_string(@prediction, @target) %>
+    </div>
+    """
   end
 
-  @spec error_type(control_result :: boolean(), test_result :: boolean()) :: error_type()
-  def error_type(true, false), do: :neg
-  def error_type(false, true), do: :pos
-  def error_type(_, _), do: :none
+  @spec prediction_results([Route.t()], [Route.t()], [Route.t()]) :: PredictionResults.t()
+  defp prediction_results(routes, routes_with_current_alerts, routes_with_recommended_alerts) do
+    predictions = Enum.map(routes, &Enum.member?(routes_with_recommended_alerts, &1))
+    targets = Enum.map(routes, &Enum.member?(routes_with_current_alerts, &1))
 
-  @spec error_icon(error_type()) :: String.t()
-  def error_icon(:pos), do: "➕"
-  def error_icon(:neg), do: "➖"
-  def error_icon(:none), do: ""
+    PredictionResults.new(predictions, targets)
+  end
 
   @type module_option :: {String.t(), module()}
   @spec algorithm_options([module()]) :: [module_option()]

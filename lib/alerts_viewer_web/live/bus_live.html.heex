@@ -21,7 +21,19 @@
   />
 </div>
 
-<div class="flex mt-4">
+<.list>
+  <:item title="Accuracy">
+    <%= PredictionResults.accuracy(@prediction_results) %>%
+  </:item>
+  <:item title="Recall">
+    <%= PredictionResults.recall(@prediction_results) %>%
+  </:item>
+  <:item title="Precision">
+    <%= PredictionResults.precision(@prediction_results) %>%
+  </:item>
+</.list>
+
+<div class="flex mt-8">
   <.controls_form phx-change="set-filter-rows">
     <.input
       type="checkbox"
@@ -66,10 +78,10 @@
       🤖
     </span>
   </:col>
-  <:col :let={route} label="Error">
-    <%= error(
-      Enum.member?(@routes_with_current_alerts, route),
-      Enum.member?(@routes_with_recommended_alerts, route)
-    ) %>
+  <:col :let={route} label="Result">
+    <.result
+      prediction={Enum.member?(@routes_with_recommended_alerts, route)}
+      target={Enum.member?(@routes_with_current_alerts, route)}
+    />
   </:col>
 </.table>
