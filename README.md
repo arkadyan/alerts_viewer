@@ -6,6 +6,11 @@ AlertsViewer is an internal project helping us with myriad alert-related needs. 
 - explore existing bus delay alerts
 - experiment with determining when alerts should be created
 
+
+## Architecture
+
+[AlertsViewer application architecture](ARCHITECTURE.md)
+
 ## Development
 
 To start your Phoenix server:
