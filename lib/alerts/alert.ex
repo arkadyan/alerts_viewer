@@ -57,6 +57,7 @@ defmodule Alerts.Alert do
           | :police_activity
           | :power_problem
           | :severe_weather
+          | :signal_issue
           | :signal_problem
           | :slippery_rail
           | :snow

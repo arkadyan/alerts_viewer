@@ -87,6 +87,7 @@ defmodule Alerts.Parser do
   defp cause("POLICE_ACTIVITY"), do: :police_activity
   defp cause("POWER_PROBLEM"), do: :power_problem
   defp cause("SEVERE_WEATHER"), do: :severe_weather
+  defp cause("SIGNAL_ISSUE"), do: :signal_issue
   defp cause("SIGNAL_PROBLEM"), do: :signal_problem
   defp cause("SLIPPERY_RAIL"), do: :slippery_rail
   defp cause("SNOW"), do: :snow
