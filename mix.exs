@@ -64,7 +64,8 @@ defmodule AlertsViewer.MixProject do
       {:stream_data, "~> 0.5.0", only: :test},
       # Specify a reference until https://github.com/msharp/elixir-statistics/pull/28 is included in a version number
       {:statistics, "~> 0.6.2",
-       git: "https://github.com/msharp/elixir-statistics", ref: "897851f"}
+       git: "https://github.com/msharp/elixir-statistics", ref: "897851f"},
+      {:csv, "~> 3.0"}
     ]
   end
 

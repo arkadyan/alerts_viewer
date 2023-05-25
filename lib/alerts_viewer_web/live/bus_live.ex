@@ -5,6 +5,7 @@ defmodule AlertsViewerWeb.BusLive do
   use AlertsViewerWeb, :live_view
 
   alias Alerts.Alert
+  alias AlertsViewer.DelayAlertAlgorithm
   alias Routes.{Route, RouteStats, RouteStatsPubSub}
 
   @impl true
@@ -133,16 +134,7 @@ defmodule AlertsViewerWeb.BusLive do
   defp algorithm_options(modules), do: Enum.map(modules, &module_lable_tuple/1)
 
   @spec module_lable_tuple(module()) :: module_option()
-  defp module_lable_tuple(module), do: {humane_name(module), module}
-
-  @spec humane_name(module()) :: String.t()
-  defp humane_name(module) do
-    module
-    |> Atom.to_string()
-    |> String.split(".")
-    |> List.last()
-    |> String.replace_suffix("Component", "")
-  end
+  defp module_lable_tuple(module), do: {DelayAlertAlgorithm.humane_name(module), module}
 
   @spec filtered_by_bus([Alert.t()]) :: [Alert.t()]
   defp filtered_by_bus(alerts), do: Alerts.by_service(alerts, "3")

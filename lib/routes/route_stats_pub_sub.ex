@@ -35,10 +35,14 @@ defmodule Routes.RouteStatsPubSub do
   @spec subscribe() :: RouteStats.stats_by_route()
   @spec subscribe(GenServer.server()) :: RouteStats.stats_by_route()
   def subscribe(server \\ __MODULE__) do
-    {registry_key, stats_by_route} = GenServer.call(server, {:subscribe})
+    {registry_key, stats_by_route} = GenServer.call(server, :subscribe)
     Registry.register(:route_stats_subscriptions_registry, registry_key, :value_does_not_matter)
     stats_by_route
   end
+
+  @spec all() :: RouteStats.stats_by_route()
+  @spec all(GenServer.server()) :: RouteStats.stats_by_route()
+  def all(server \\ __MODULE__), do: GenServer.call(server, :all)
 
   @spec update_stats(vehicles_by_route()) :: :ok
   @spec update_stats(vehicles_by_route(), GenServer.server()) :: :ok
@@ -54,9 +58,14 @@ defmodule Routes.RouteStatsPubSub do
   end
 
   @impl GenServer
-  def handle_call({:subscribe}, _from, %__MODULE__{stats_by_route: stats_by_route} = state) do
+  def handle_call(:subscribe, _from, %__MODULE__{stats_by_route: stats_by_route} = state) do
     registry_key = self()
     {:reply, {registry_key, stats_by_route}, state}
+  end
+
+  @impl GenServer
+  def handle_call(:all, _from, %__MODULE__{stats_by_route: stats_by_route} = state) do
+    {:reply, stats_by_route, state}
   end
 
   @impl GenServer

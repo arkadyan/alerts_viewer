@@ -47,6 +47,23 @@ defmodule Routes.RouteStatsPubSubTest do
     end
   end
 
+  describe "all" do
+    setup do
+      start_supervised({Registry, keys: :duplicate, name: :route_stats_subscriptions_registry})
+      {:ok, pid} = RouteStatsPubSub.start_link(name: :all)
+
+      :sys.replace_state(pid, fn state ->
+        Map.put(state, :stats_by_route, @stats_by_route)
+      end)
+
+      {:ok, pid: pid}
+    end
+
+    test "gets the latest stats by route without subscribing to updates", %{pid: pid} do
+      assert RouteStatsPubSub.all(pid) == @stats_by_route
+    end
+  end
+
   describe "update_stats" do
     setup do
       start_supervised({Registry, keys: :duplicate, name: :route_stats_subscriptions_registry})

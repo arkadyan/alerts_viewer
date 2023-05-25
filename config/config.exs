@@ -15,7 +15,7 @@ config :alerts_viewer,
   api_key: {:system, "API_KEY"},
   api_cache_size: 10_000,
   delay_alert_algorithm_components: [
-    AlertsViewerWeb.DelayAlertAlgorithms.MedianComponent
+    AlertsViewer.DelayAlertAlgorithm.MedianComponent
   ],
   swiftly_authorization_key: {:system, "SWIFTLY_AUTHORIZATION_KEY"},
   swiftly_realtime_vehicles_url: {:system, "SWIFTLY_REALTIME_VEHICLES_URL"},
