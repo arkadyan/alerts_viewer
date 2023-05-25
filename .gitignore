@@ -32,3 +32,6 @@ alerts_viewer-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore local environment files
+.env
+.envrc
