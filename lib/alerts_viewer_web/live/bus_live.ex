@@ -121,6 +121,13 @@ defmodule AlertsViewerWeb.BusLive do
     """
   end
 
+  @spec seconds_to_minutes(nil | number) :: nil | float
+  def seconds_to_minutes(nil), do: nil
+
+  def seconds_to_minutes(seconds) do
+    (seconds / 60) |> Float.round(1)
+  end
+
   @spec prediction_results([Route.t()], [Route.t()], [Route.t()]) :: PredictionResults.t()
   defp prediction_results(routes, routes_with_current_alerts, routes_with_recommended_alerts) do
     predictions = Enum.map(routes, &Enum.member?(routes_with_recommended_alerts, &1))

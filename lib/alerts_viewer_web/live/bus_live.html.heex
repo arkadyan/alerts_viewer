@@ -59,14 +59,18 @@
   <:col :let={route} label="Name">
     <%= Route.name(route) %>
   </:col>
-  <:col :let={route} label="Individual Vehicle Schedule Adherence (seconds)">
-    <%= @stats_by_route |> RouteStats.vehicles_schedule_adherence_secs(route) |> Enum.join(", ") %>
+  <:col :let={route} label="Individual Vehicle Schedule Adherence (minutes)">
+    <%= @stats_by_route
+    |> RouteStats.vehicles_schedule_adherence_secs(route)
+    |> Enum.map(&seconds_to_minutes/1)
+    |> Enum.join(", ") %>
   </:col>
-  <:col :let={route} label="Median Schedule Adherence">
-    <%= RouteStats.median_schedule_adherence(@stats_by_route, route) %>
+  <:col :let={route} label="Median Schedule Adherence (minutes)">
+    <%= RouteStats.median_schedule_adherence(@stats_by_route, route) |> seconds_to_minutes() %>
   </:col>
-  <:col :let={route} label="Standard Deviation">
-    <%= RouteStats.standard_deviation_of_schedule_adherence(@stats_by_route, route) %>
+  <:col :let={route} label="Standard Deviation (minutes)">
+    <%= RouteStats.standard_deviation_of_schedule_adherence(@stats_by_route, route)
+    |> seconds_to_minutes() %>
   </:col>
   <:col :let={route} label="Current Alert">
     <div class="flex gap-1 items-end">
