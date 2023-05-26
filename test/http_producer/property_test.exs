@@ -15,12 +15,13 @@ defmodule HttpProducer.PropertyTest do
       expected_body_count = expected_count(bodies)
 
       passed? = receive_count?(producer, demand, expected_body_count)
-      stop_supervised(producer)
+      stop_supervised(HttpProducer)
       Bypass.down(bypass)
       assert passed?
     end
   end
 
+  @tag capture_log: true
   property "returns all the bodies even with a fallback" do
     check all(
             bodies <- list_of(bodies(), min_length: 1, max_length: 10),
@@ -42,7 +43,7 @@ defmodule HttpProducer.PropertyTest do
 
       expected_body_count = expected_count(bodies) + expected_count(fallback_bodies)
       passed? = receive_count?(producer, demand, expected_body_count)
-      stop_supervised(producer)
+      stop_supervised(HttpProducer)
       Bypass.down(bypass)
       Bypass.down(fallback_bypass)
       assert passed?
