@@ -22,6 +22,8 @@ defmodule AlertsViewerWeb.BusLive do
 
     routes_with_current_alerts = Enum.filter(bus_routes, &delay_alert?(&1, bus_alerts))
 
+    alerts_by_route = Alerts.by_route(bus_alerts)
+
     socket =
       assign(socket,
         algorithm_options: algorithm_options,
@@ -29,6 +31,7 @@ defmodule AlertsViewerWeb.BusLive do
         filter_rows?: false,
         bus_routes: bus_routes,
         stats_by_route: stats_by_route,
+        alerts_by_route: alerts_by_route,
         routes_with_current_alerts: routes_with_current_alerts,
         routes_with_recommended_alerts: [],
         prediction_results: prediction_results(bus_routes, routes_with_current_alerts, [])
@@ -56,9 +59,12 @@ defmodule AlertsViewerWeb.BusLive do
     routes_with_current_alerts =
       Enum.filter(socket.assigns.bus_routes, &delay_alert?(&1, bus_alerts))
 
+    alerts_by_route = Alerts.by_route(bus_alerts)
+
     socket =
       assign(socket,
         routes_with_current_alerts: routes_with_current_alerts,
+        alerts_by_route: alerts_by_route,
         prediction_results:
           prediction_results(
             socket.assigns.bus_routes,
@@ -121,11 +127,25 @@ defmodule AlertsViewerWeb.BusLive do
     """
   end
 
+  def severity_to_minutes(severity) when severity < 3, do: "<10"
+  def severity_to_minutes(3), do: "10"
+  def severity_to_minutes(4), do: "15"
+  def severity_to_minutes(5), do: "20"
+  def severity_to_minutes(6), do: "25"
+  def severity_to_minutes(7), do: "30"
+  def severity_to_minutes(8), do: "30+"
+  def severity_to_minutes(severity) when severity >= 9, do: "60+"
+
   @spec seconds_to_minutes(nil | number) :: nil | float
   def seconds_to_minutes(nil), do: nil
 
   def seconds_to_minutes(seconds) do
     (seconds / 60) |> Float.round(1)
+  end
+
+  def alert_duration(alert) do
+    (DateTime.diff(DateTime.now!("America/New_York"), alert.created_at) / 3600)
+    |> Float.round(1)
   end
 
   @spec prediction_results([Route.t()], [Route.t()], [Route.t()]) :: PredictionResults.t()

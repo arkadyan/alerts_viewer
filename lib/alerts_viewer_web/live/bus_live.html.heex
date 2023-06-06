@@ -73,10 +73,22 @@
     |> seconds_to_minutes() %>
   </:col>
   <:col :let={route} label="Current Alert">
-    <div class="flex gap-1 items-end">
-      <.alert_icon :if={Enum.member?(@routes_with_current_alerts, route)} />
+    <div
+      :if={Enum.member?(@routes_with_current_alerts, route)}
+      class="flex flex-row gap-1 items-end"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title={"Open for #{alert_duration(hd(@alerts_by_route[route.id]))} hours "}
+    >
+      <div>
+        <.alert_icon />
+      </div>
+      <div>
+        <%= severity_to_minutes(hd(@alerts_by_route[route.id]).severity) %>
+      </div>
     </div>
   </:col>
+
   <:col :let={route} label="Recommending Alert">
     <span :if={Enum.member?(@routes_with_recommended_alerts, route)}>
       🤖

@@ -38,6 +38,29 @@ defmodule Alerts do
     do: Enum.filter(alerts, &Alert.matches_service_type(&1, String.to_integer(route_type_string)))
 
   @doc """
+  Return a map with route ids as string keys and a list of alerts as the value
+  """
+  @spec by_route([Alert.t()]) :: map()
+  def by_route(alerts) do
+    alerts
+    |> Enum.filter(&Enum.any?(&1.informed_entity, fn ie -> !is_nil(ie.route) end))
+    |> Enum.reduce(%{}, fn alert, acc ->
+      routes = Enum.map(alert.informed_entity, & &1.route)
+
+      alert_by_route_id =
+        Enum.reduce(routes, %{}, fn route_id, route_ids_acc ->
+          Map.merge(route_ids_acc, %{
+            route_id => [alert]
+          })
+        end)
+
+      Map.merge(alert_by_route_id, acc, fn _k, route_ids_map, acc ->
+        route_ids_map ++ acc
+      end)
+    end)
+  end
+
+  @doc """
   Search for alerts based on ID, header, or description field content
   """
   @fields_to_search_on [:id, :header, :description]
