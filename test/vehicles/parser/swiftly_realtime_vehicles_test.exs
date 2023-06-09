@@ -54,33 +54,37 @@ defmodule Vehicles.Parser.SwiftlyRealtimeVehiclesTest do
         },
         "directionId" => "0",
         "tripId" => "39998535",
-        "blockId" => "B36-173"
+        "blockId" => "B36-173",
+        "headwaySecs" => 2889.665,
+        "scheduledHeadwaySecs" => 2340
       }
 
       expected =
         VehiclePosition.new(
           id: "y1714",
-          latitude: 42.31914,
-          longitude: -71.10337,
-          speed: 11,
           bearing: 33,
-          stop_id: "23391",
-          trip_id: "39998535",
           block_id: "B36-173",
-          run_id: "122-1065",
-          operator_id: "71924",
-          operator_last_name: "PAUL",
-          last_updated: 1_559_672_827,
-          stop_name: "Back Bay",
           direction_id: 0,
           headsign: "Forest Hills",
+          headway_secs: 2889.665,
+          last_updated: 1_559_672_827,
+          latitude: 42.31914,
           layover_departure_time: 1_559_673_780,
+          longitude: -71.10337,
+          operator_id: "71924",
+          operator_last_name: "PAUL",
           previous_vehicle_id: "y1272",
           previous_vehicle_schedule_adherence_secs: 59,
           previous_vehicle_schedule_adherence_string: "59.0 sec (late)",
           route_id: "39",
+          run_id: "122-1065",
           schedule_adherence_secs: 0,
-          schedule_adherence_string: "0.0 sec (ontime)"
+          schedule_adherence_string: "0.0 sec (ontime)",
+          scheduled_headway_secs: 2340,
+          speed: 11,
+          stop_id: "23391",
+          stop_name: "Back Bay",
+          trip_id: "39998535"
         )
 
       assert SwiftlyRealtimeVehicles.decode_vehicle(input) == expected

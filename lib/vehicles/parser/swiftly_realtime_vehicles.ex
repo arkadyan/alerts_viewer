@@ -29,29 +29,31 @@ defmodule Vehicles.Parser.SwiftlyRealtimeVehicles do
 
     VehiclePosition.new(
       id: Map.get(vehicle_data, "id"),
-      trip_id: Map.get(vehicle_data, "tripId"),
-      stop_id: Map.get(vehicle_data, "nextStopId"),
-      latitude: Map.get(loc, "lat"),
-      longitude: Map.get(loc, "lon"),
-      last_updated: last_updated,
-      speed: Map.get(loc, "speed"),
       bearing: Map.get(loc, "heading"),
       block_id: Map.get(vehicle_data, "blockId"),
-      run_id: Map.get(vehicle_data, "runId"),
-      operator_id: operator_id,
-      operator_last_name: operator_last_name,
-      stop_name: Map.get(vehicle_data, "nextStopName"),
       direction_id: vehicle_data |> Map.get("directionId") |> direction_id_from_string(),
       headsign: Map.get(vehicle_data, "headsign"),
+      headway_secs: Map.get(vehicle_data, "headwaySecs"),
+      last_updated: last_updated,
+      latitude: Map.get(loc, "lat"),
       layover_departure_time: Map.get(vehicle_data, "layoverDepTime"),
+      longitude: Map.get(loc, "lon"),
+      operator_id: operator_id,
+      operator_last_name: operator_last_name,
       previous_vehicle_id: Map.get(vehicle_data, "previousVehicleId"),
       previous_vehicle_schedule_adherence_secs:
         Map.get(vehicle_data, "previousVehicleSchAdhSecs"),
       previous_vehicle_schedule_adherence_string:
         Map.get(vehicle_data, "previousVehicleSchAdhStr"),
       route_id: Map.get(vehicle_data, "routeId"),
+      run_id: Map.get(vehicle_data, "runId"),
       schedule_adherence_secs: Map.get(vehicle_data, "schAdhSecs"),
-      schedule_adherence_string: Map.get(vehicle_data, "schAdhStr")
+      schedule_adherence_string: Map.get(vehicle_data, "schAdhStr"),
+      scheduled_headway_secs: Map.get(vehicle_data, "scheduledHeadwaySecs"),
+      speed: Map.get(loc, "speed"),
+      stop_id: Map.get(vehicle_data, "nextStopId"),
+      stop_name: Map.get(vehicle_data, "nextStopName"),
+      trip_id: Map.get(vehicle_data, "tripId")
     )
   end
 

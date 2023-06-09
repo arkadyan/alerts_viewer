@@ -5,29 +5,29 @@ defmodule Vehicles.VehiclePosition do
 
   defstruct [
     :id,
-    :trip_id,
-    :stop_id,
-    :latitude,
-    :longitude,
     :bearing,
-    :speed,
     :block_id,
-    :operator_id,
-    :operator_last_name,
-    :run_id,
-    :last_updated,
-    :stop_name,
     :direction_id,
     :headsign,
+    :headway_secs,
+    :last_updated,
     :layover_departure_time,
+    :latitude,
+    :longitude,
+    :operator_id,
+    :operator_last_name,
     :previous_vehicle_id,
     :previous_vehicle_schedule_adherence_secs,
     :previous_vehicle_schedule_adherence_string,
     :route_id,
+    :run_id,
     :schedule_adherence_secs,
     :schedule_adherence_string,
-    :sources,
-    :data_discrepancies
+    :scheduled_headway_secs,
+    :speed,
+    :stop_id,
+    :stop_name,
+    :trip_id
   ]
 
   @type id :: String.t()
@@ -36,27 +36,29 @@ defmodule Vehicles.VehiclePosition do
 
   @type t :: %__MODULE__{
           id: id(),
-          trip_id: String.t(),
-          stop_id: String.t(),
+          bearing: number(),
+          block_id: String.t(),
+          direction_id: direction_id(),
+          headway_secs: number(),
+          headsign: String.t(),
+          last_updated: non_neg_integer(),
+          layover_departure_time: non_neg_integer(),
           latitude: float(),
           longitude: float(),
-          bearing: number(),
-          speed: number(),
-          block_id: String.t(),
           operator_id: String.t(),
           operator_last_name: String.t(),
-          run_id: String.t(),
-          last_updated: non_neg_integer(),
-          stop_name: String.t(),
-          direction_id: direction_id(),
-          headsign: String.t(),
-          layover_departure_time: non_neg_integer(),
           previous_vehicle_id: String.t(),
           previous_vehicle_schedule_adherence_secs: number(),
           previous_vehicle_schedule_adherence_string: String.t(),
           route_id: String.t(),
+          run_id: String.t(),
           schedule_adherence_secs: number(),
-          schedule_adherence_string: String.t()
+          schedule_adherence_string: String.t(),
+          scheduled_headway_secs: number(),
+          speed: number(),
+          stop_id: String.t(),
+          stop_name: String.t(),
+          trip_id: String.t()
         }
 
   def new(fields) do
