@@ -15,7 +15,7 @@ defmodule AlertsViewer.DelayAlertAlgorithm.StandardDeviationComponent do
 
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, min_std: 10)}
+    {:ok, assign(socket, min_std: 1200)}
   end
 
   @impl true
@@ -90,7 +90,7 @@ defmodule AlertsViewer.DelayAlertAlgorithm.StandardDeviationComponent do
         )
 
       [
-        parameters: %{std: std},
+        parameters: %{Standard_Deviation: std},
         routes_with_recommended_alerts: routes_with_recommended_alerts
       ]
     end)
