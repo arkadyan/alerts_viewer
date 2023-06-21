@@ -39,7 +39,7 @@ defmodule Vehicles.VehiclePosition do
           bearing: number(),
           block_id: String.t(),
           direction_id: direction_id(),
-          headway_secs: number(),
+          headway_secs: number() | nil,
           headsign: String.t(),
           last_updated: non_neg_integer(),
           layover_departure_time: non_neg_integer(),

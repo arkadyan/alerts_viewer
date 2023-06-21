@@ -19,10 +19,8 @@ defmodule AlertsViewer.DelayAlertAlgorithm do
   @doc """
   Provide a friendly name for an algorithm module.
 
-  iex> DelayAlertAlgorithm.humane_name(:"Elixir.AlertsViewer.DelayAlertAlgorithm.MedianComponent")
-  "Median"
-  iex> DelayAlertAlgorithm.humane_name("Elixir.AlertsViewer.DelayAlertAlgorithm.MedianComponent")
-  "Median"
+  iex> DelayAlertAlgorithm.humane_name(:"Elixir.AlertsViewer.DelayAlertAlgorithm.MedianAdherenceComponent")
+  "Median Adherence"
   """
   @spec humane_name(module() | String.t()) :: String.t()
   def humane_name(module) when is_atom(module) do
@@ -36,5 +34,18 @@ defmodule AlertsViewer.DelayAlertAlgorithm do
     |> String.split(".")
     |> List.last()
     |> String.replace_suffix("Component", "")
+    |> String.split(~r{[A-Z]}, include_captures: true, trim: true)
+    |> Enum.reduce([], fn x, acc ->
+      acc ++
+        List.wrap(
+          case String.length(x) do
+            1 -> x
+            _ -> x <> " "
+          end
+        )
+    end)
+    |> List.flatten()
+    |> Enum.join()
+    |> String.trim()
   end
 end

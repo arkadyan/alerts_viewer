@@ -65,11 +65,41 @@
     |> Enum.map(&seconds_to_minutes/1)
     |> Enum.join(", ") %>
   </:col>
+  <:col :let={route} label="Individual Vehicle Instantaneous Headway (minutes)">
+    <%= @stats_by_route
+    |> RouteStats.vehicles_instantaneous_headway_secs(route)
+    |> Enum.map(&seconds_to_minutes/1)
+    |> Enum.join(", ") %>
+  </:col>
+  <:col :let={route} label="Individual Vehicle Instantaneous - Scheduled Headway (minutes)">
+    <%= @stats_by_route
+    |> RouteStats.vehicles_instantaneous_minus_scheduled_headway_secs(route)
+    |> Enum.map(&seconds_to_minutes/1)
+    |> Enum.join(", ") %>
+  </:col>
   <:col :let={route} label="Median Schedule Adherence (minutes)">
     <%= RouteStats.median_schedule_adherence(@stats_by_route, route) |> seconds_to_minutes() %>
   </:col>
-  <:col :let={route} label="Standard Deviation (minutes)">
+  <:col :let={route} label="Standard Deviation of Schedule Adherence(minutes)">
     <%= RouteStats.standard_deviation_of_schedule_adherence(@stats_by_route, route)
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Median Instantaneous Headway (minutes)">
+    <%= RouteStats.median_instantaneous_headway(@stats_by_route, route) |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Standard Deviation of Instantaneous Headway (minutes)">
+    <%= RouteStats.standard_deviation_of_instantaneous_headway(@stats_by_route, route)
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Median Instantaneous Minus Scheduled Headway (minutes)">
+    <%= RouteStats.median_instantaneous_minus_scheduled_headway(@stats_by_route, route)
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Standard Deviation of Instantaneous Minus Scheduled Headway (minutes)">
+    <%= RouteStats.standard_deviation_of_instantaneous_minus_scheduled_headway(
+      @stats_by_route,
+      route
+    )
     |> seconds_to_minutes() %>
   </:col>
   <:col :let={route} label="Current Alert">

@@ -17,7 +17,7 @@ defmodule Routes.RouteStatsPubSubTest do
   @stats_by_route %{
     "39" => %RouteStats{
       id: "39",
-      vehicles_schedule_adherence_secs: [20, 10]
+      vehicles_schedule_adherence_secs: [10, 20]
     },
     "66" => %RouteStats{
       id: "66",

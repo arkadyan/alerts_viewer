@@ -27,19 +27,21 @@ defmodule AlertsViewerWeb.BusController do
             routes_with_recommended_alerts
           )
 
-        [
-          PredictionResults.accuracy(results),
-          PredictionResults.recall(results),
-          PredictionResults.precision(results)
-        ] ++ Map.values(parameters)
+        Map.values(parameters) ++
+          [
+            PredictionResults.accuracy(results),
+            PredictionResults.recall(results),
+            PredictionResults.precision(results)
+          ]
       end)
 
     header_row =
-      [
-        "Accuracy",
-        "Recall",
-        "Precision"
-      ] ++ parameter_names(algorithm_data)
+      parameter_names(algorithm_data) ++
+        [
+          "Accuracy",
+          "Recall",
+          "Precision"
+        ]
 
     data = [header_row | data]
 
