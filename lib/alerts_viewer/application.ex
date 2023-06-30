@@ -14,7 +14,9 @@ defmodule AlertsViewer.Application do
         [
           Alerts.Supervisor,
           Routes.Supervisor,
-          Vehicles.Supervisor
+          Vehicles.Supervisor,
+          TripUpdates.Supervisor,
+          TripUpdates.GTFSSupervisor
         ]
       else
         []
@@ -60,7 +62,8 @@ defmodule AlertsViewer.Application do
       :api_url,
       :api_key,
       :swiftly_authorization_key,
-      :swiftly_realtime_vehicles_url
+      :swiftly_realtime_vehicles_url,
+      :trip_updates_url
     ]
 
     for application_key <- application_keys do

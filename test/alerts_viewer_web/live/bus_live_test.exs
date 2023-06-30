@@ -8,6 +8,7 @@ defmodule AlertsViewerWeb.BusLiveTest do
   alias Alerts.AlertsPubSub
   alias Plug.Conn
   alias Routes.RouteStatsPubSub
+  alias TripUpdates.TripUpdatesPubSub
 
   describe "bus live page" do
     setup do
@@ -16,6 +17,8 @@ defmodule AlertsViewerWeb.BusLiveTest do
       {:ok, _pid} = AlertsPubSub.start_link(subscribe_fn: subscribe_fn)
       start_supervised({Registry, keys: :duplicate, name: :route_stats_subscriptions_registry})
       {:ok, _pid} = RouteStatsPubSub.start_link()
+      start_supervised({Registry, keys: :duplicate, name: :trip_updates_subscriptions_registry})
+      {:ok, _pid} = TripUpdatesPubSub.start_link()
 
       bypass = Bypass.open()
       reassign_env(:alerts_viewer, :api_url, "http://localhost:#{bypass.port}")

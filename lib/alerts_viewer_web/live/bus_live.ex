@@ -7,6 +7,7 @@ defmodule AlertsViewerWeb.BusLive do
   alias Alerts.Alert
   alias AlertsViewer.DelayAlertAlgorithm
   alias Routes.{Route, RouteStats, RouteStatsPubSub}
+  alias TripUpdates.TripUpdatesPubSub
 
   @impl true
   def mount(_params, _session, socket) do
@@ -19,6 +20,8 @@ defmodule AlertsViewerWeb.BusLive do
     bus_routes = Routes.all_bus_routes()
     bus_alerts = if(connected?(socket), do: Alerts.subscribe() |> filtered_by_bus(), else: [])
     stats_by_route = if(connected?(socket), do: RouteStatsPubSub.subscribe(), else: %{})
+
+    block_waivered_routes = if(connected?(socket), do: TripUpdatesPubSub.subscribe(), else: [])
 
     routes_with_current_alerts = Enum.filter(bus_routes, &delay_alert?(&1, bus_alerts))
 
@@ -33,6 +36,7 @@ defmodule AlertsViewerWeb.BusLive do
         stats_by_route: stats_by_route,
         alerts_by_route: alerts_by_route,
         routes_with_current_alerts: routes_with_current_alerts,
+        block_waivered_routes: block_waivered_routes,
         routes_with_recommended_alerts: [],
         prediction_results: prediction_results(bus_routes, routes_with_current_alerts, [])
       )
@@ -79,6 +83,12 @@ defmodule AlertsViewerWeb.BusLive do
   @impl true
   def handle_info({:stats_by_route, stats_by_route}, socket) do
     socket = assign(socket, stats_by_route: stats_by_route)
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({:block_waivered_routes, block_waivered_routes}, socket) do
+    socket = assign(socket, block_waivered_routes: block_waivered_routes)
     {:noreply, socket}
   end
 

@@ -44,7 +44,6 @@
     />
   </.controls_form>
 </div>
-
 <.table
   id="bus-routes"
   rows={
@@ -118,7 +117,11 @@
       </div>
     </div>
   </:col>
-
+  <:col :let={route} label="Route has Cancelled Trip">
+    <span :if={Enum.member?(@block_waivered_routes, Route.name(route))}>
+      🚧
+    </span>
+  </:col>
   <:col :let={route} label="Recommending Alert">
     <span :if={Enum.member?(@routes_with_recommended_alerts, route)}>
       🤖

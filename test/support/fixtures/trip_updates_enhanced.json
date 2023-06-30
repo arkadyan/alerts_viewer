@@ -1,0 +1,3015 @@
+{
+    "entity": [
+        {
+            "alert": null,
+            "id": "C01-32:1:44170988:1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "1",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "108",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "106",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "58",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "99",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "188",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "95",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "6",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "110",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "88",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10003",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "93",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "109",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "107",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "97",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "101",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "102",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "57",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "87",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "104",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "91",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10590",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "89",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44170988"
+                },
+                "vehicle": {
+                    "id": "y1729",
+                    "label": "1729",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "C01-32:1:44170989:1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "1",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10003",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "6",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "99",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "108",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "87",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "57",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "102",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "104",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10590",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "91",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "88",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "188",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "110",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "89",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "101",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "93",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "97",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "95",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "58",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "107",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "106",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "109",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44170989"
+                },
+                "vehicle": {
+                    "id": "y1729",
+                    "label": "1729",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "C01-32:1:44170990:58",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "58",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "89",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "110",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "106",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "95",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "108",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "1",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "97",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "109",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "6",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10590",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "188",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "93",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "87",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "102",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "104",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "101",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "107",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "91",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10003",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "99",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "57",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "88",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44170990"
+                },
+                "vehicle": {
+                    "id": "y1729",
+                    "label": "1729",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "C01-32:1:44170997:82",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "82",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "856",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "72",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "73",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "66",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "59",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "69",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10101",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "79",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "80",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "854",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10100",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "110",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "84",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "68",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "71",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "77",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "75",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "187",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "63",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "62",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "67",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "83",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44170997"
+                },
+                "vehicle": {
+                    "id": "y1729",
+                    "label": "1729",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "C01-32:1:44170998:63",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "63",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "71",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "69",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "66",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "854",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10100",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "80",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "84",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "83",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "110",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "187",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "68",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "79",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10101",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "72",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "62",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "856",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "67",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "73",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "59",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "82",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "75",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "77",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44170998"
+                },
+                "vehicle": {
+                    "id": "y1729",
+                    "label": "1729",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "C01-32:1:44170999:59",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "59",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "82",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "63",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "72",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "110",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10100",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "77",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "68",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "69",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "79",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "187",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "73",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "71",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "67",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "80",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "854",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "10101",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "856",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "83",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "75",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "62",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "84",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "T - Inactive TM",
+                        "cause_id": 33,
+                        "departure": null,
+                        "remark": "T - Inactive TM:",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "66",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44170999"
+                },
+                "vehicle": {
+                    "id": "y1729",
+                    "label": "1729",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "S741-68:SL1:44169401:74613",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74613",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74612",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "12006",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "12005",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "17091",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74624",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74611",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "SL1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44169401"
+                },
+                "vehicle": {
+                    "id": "y1130",
+                    "label": "1130",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "S741-68:SL1:44169406:12008",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "12008",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "17094",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "27092",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "17093",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74615",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74616",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "17095",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "12007",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "17096",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "17091",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74614",
+                        "stop_sequence": null
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": "D - Disabled Bus",
+                        "cause_id": 25,
+                        "departure": null,
+                        "remark": "D - Disabled Bus: D",
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "74617",
+                        "stop_sequence": null
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": null,
+                    "route_id": "SL1",
+                    "route_pattern_id": null,
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": null,
+                    "start_time": null,
+                    "trip_id": "44169406"
+                },
+                "vehicle": {
+                    "id": "y1130",
+                    "label": "1130",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "44171643-OL1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589819760,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "63",
+                        "stop_sequence": 24
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589820060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "64",
+                        "stop_sequence": 25
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": 1,
+                    "route_id": "1",
+                    "route_pattern_id": "1-_-1",
+                    "schedule_relationship": "SCHEDULED",
+                    "start_date": "20200518",
+                    "start_time": "12:00:00",
+                    "trip_id": "44171643-OL1"
+                },
+                "vehicle": {
+                    "id": "y1730",
+                    "label": "1730",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "44609578-OL1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589914080,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2829",
+                        "stop_sequence": 25
+                    },
+                    {
+                        "arrival": {
+                            "delay": 0,
+                            "time": 1589914140,
+                            "uncertainty": 0
+                        },
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": null,
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "8310",
+                        "stop_sequence": 26
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": 1,
+                    "route_id": "111",
+                    "route_pattern_id": "111-5-1",
+                    "schedule_relationship": "ADDED",
+                    "start_date": "20200519",
+                    "start_time": "14:21:00",
+                    "trip_id": "44609578-OL1"
+                },
+                "vehicle": {
+                    "id": "y2012",
+                    "label": "2012",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "44609337-OL1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589914500,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "8310",
+                        "stop_sequence": 1
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589914620,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2832",
+                        "stop_sequence": 2
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589914740,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "12004",
+                        "stop_sequence": 3
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589914920,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "12002",
+                        "stop_sequence": 4
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915040,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5611",
+                        "stop_sequence": 5
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915100,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5612",
+                        "stop_sequence": 6
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915160,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5613",
+                        "stop_sequence": 7
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915220,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5614",
+                        "stop_sequence": 8
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915280,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5615",
+                        "stop_sequence": 9
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915340,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "56170",
+                        "stop_sequence": 10
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915400,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5618",
+                        "stop_sequence": 11
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915460,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5619",
+                        "stop_sequence": 12
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915520,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5620",
+                        "stop_sequence": 13
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915580,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5621",
+                        "stop_sequence": 14
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915640,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5623",
+                        "stop_sequence": 15
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915640,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5624",
+                        "stop_sequence": 16
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915700,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5625",
+                        "stop_sequence": 17
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915760,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5626",
+                        "stop_sequence": 18
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915760,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5627",
+                        "stop_sequence": 19
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915820,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5628",
+                        "stop_sequence": 20
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915820,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5629",
+                        "stop_sequence": 21
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915880,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5630",
+                        "stop_sequence": 22
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915880,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5631",
+                        "stop_sequence": 23
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915940,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5632",
+                        "stop_sequence": 24
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589915940,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5633",
+                        "stop_sequence": 25
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589916060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5636",
+                        "stop_sequence": 26
+                    },
+                    {
+                        "arrival": {
+                            "delay": 0,
+                            "time": 1589916060,
+                            "uncertainty": 0
+                        },
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": null,
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5547",
+                        "stop_sequence": 27
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": 0,
+                    "route_id": "111",
+                    "route_pattern_id": "111-5-0",
+                    "schedule_relationship": "ADDED",
+                    "start_date": "20200519",
+                    "start_time": "14:55:00",
+                    "trip_id": "44609337-OL1"
+                },
+                "vehicle": {
+                    "id": "y2012",
+                    "label": "2012",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "44609996-OL1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589913803,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5467",
+                        "stop_sequence": 31
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589913810,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5468",
+                        "stop_sequence": 32
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589913930,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5469",
+                        "stop_sequence": 33
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589914050,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5472",
+                        "stop_sequence": 34
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": 0,
+                    "route_id": "106",
+                    "route_pattern_id": "106-_-0",
+                    "schedule_relationship": "ADDED",
+                    "start_date": "20200519",
+                    "start_time": "14:03:00",
+                    "trip_id": "44609996-OL1"
+                },
+                "vehicle": {
+                    "id": "y2036",
+                    "label": "2036",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "44607586-OL1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "14150",
+                        "stop_sequence": 1
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2606",
+                        "stop_sequence": 2
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2605",
+                        "stop_sequence": 3
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2607",
+                        "stop_sequence": 4
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2659",
+                        "stop_sequence": 5
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2660",
+                        "stop_sequence": 6
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2661",
+                        "stop_sequence": 7
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2662",
+                        "stop_sequence": 8
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895060,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2664",
+                        "stop_sequence": 9
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895105,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2665",
+                        "stop_sequence": 10
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895165,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2666",
+                        "stop_sequence": 11
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895165,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2667",
+                        "stop_sequence": 12
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895225,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2668",
+                        "stop_sequence": 13
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895285,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2669",
+                        "stop_sequence": 14
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895285,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2670",
+                        "stop_sequence": 15
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895345,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2671",
+                        "stop_sequence": 16
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895405,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2672",
+                        "stop_sequence": 17
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895465,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2673",
+                        "stop_sequence": 18
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895525,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2628",
+                        "stop_sequence": 19
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895585,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "5104",
+                        "stop_sequence": 20
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895645,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2630",
+                        "stop_sequence": 21
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895645,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2631",
+                        "stop_sequence": 22
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895645,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2632",
+                        "stop_sequence": 23
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895705,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2634",
+                        "stop_sequence": 24
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895765,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2635",
+                        "stop_sequence": 25
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895765,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2715",
+                        "stop_sequence": 26
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589895825,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2636",
+                        "stop_sequence": 27
+                    },
+                    {
+                        "arrival": {
+                            "delay": 0,
+                            "time": 1589895885,
+                            "uncertainty": 0
+                        },
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": null,
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "2637",
+                        "stop_sequence": 28
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": 0,
+                    "route_id": "88",
+                    "route_pattern_id": "88-_-0",
+                    "schedule_relationship": "ADDED",
+                    "start_date": "20200519",
+                    "start_time": "09:10:00",
+                    "trip_id": "44607586-OL1"
+                },
+                "vehicle": {
+                    "id": "y1421",
+                    "label": "1421",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        },
+        {
+            "alert": null,
+            "id": "44166496-OL1",
+            "is_deleted": null,
+            "trip_update": {
+                "cause_description": null,
+                "cause_id": null,
+                "delay": null,
+                "remark": null,
+                "stop_time_update": [
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589912567,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "4563",
+                        "stop_sequence": 70
+                    },
+                    {
+                        "arrival": null,
+                        "cause_description": null,
+                        "cause_id": null,
+                        "departure": {
+                            "delay": 0,
+                            "time": 1589913420,
+                            "uncertainty": 0
+                        },
+                        "remark": null,
+                        "schedule_relationship": "SCHEDULED",
+                        "stop_id": "37150",
+                        "stop_sequence": 71
+                    }
+                ],
+                "timestamp": null,
+                "trip": {
+                    "direction_id": 0,
+                    "route_id": "455",
+                    "route_pattern_id": "455-7-0",
+                    "schedule_relationship": "ADDED",
+                    "start_date": "20200519",
+                    "start_time": "13:36:00",
+                    "trip_id": "44166496-OL1"
+                },
+                "vehicle": {
+                    "id": "y0860",
+                    "label": "0860",
+                    "license_plate": null
+                }
+            },
+            "vehicle": null
+        }
+    ],
+    "header": {
+        "gtfs_realtime_version": "2.0",
+        "incrementality": "FULL_DATASET",
+        "timestamp": 1589913930
+    }
+}
