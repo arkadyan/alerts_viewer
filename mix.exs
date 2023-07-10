@@ -61,7 +61,7 @@ defmodule AlertsViewer.MixProject do
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.16", only: :test},
       {:httpoison, "~> 2.1"},
-      {:stream_data, "~> 0.5.0", only: :test},
+      {:stream_data, "~> 0.6.0", only: :test},
       # Specify a reference until https://github.com/msharp/elixir-statistics/pull/28 is included in a version number
       {:statistics, "~> 0.6.2",
        git: "https://github.com/msharp/elixir-statistics", ref: "897851f"},
