@@ -5,11 +5,11 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
 
   @doc """
   Return a human-friendly date-time string relative to "now".
-  Use the time if today, the month and day if this year, and the month and
+  Use the time (converted to EST) if today, the month and day if this year, and the month and
   year if a different year.
 
   iex> friendly_date_time(~U[2022-01-12 14:01:00.00Z], ~U[2022-01-12 15:02:00.00Z])
-  "2:01 PM"
+  "9:01 AM"
   iex> friendly_date_time(~U[2022-01-07 14:01:00.00Z], ~U[2022-01-12 15:02:00.00Z])
   "Jan 7"
   iex> friendly_date_time(~U[2021-12-07 14:01:00.00Z], ~U[2022-01-12 15:02:00.00Z])
@@ -24,7 +24,7 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
 
   def friendly_date_time(dt, now) do
     format = date_time_format(dt, now)
-    Calendar.strftime(dt, format)
+    Calendar.strftime(DateTime.shift_zone!(dt, "America/New_York"), format)
   end
 
   @spec date_time_format(DateTime.t(), DateTime.t()) :: String.t()
