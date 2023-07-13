@@ -18,7 +18,13 @@ defmodule AlertsViewerWeb.BusLive do
     current_algorithm = hd(delay_alert_algorithm_components)
 
     bus_routes = Routes.all_bus_routes()
-    bus_alerts = if(connected?(socket), do: Alerts.subscribe() |> filtered_by_bus(), else: [])
+
+    bus_alerts =
+      if(connected?(socket),
+        do: Alerts.subscribe() |> filtered_by_bus() |> filtered_by_delay_type(),
+        else: []
+      )
+
     stats_by_route = if(connected?(socket), do: RouteStatsPubSub.subscribe(), else: %{})
 
     block_waivered_routes = if(connected?(socket), do: TripUpdatesPubSub.subscribe(), else: [])
@@ -65,7 +71,7 @@ defmodule AlertsViewerWeb.BusLive do
 
   @impl true
   def handle_info({:alerts, alerts}, socket) do
-    bus_alerts = filtered_by_bus(alerts)
+    bus_alerts = filtered_by_bus(alerts) |> filtered_by_delay_type()
 
     routes_with_current_alerts =
       Enum.filter(socket.assigns.bus_routes, &delay_alert?(&1, bus_alerts))
@@ -204,6 +210,9 @@ defmodule AlertsViewerWeb.BusLive do
 
   @spec filtered_by_bus([Alert.t()]) :: [Alert.t()]
   defp filtered_by_bus(alerts), do: Alerts.by_service(alerts, "3")
+
+  @spec filtered_by_delay_type([Alert.t()]) :: [Alert.t()]
+  defp filtered_by_delay_type(alerts), do: Alerts.by_effect(alerts, "delay")
 
   @spec maybe_filtered([Route.t()], boolean(), [Route.t()], [Route.t()]) :: [Route.t()]
   defp maybe_filtered(routes, true, routes_with_current_alerts, routes_with_recommended_alerts) do
