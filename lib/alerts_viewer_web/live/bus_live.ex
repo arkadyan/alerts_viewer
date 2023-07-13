@@ -32,6 +32,7 @@ defmodule AlertsViewerWeb.BusLive do
         algorithm_options: algorithm_options,
         current_algorithm: current_algorithm,
         filter_rows?: false,
+        show_std_dev?: false,
         bus_routes: bus_routes,
         stats_by_route: stats_by_route,
         alerts_by_route: alerts_by_route,
@@ -54,6 +55,12 @@ defmodule AlertsViewerWeb.BusLive do
   def handle_event("set-filter-rows", %{"filter_rows" => filter_rows_str}, socket) do
     filter_rows? = filter_rows_str == "true"
     {:noreply, assign(socket, filter_rows?: filter_rows?)}
+  end
+
+  @impl true
+  def handle_event("show-std-dev", %{"show_std_dev" => std_dev_str}, socket) do
+    show_std_dev? = std_dev_str == "true"
+    {:noreply, assign(socket, show_std_dev?: show_std_dev?)}
   end
 
   @impl true
@@ -150,7 +157,29 @@ defmodule AlertsViewerWeb.BusLive do
   def seconds_to_minutes(nil), do: nil
 
   def seconds_to_minutes(seconds) do
-    (seconds / 60) |> Float.round(1)
+    (seconds / 60) |> round
+  end
+
+  def display_minutes(assigns) do
+    list_of_minutes =
+      assigns.stats_by_route
+      |> assigns.stats_function.(assigns.route)
+      |> Enum.sort(:desc)
+      |> Enum.map(&seconds_to_minutes/1)
+
+    assigns = assign(assigns, :list_of_minutes, list_of_minutes)
+
+    ~H"""
+    <%= for m <- @list_of_minutes do %>
+      <span class="after:content-[','] last:after:content-['']">
+        <%= if m >= 20.0 do %>
+          <b><%= m %></b>
+        <% else %>
+          <%= m %>
+        <% end %>
+      </span>
+    <% end %>
+    """
   end
 
   def alert_duration(alert) do

@@ -43,9 +43,22 @@
       label="Filter rows without alerts"
     />
   </.controls_form>
+  <span class="ml-12">
+    <.controls_form phx-change="show-std-dev">
+      <.input
+        type="checkbox"
+        name="show_std_dev"
+        value={@show_std_dev?}
+        checked={@show_std_dev?}
+        label="Show standard deviation values"
+      />
+    </.controls_form>
+  </span>
 </div>
+
 <.table
   id="bus-routes"
+  sticky={true}
   rows={
     maybe_filtered(
       @bus_routes,
@@ -59,34 +72,45 @@
     <%= Route.name(route) %>
   </:col>
   <:col :let={route} label="Individual Vehicle Schedule Adherence (minutes)">
-    <%= @stats_by_route
-    |> RouteStats.vehicles_schedule_adherence_secs(route)
-    |> Enum.map(&seconds_to_minutes/1)
-    |> Enum.join(", ") %>
+    <.display_minutes
+      route={route}
+      stats_by_route={@stats_by_route}
+      stats_function={&RouteStats.vehicles_schedule_adherence_secs/2}
+    />
   </:col>
   <:col :let={route} label="Individual Vehicle Instantaneous Headway (minutes)">
-    <%= @stats_by_route
-    |> RouteStats.vehicles_instantaneous_headway_secs(route)
-    |> Enum.map(&seconds_to_minutes/1)
-    |> Enum.join(", ") %>
+    <.display_minutes
+      route={route}
+      stats_by_route={@stats_by_route}
+      stats_function={&RouteStats.vehicles_instantaneous_headway_secs/2}
+    />
   </:col>
   <:col :let={route} label="Individual Vehicle Instantaneous - Scheduled Headway (minutes)">
-    <%= @stats_by_route
-    |> RouteStats.vehicles_instantaneous_minus_scheduled_headway_secs(route)
-    |> Enum.map(&seconds_to_minutes/1)
-    |> Enum.join(", ") %>
+    <.display_minutes
+      route={route}
+      stats_by_route={@stats_by_route}
+      stats_function={&RouteStats.vehicles_instantaneous_minus_scheduled_headway_secs/2}
+    />
   </:col>
   <:col :let={route} label="Median Schedule Adherence (minutes)">
     <%= RouteStats.median_schedule_adherence(@stats_by_route, route) |> seconds_to_minutes() %>
   </:col>
-  <:col :let={route} label="Standard Deviation of Schedule Adherence(minutes)">
+  <:col
+    :let={route}
+    :if={@show_std_dev?}
+    label="Standard Deviation of Schedule Adherence(minutes)"
+  >
     <%= RouteStats.standard_deviation_of_schedule_adherence(@stats_by_route, route)
     |> seconds_to_minutes() %>
   </:col>
   <:col :let={route} label="Median Instantaneous Headway (minutes)">
     <%= RouteStats.median_instantaneous_headway(@stats_by_route, route) |> seconds_to_minutes() %>
   </:col>
-  <:col :let={route} label="Standard Deviation of Instantaneous Headway (minutes)">
+  <:col
+    :let={route}
+    :if={@show_std_dev?}
+    label="Standard Deviation of Instantaneous Headway (minutes)"
+  >
     <%= RouteStats.standard_deviation_of_instantaneous_headway(@stats_by_route, route)
     |> seconds_to_minutes() %>
   </:col>
@@ -94,12 +118,21 @@
     <%= RouteStats.median_instantaneous_minus_scheduled_headway(@stats_by_route, route)
     |> seconds_to_minutes() %>
   </:col>
-  <:col :let={route} label="Standard Deviation of Instantaneous Minus Scheduled Headway (minutes)">
+  <:col
+    :let={route}
+    :if={@show_std_dev?}
+    label="Standard Deviation of Instantaneous Minus Scheduled Headway (minutes)"
+  >
     <%= RouteStats.standard_deviation_of_instantaneous_minus_scheduled_headway(
       @stats_by_route,
       route
     )
     |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Route has Cancelled Trip">
+    <span :if={Enum.member?(@block_waivered_routes, Route.name(route))}>
+      🚧
+    </span>
   </:col>
   <:col :let={route} label="Current Alert">
     <div
@@ -116,11 +149,6 @@
         <%= severity_to_minutes(hd(@alerts_by_route[route.id]).severity) %>
       </div>
     </div>
-  </:col>
-  <:col :let={route} label="Route has Cancelled Trip">
-    <span :if={Enum.member?(@block_waivered_routes, Route.name(route))}>
-      🚧
-    </span>
   </:col>
   <:col :let={route} label="Recommending Alert">
     <span :if={Enum.member?(@routes_with_recommended_alerts, route)}>
