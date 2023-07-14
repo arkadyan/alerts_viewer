@@ -177,12 +177,8 @@ defmodule AlertsViewerWeb.BusLive do
 
     ~H"""
     <%= for m <- @list_of_minutes do %>
-      <span class="after:content-[','] last:after:content-['']">
-        <%= if m >= 20.0 do %>
-          <b><%= m %></b>
-        <% else %>
-          <%= m %>
-        <% end %>
+      <span class={"after:content-[','] last:after:content-[''] #{if m >= 20.0, do: ~s(font-bold), else: ~s()}"}>
+        <%= m %>
       </span>
     <% end %>
     """
