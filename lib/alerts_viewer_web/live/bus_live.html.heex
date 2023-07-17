@@ -138,11 +138,11 @@
     <div
       :if={Enum.member?(@routes_with_current_alerts, route)}
       class="flex flex-row gap-1 items-end"
-      data-bs-toggle="tooltip"
-      data-bs-placement="top"
-      title={"Open for #{alert_duration(hd(@alerts_by_route[route.id]))} hours "}
     >
       <div>
+        <span class="absolute hidden group-hover:flex -left-2 -top-2 -translate-y-full w-36 px-2 py-1 bg-gray-700 rounded-lg text-center text-white text-sm z-50">
+          Open for <%= alert_duration(hd(@alerts_by_route[route.id])) %> hours
+        </span>
         <.alert_icon />
       </div>
       <div>
