@@ -551,7 +551,7 @@ defmodule AlertsViewerWeb.CoreComponents do
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
       <table class="mt-11 w-[40rem] sm:w-full">
-        <thead class={"text-left text-[0.8125rem] leading-6 text-zinc-500 #{if(@sticky, do: ~s(sticky top-0  bg-white), else: ~s())}"}>
+        <thead class={"text-left text-[0.8125rem] leading-6 text-zinc-500 z-10 #{if(@sticky, do: ~s(sticky top-0  bg-white), else: ~s())}"}>
           <tr>
             <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
             <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>
@@ -560,7 +560,7 @@ defmodule AlertsViewerWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700 -z-10"
+          class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700"
         >
           <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-zinc-50">
             <td
