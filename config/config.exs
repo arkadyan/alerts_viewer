@@ -21,7 +21,9 @@ config :alerts_viewer,
     AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousHeadwayComponent,
     AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousHeadwayComponent,
     AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousMinusScheduledHeadwayComponent,
-    AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousMinusScheduledHeadwayComponent
+    AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousMinusScheduledHeadwayComponent,
+    AlertsViewer.DelayAlertAlgorithm.MaxAdherenceComponent,
+    AlertsViewer.DelayAlertAlgorithm.MaxInstantaneousMinusScheduledHeadwayComponent
   ],
   swiftly_authorization_key: {:system, "SWIFTLY_AUTHORIZATION_KEY"},
   swiftly_realtime_vehicles_url: {:system, "SWIFTLY_REALTIME_VEHICLES_URL"},

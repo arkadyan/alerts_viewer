@@ -16,7 +16,17 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianAndStandardDeviationAdherenceCo
 
   @impl true
   def mount(socket) do
-    {:ok, assign(socket, min_std_val: 1200, min_median_val: 1200)}
+    socket =
+      assign(
+        socket,
+        min_std_val: 1200,
+        min_median_val: 1200,
+        snapshot_min: @snapshot_min,
+        snapshot_max: @snapshot_max,
+        snapshot_interval: @snapshot_interval
+      )
+
+    {:ok, socket}
   end
 
   @impl true
@@ -51,8 +61,8 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianAndStandardDeviationAdherenceCo
           type="range"
           name="min_median_val"
           value={@min_median_val}
-          min={snapshot_min()}
-          max={snapshot_max()}
+          min={@snapshot_min}
+          max={@snapshot_max}
           label="Minumum Median Value"
         />
         <span class="ml-1">
@@ -63,8 +73,8 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianAndStandardDeviationAdherenceCo
           type="range"
           name="min_std_val"
           value={@min_std_val}
-          min={snapshot_min()}
-          max={snapshot_max()}
+          min={@snapshot_min}
+          max={@snapshot_max}
           label="Minumum Standard Deviation"
         />
         <span class="ml-1">
@@ -126,7 +136,4 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianAndStandardDeviationAdherenceCo
     std = RouteStats.standard_deviation_of_schedule_adherence(stats_by_route, route)
     !is_nil(median) and median >= min_median_val && !is_nil(std) and std >= min_std_val
   end
-
-  defp snapshot_min, do: @snapshot_min
-  defp snapshot_max, do: @snapshot_max
 end

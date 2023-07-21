@@ -1,5 +1,10 @@
 defmodule AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.OneSliderComponent do
-  defmacro __using__(_opts) do
+  defmacro __using__(opts) do
+    snapshot_min = Keyword.get(opts, :snapshot_min)
+    snapshot_max = Keyword.get(opts, :snapshot_max)
+    snapshot_interval = Keyword.get(opts, :snapshot_interval)
+    min_value = Keyword.get(opts, :min_value)
+
     quote do
       @moduledoc """
       Component for shared functions between algorithm components with one slider.
@@ -12,13 +17,18 @@ defmodule AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.OneSliderComp
 
       alias Routes.{Route, RouteStats}
 
-      @snapshot_min 50
-      @snapshot_max 1500
-      @snapshot_interval 50
-
       @impl true
       def mount(socket) do
-        {:ok, assign(socket, min_value: 1200)}
+        socket =
+          assign(
+            socket,
+            snapshot_min: unquote(snapshot_min),
+            snapshot_max: unquote(snapshot_max),
+            snapshot_interval: unquote(snapshot_interval),
+            min_value: unquote(min_value)
+          )
+
+        {:ok, socket}
       end
 
       @impl true
@@ -50,27 +60,6 @@ defmodule AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.OneSliderComp
 
         {:noreply, assign(socket, min_value: min_value)}
       end
-
-      @impl true
-      def snapshot(routes, stats_by_route) do
-        @snapshot_min..@snapshot_max//@snapshot_interval
-        |> Enum.to_list()
-        |> Enum.map(fn value ->
-          routes_with_recommended_alerts =
-            Enum.filter(
-              routes,
-              &recommending_alert?(&1, stats_by_route, value)
-            )
-
-          [
-            parameters: %{value: value},
-            routes_with_recommended_alerts: routes_with_recommended_alerts
-          ]
-        end)
-      end
-
-      defp snapshot_min, do: @snapshot_min
-      defp snapshot_max, do: @snapshot_max
     end
   end
 end
