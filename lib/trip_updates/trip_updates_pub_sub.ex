@@ -108,10 +108,18 @@ defmodule TripUpdates.TripUpdatesPubSub do
 
   def is_it_fresh?(trip_update, current_time \\ DateTime.now!("America/New_York")) do
     # returns true if most recent arrival time in a stop update is in the future
-    last_stop_arrival(trip_update) >= current_time
+    with %DateTime{} = last_stop <- last_stop_arrival(trip_update),
+         :gt <- DateTime.compare(last_stop, current_time) do
+      true
+    else
+      _ -> false
+    end
   end
 
   defp last_stop_arrival(trip_update) do
-    trip_update.stop_time_update |> Enum.map(& &1.arrival_time) |> Enum.max(DateTime)
+    trip_update.stop_time_update
+    |> Enum.map(& &1.arrival_time)
+    |> Enum.reject(&is_nil(&1))
+    |> Enum.max(DateTime, fn -> nil end)
   end
 end

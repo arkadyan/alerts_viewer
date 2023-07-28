@@ -184,5 +184,27 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
 
       assert TripUpdatesPubSub.is_it_fresh?(stale_tripupdate, current_time) == false
     end
+
+    test "returns false if all stop time update arrival times are nil" do
+      bad_stoptime =
+        Map.put(
+          @stop_time_update_with_waiver,
+          :arrival_time,
+          nil
+        )
+
+      bad_tripupdate = %TripUpdate{
+        stop_time_update: [
+          bad_stoptime,
+          bad_stoptime
+        ],
+        trip: %{
+          trip_id: "t1",
+          route_id: "2"
+        }
+      }
+
+      assert TripUpdatesPubSub.is_it_fresh?(bad_tripupdate) == false
+    end
   end
 end
