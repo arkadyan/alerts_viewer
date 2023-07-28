@@ -33,7 +33,12 @@ defmodule AlertsViewer.Application do
           AlertsViewerWeb.Endpoint
           # Start a worker by calling: AlertsViewer.Worker.start_link(arg)
           # {AlertsViewer.Worker, arg}
-        ]
+        ] ++
+        if Application.get_env(:alerts_viewer, :start_data_processes) do
+          [SnapshotLogger.SnapshotLogger]
+        else
+          []
+        end
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

@@ -118,7 +118,7 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianAndStandardDeviationAdherenceCo
         )
 
       [
-        parameters: %{Median_And_Standard_Deviation: val},
+        parameters: %{value: val},
         routes_with_recommended_alerts: routes_with_recommended_alerts
       ]
     end)
