@@ -11,7 +11,6 @@ defmodule AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.OneSliderComp
       """
 
       use AlertsViewerWeb, :live_component
-      alias AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.SnapshotButtonComponent
 
       @behaviour AlertsViewer.DelayAlertAlgorithm
 
@@ -29,6 +28,24 @@ defmodule AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.OneSliderComp
           )
 
         {:ok, socket}
+      end
+
+      @impl true
+      def snapshot(routes, stats_by_route) do
+        @snapshot_min..@snapshot_max//@snapshot_interval
+        |> Enum.to_list()
+        |> Enum.map(fn value ->
+          routes_with_recommended_alerts =
+            Enum.filter(
+              routes,
+              &recommending_alert?(&1, stats_by_route, value)
+            )
+
+          [
+            parameters: %{value: value},
+            routes_with_recommended_alerts: routes_with_recommended_alerts
+          ]
+        end)
       end
 
       @impl true

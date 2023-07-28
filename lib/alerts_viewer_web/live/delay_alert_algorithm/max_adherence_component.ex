@@ -31,27 +31,8 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MaxAdherenceComponent do
           <%= @min_value %>
         </span>
       </.controls_form>
-      <SnapshotButtonComponent.snapshot_button module_name={__MODULE__} />
     </div>
     """
-  end
-
-  @impl true
-  def snapshot(routes, stats_by_route) do
-    @snapshot_min..@snapshot_max//@snapshot_interval
-    |> Enum.to_list()
-    |> Enum.map(fn value ->
-      routes_with_recommended_alerts =
-        Enum.filter(
-          routes,
-          &recommending_alert?(&1, stats_by_route, value)
-        )
-
-      [
-        parameters: %{value: value},
-        routes_with_recommended_alerts: routes_with_recommended_alerts
-      ]
-    end)
   end
 
   @spec recommending_alert?(Route.t(), RouteStats.stats_by_route(), non_neg_integer()) ::
