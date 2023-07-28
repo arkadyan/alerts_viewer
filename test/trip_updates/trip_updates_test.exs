@@ -9,7 +9,7 @@ defmodule TripUpdates.TripUpdatesTest do
   }
 
   @stop_time_update_with_waiver %StopTimeUpdate{
-    arrival_time: nil,
+    arrival_time: DateTime.new!(~D[2023-07-21], ~T[09:26:08.003], "America/New_York"),
     departure_time: nil,
     cause_id: 12,
     cause_description: nil,
@@ -22,7 +22,7 @@ defmodule TripUpdates.TripUpdatesTest do
   }
 
   @stop_time_update_without_waiver %StopTimeUpdate{
-    arrival_time: nil,
+    arrival_time: DateTime.new!(~D[2023-07-21], ~T[09:26:08.003], "America/New_York"),
     departure_time: nil,
     cause_id: nil,
     cause_description: nil,

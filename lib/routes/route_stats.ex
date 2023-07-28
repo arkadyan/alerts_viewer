@@ -107,12 +107,19 @@ defmodule Routes.RouteStats do
   end
 
   @spec median_schedule_adherence(t()) :: number() | nil
+  @spec median_schedule_adherence(stats_by_route(), Route.id()) :: number() | nil
   @spec median_schedule_adherence(stats_by_route(), Route.t()) :: number() | nil
   def median_schedule_adherence(route_stats) do
     route_stats
     |> vehicles_schedule_adherence_secs()
     |> Statistics.median()
     |> round_to_1_place()
+  end
+
+  def median_schedule_adherence(stats_by_route, route_id) when is_binary(route_id) do
+    stats_by_route
+    |> stats_for_route(route_id)
+    |> median_schedule_adherence()
   end
 
   def median_schedule_adherence(stats_by_route, route) do
@@ -139,8 +146,6 @@ defmodule Routes.RouteStats do
   end
 
   ########### Algorithms for Instantaneous_headway
-  @spec median_instantaneous_headway(t()) :: number() | nil
-  @spec median_instantaneous_headway(stats_by_route(), Route.t()) :: number() | nil
   def median_instantaneous_headway(route_stats) do
     route_stats
     |> vehicles_instantaneous_headway_secs()
@@ -221,6 +226,8 @@ defmodule Routes.RouteStats do
   end
 
   @spec median_instantaneous_minus_scheduled_headway(t()) :: number() | nil
+  @spec median_instantaneous_minus_scheduled_headway(stats_by_route(), String.t()) ::
+          number() | nil
   @spec median_instantaneous_minus_scheduled_headway(stats_by_route(), Route.t()) ::
           number() | nil
   def median_instantaneous_minus_scheduled_headway(route_stats) do
@@ -228,6 +235,13 @@ defmodule Routes.RouteStats do
     |> vehicles_instantaneous_minus_scheduled_headway_secs()
     |> Statistics.median()
     |> round_to_1_place()
+  end
+
+  def median_instantaneous_minus_scheduled_headway(stats_by_route, route_name)
+      when is_binary(route_name) do
+    stats_by_route
+    |> stats_for_route(route_name)
+    |> median_instantaneous_minus_scheduled_headway()
   end
 
   def median_instantaneous_minus_scheduled_headway(stats_by_route, route) do
@@ -255,8 +269,12 @@ defmodule Routes.RouteStats do
 
   ################ Functions to get stats per vehicle
   @spec stats_for_route(stats_by_route(), Route.t()) :: t()
+  @spec stats_for_route(stats_by_route(), String.t()) :: t()
   def stats_for_route(stats_by_route, %Route{id: route_id}),
     do: Map.get(stats_by_route, route_id, %__MODULE__{})
+
+  def stats_for_route(stats_by_route, route_name) when is_binary(route_name),
+    do: Map.get(stats_by_route, route_name, %__MODULE__{})
 
   @spec schedule_adherence_secs_of_vehicles([Vehicle.t()]) :: [integer()]
   defp schedule_adherence_secs_of_vehicles(vehicles) do

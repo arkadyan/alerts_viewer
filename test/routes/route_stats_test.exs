@@ -124,6 +124,12 @@ defmodule Routes.RouteStatsTest do
 
       assert RouteStats.median_schedule_adherence(stats_by_route, %Route{id: "1"}) == 2
     end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{"1" => %RouteStats{id: "1", vehicles_schedule_adherence_secs: [1, 2, 3]}}
+
+      assert RouteStats.median_schedule_adherence(stats_by_route, "1") == 2
+    end
   end
 
   describe "max_schedule_adherence" do
@@ -315,6 +321,17 @@ defmodule Routes.RouteStatsTest do
                id: "1"
              }) == 2
     end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{
+        "1" => %RouteStats{
+          id: "1",
+          vehicles_instantaneous_minus_scheduled_headway_secs: [1, 2, 3]
+        }
+      }
+
+      assert RouteStats.median_instantaneous_minus_scheduled_headway(stats_by_route, "1") == 2
+    end
   end
 
   describe "standard_deviation_of_instantaneous_minus_scheduled_headway rounded to 1 place" do
@@ -351,7 +368,7 @@ defmodule Routes.RouteStatsTest do
   end
 
   describe "stats_for_route/2" do
-    test "given stats_by_route, returns the stats for a single route" do
+    test "given stats_by_route and a route, returns the stats for a single route" do
       route_stats = %RouteStats{
         id: "1",
         vehicles_schedule_adherence_secs: [],
@@ -361,6 +378,18 @@ defmodule Routes.RouteStatsTest do
       stats_by_route = %{"1" => route_stats}
 
       assert RouteStats.stats_for_route(stats_by_route, %Route{id: "1"}) == route_stats
+    end
+
+    test "given stats_by_route and a route id, returns the stats for a single route" do
+      route_stats = %RouteStats{
+        id: "1",
+        vehicles_schedule_adherence_secs: [],
+        vehicles_instantaneous_headway_secs: []
+      }
+
+      stats_by_route = %{"1" => route_stats}
+
+      assert RouteStats.stats_for_route(stats_by_route, "1") == route_stats
     end
 
     test "returns an empty RouteStats struct if the requested route isn't found" do

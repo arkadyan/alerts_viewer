@@ -3,7 +3,7 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
   alias TripUpdates.{StopTimeUpdate, TripUpdate, TripUpdatesPubSub}
 
   @stop_time_update_with_waiver %StopTimeUpdate{
-    arrival_time: nil,
+    arrival_time: DateTime.now!("America/New_York") |> DateTime.add(2, :hour),
     departure_time: nil,
     cause_id: 12,
     cause_description: nil,
@@ -16,7 +16,7 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
   }
 
   @stop_time_update_without_waiver %StopTimeUpdate{
-    arrival_time: nil,
+    arrival_time: DateTime.now!("America/New_York"),
     departure_time: nil,
     cause_id: nil,
     cause_description: nil,
@@ -119,6 +119,70 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
       TripUpdatesPubSub.update_block_waivered_routes(@all_updates, pid)
 
       assert_receive {:block_waivered_routes, @block_waivered_routes}
+    end
+  end
+
+  describe "is_it_fresh" do
+    test "returns true if most recent stop time is in the future" do
+      current_time = DateTime.new!(~D[2023-07-21], ~T[09:26:08.003], "America/New_York")
+
+      fresh_stoptime =
+        Map.put(
+          @stop_time_update_with_waiver,
+          :arrival_time,
+          DateTime.add(current_time, 1, :hour)
+        )
+
+      stale_stoptime =
+        Map.put(
+          @stop_time_update_with_waiver,
+          :arrival_time,
+          DateTime.add(current_time, -1, :hour)
+        )
+
+      stale_tripupdate = %TripUpdate{
+        stop_time_update: [
+          stale_stoptime,
+          fresh_stoptime
+        ],
+        trip: %{
+          trip_id: "t1",
+          route_id: "2"
+        }
+      }
+
+      assert TripUpdatesPubSub.is_it_fresh?(stale_tripupdate, current_time) == true
+    end
+
+    test "returns false if most recent stop time in the past" do
+      current_time = DateTime.new!(~D[2023-07-21], ~T[16:26:08.003], "America/New_York")
+
+      stale_stoptime =
+        Map.put(
+          @stop_time_update_with_waiver,
+          :arrival_time,
+          DateTime.add(current_time, -2, :hour)
+        )
+
+      staler_stoptime =
+        Map.put(
+          @stop_time_update_with_waiver,
+          :arrival_time,
+          DateTime.add(current_time, -3, :hour)
+        )
+
+      stale_tripupdate = %TripUpdate{
+        stop_time_update: [
+          stale_stoptime,
+          staler_stoptime
+        ],
+        trip: %{
+          trip_id: "t1",
+          route_id: "2"
+        }
+      }
+
+      assert TripUpdatesPubSub.is_it_fresh?(stale_tripupdate, current_time) == false
     end
   end
 end

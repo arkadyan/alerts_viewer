@@ -254,6 +254,15 @@ defmodule Alerts.Alert do
   def matches_route_and_effect(%__MODULE__{} = alert, route_id, effect),
     do: matches_route(alert, route_id) and matches_effect(alert, effect)
 
+  @doc """
+  Duration of alert in hours, to 1 decimal point
+  """
+  @spec alert_duration(t()) :: float()
+  def alert_duration(alert, current_time \\ DateTime.now!("America/New_York")) do
+    (DateTime.diff(current_time, alert.created_at) / 3600)
+    |> Float.round(1)
+  end
+
   @spec activities_inclued_facility_activities(informed_entity()) :: boolean()
   defp activities_inclued_facility_activities(%{activities: activities}),
     do: Enum.any?(activities, &Enum.member?(@facility_activies, &1))

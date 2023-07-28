@@ -2,32 +2,34 @@ defmodule AlertsViewerWeb.Router do
   use AlertsViewerWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_live_flash
-    plug :put_root_layout, {AlertsViewerWeb.Layouts, :root}
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_live_flash)
+    plug(:put_root_layout, {AlertsViewerWeb.Layouts, :root})
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", AlertsViewerWeb do
-    get "/_health", HealthController, :index
+    get("/_health", HealthController, :index)
   end
 
   scope "/", AlertsViewerWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    get "/", PageController, :home
+    get("/", PageController, :home)
 
-    live "/alerts", AlertsLive, :index
-    live "/alerts/:id", AlertsLive, :show
+    live("/alerts", AlertsLive, :index)
+    live("/alerts/:id", AlertsLive, :show)
 
-    live "/bus", BusLive
-    get "/bus/snapshot/:algorithm", BusController, :snapshot
+    live("/bus", BusLive)
+    get("/bus/snapshot/:algorithm", BusController, :snapshot)
+
+    live("/alerts-to-close", AlertsToCloseLive)
   end
 
   # Other scopes may use custom stacks.
@@ -45,10 +47,10 @@ defmodule AlertsViewerWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through :browser
+      pipe_through(:browser)
 
-      live_dashboard "/dashboard", metrics: AlertsViewerWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      live_dashboard("/dashboard", metrics: AlertsViewerWeb.Telemetry)
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end

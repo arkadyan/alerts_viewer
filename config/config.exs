@@ -28,6 +28,11 @@ config :alerts_viewer,
   swiftly_authorization_key: {:system, "SWIFTLY_AUTHORIZATION_KEY"},
   swiftly_realtime_vehicles_url: {:system, "SWIFTLY_REALTIME_VEHICLES_URL"},
   start_data_processes: true,
+  stop_recommendation_algorithm_components: [
+    AlertsViewer.StopRecommendationAlgorithm.AlertDurationComponent,
+    AlertsViewer.StopRecommendationAlgorithm.MedianInstantaneousMinusScheduledMedianHeadwayDiffComponent,
+    AlertsViewer.StopRecommendationAlgorithm.MedianAdherenceComponent
+  ],
   trip_updates_url: {:system, "TRIP_UPDATES_URL"}
 
 # Configures the endpoint

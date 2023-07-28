@@ -1,0 +1,55 @@
+<.header>
+  Canidates to Close
+</.header>
+
+<div class="flex gap-8">
+  <.controls_form phx-change="select-algorithm">
+    <.input
+      type="select"
+      name="algorithm"
+      label="Algorithm"
+      value={@current_algorithm}
+      options={@algorithm_options}
+    />
+  </.controls_form>
+
+  <.live_component
+    module={@current_algorithm}
+    id={:algorithm_controls}
+    alerts_by_route={@alerts_by_route}
+    stats_by_route={@stats_by_route}
+  />
+</div>
+
+<.table id="bus_alerts" sticky={true} rows={@alerts_by_route |> Keyword.keys()}>
+  <:col :let={route} label="Route Name">
+    <%= route %>
+  </:col>
+  <:col :let={route} label="Alert Ids (sorted by duration)">
+    <%= Enum.map(@alerts_by_route[route], & &1.id) |> Enum.join(", ") %>
+  </:col>
+  <:col :let={route} label="Median Adherence (minutes)">
+    <%= RouteStats.median_schedule_adherence(@stats_by_route, Atom.to_string(route))
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Median Instantaneous Headway (minutes)">
+    <%= RouteStats.median_instantaneous_headway(@stats_by_route, Atom.to_string(route))
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Route has Cancelled Trip">
+    <span :if={Enum.member?(@block_waivered_routes, Atom.to_string(route))}>
+      ❌
+    </span>
+  </:col>
+  <:col :let={route} label="Alert Duration (hours)">
+    <%= Enum.map(@alerts_by_route[route], &Alert.alert_duration(&1)) |> Enum.join(", ") %>
+  </:col>
+  <:col :let={route} label="Recommending Alert Closure">
+    <span :if={Enum.member?(@routes_with_recommended_closures, route)}>
+      Y
+    </span>
+    <span :if={!Enum.member?(@routes_with_recommended_closures, route)}>
+      N
+    </span>
+  </:col>
+</.table>

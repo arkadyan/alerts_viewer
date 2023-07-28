@@ -159,13 +159,6 @@ defmodule AlertsViewerWeb.BusLive do
   def severity_to_minutes(8), do: "30+"
   def severity_to_minutes(severity) when severity >= 9, do: "60+"
 
-  @spec seconds_to_minutes(nil | number) :: nil | float
-  def seconds_to_minutes(nil), do: nil
-
-  def seconds_to_minutes(seconds) do
-    (seconds / 60) |> round
-  end
-
   def display_minutes(assigns) do
     list_of_minutes =
       assigns.stats_by_route
@@ -182,11 +175,6 @@ defmodule AlertsViewerWeb.BusLive do
       </span>
     <% end %>
     """
-  end
-
-  def alert_duration(alert) do
-    (DateTime.diff(DateTime.now!("America/New_York"), alert.created_at) / 3600)
-    |> Float.round(1)
   end
 
   @spec prediction_results([Route.t()], [Route.t()], [Route.t()]) :: PredictionResults.t()
