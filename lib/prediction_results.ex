@@ -25,19 +25,58 @@ defmodule PredictionResults do
   end
 
   @doc """
-  The percentage of all predictions that were correct. Rounded to the nearest
-  whole number.
+  An accuracy measure that normalizes true positive
+  and true negative predictions by the number of
+  positive and negative samples, respectively,
+  and divides their sum by two.
 
-  Formula: TP+TN / TP+TN+FP+FN
+  Formula: ((TP/ TP+FN) + (TN / TN+FP)) / 2
+  or alternately: (recall + specificity) / 2
 
-  iex> PredictionResults.accuracy([:tp, :tn, :fp, :fn])
+  iex> PredictionResults.balanced_accuracy([:tp, :tp, :tn, :fp, :fp, :fn])
   50
   """
-  @spec accuracy(t()) :: non_neg_integer()
-  def accuracy(results) do
-    true_count = Enum.count(results, &true_result?/1)
+  @spec balanced_accuracy(t()) :: non_neg_integer()
+  def balanced_accuracy(results) do
+    recall = recall(results)
+    specificity = specificity(results)
+    ((recall + specificity) / 2) |> round
+  end
 
-    rounded_percent(true_count, length(results))
+  @doc """
+  The harmonic mean of recall and precision
+  Formula: ((precision * recall)/(precision + recall)) * 2
+
+  iex> PredictionResults.f_measure([:tp, :tp, :tn, :fp, :fp, :fn])
+  57
+  """
+  @spec f_measure(t()) :: non_neg_integer()
+  def f_measure(results) do
+    recall = recall(results)
+    precision = precision(results)
+
+    case precision > 0 and recall > 0 do
+      true -> (precision * recall / (precision + recall) * 2) |> round
+      false -> 0
+    end
+  end
+
+  @doc """
+  The percentage of all data points in the target class that were correctly
+  identified as not belonging to the target class. Rounded to the nearest whole
+  number.
+
+  Formula: TN / TN+FP
+
+  iex> PredictionResults.recall([:tp, :tn, :fp, :fn])
+  50
+  """
+  @spec specificity(t()) :: non_neg_integer()
+  def specificity(results) do
+    true_negative_count = Enum.count(results, &true_negative?/1)
+    false_positive_count = Enum.count(results, &false_positive?/1)
+
+    rounded_percent(true_negative_count, true_negative_count + false_positive_count)
   end
 
   @doc """
@@ -120,6 +159,10 @@ defmodule PredictionResults do
   @spec false_positive?(result()) :: boolean()
   defp false_positive?(:fp), do: true
   defp false_positive?(_), do: false
+
+  @spec true_negative?(result()) :: boolean()
+  defp true_negative?(:tn), do: true
+  defp true_negative?(_), do: false
 
   @spec false_negative?(result()) :: boolean()
   defp false_negative?(:fn), do: true

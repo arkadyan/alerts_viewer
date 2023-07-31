@@ -120,7 +120,7 @@ defmodule SnapshotLogger.SnapshotLoggerTest do
       end
 
       assert capture_log([format: "$message"], fun) =~
-               "{\"max_adherence\":[{\"accuracy\":75,\"precision\":75,\"recall\":100,\"value\":0},"
+               "{\"max_adherence\":[{\"balanced_accuracy\":50,\"f_measure\":86,\"precision\":75,\"recall\":100,\"value\":0},"
     end
   end
 end

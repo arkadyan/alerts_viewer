@@ -90,7 +90,8 @@ defmodule SnapshotLogger.SnapshotLogger do
 
       %{
         value: value,
-        accuracy: PredictionResults.accuracy(results),
+        balanced_accuracy: PredictionResults.balanced_accuracy(results),
+        f_measure: PredictionResults.f_measure(results),
         recall: PredictionResults.recall(results),
         precision: PredictionResults.precision(results)
       }

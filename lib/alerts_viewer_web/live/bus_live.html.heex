@@ -22,8 +22,11 @@
 </div>
 
 <.list>
-  <:item title="Accuracy">
-    <%= PredictionResults.accuracy(@prediction_results) %>%
+  <:item title="Balanced Accuracy">
+    <%= PredictionResults.balanced_accuracy(@prediction_results) %>%
+  </:item>
+  <:item title="F Measure">
+    <%= PredictionResults.f_measure(@prediction_results) %>%
   </:item>
   <:item title="Recall">
     <%= PredictionResults.recall(@prediction_results) %>%
