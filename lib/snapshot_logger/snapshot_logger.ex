@@ -66,9 +66,22 @@ defmodule SnapshotLogger.SnapshotLogger do
         snapshot_data = make_snapshot(module, state)
         Map.put(acc, module_name(module), snapshot_data)
       end)
-      |> Jason.encode_to_iodata!()
 
-    Logger.info(snapshot)
+    best_f_measure_snapshot =
+      snapshot
+      |> Enum.into(%{}, fn {key, value} ->
+        new_value =
+          value
+          |> Enum.map(&Map.take(&1, [:value, :f_measure]))
+          |> Enum.sort_by(& &1.f_measure, :desc)
+          |> hd()
+
+        {key, new_value}
+      end)
+      |> Map.put(:name, "best_f_measure_snapshot")
+
+    Logger.info(best_f_measure_snapshot |> Jason.encode_to_iodata!())
+    Logger.info(snapshot |> Jason.encode_to_iodata!())
 
     {:noreply, state}
   end
