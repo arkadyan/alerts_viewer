@@ -60,7 +60,7 @@ defmodule SnapshotLogger.SnapshotLoggerTest do
       vehicles_schedule_adherence_secs: [10, 20],
       vehicles_instantaneous_headway_secs: [500, 1000],
       vehicles_scheduled_headway_secs: [40, 80],
-      vehicles_instantaneous_minus_scheduled_headway_secs: [460, 920]
+      vehicles_headway_deviation_secs: [460, 920]
     },
     "4" => %RouteStats{
       id: "113",
@@ -71,7 +71,7 @@ defmodule SnapshotLogger.SnapshotLoggerTest do
       vehicles_schedule_adherence_secs: [10, 20],
       vehicles_instantaneous_headway_secs: [500, 1000],
       vehicles_scheduled_headway_secs: [40, 80],
-      vehicles_instantaneous_minus_scheduled_headway_secs: [460, 920]
+      vehicles_headway_deviation_secs: [460, 920]
     },
     "8" => %RouteStats{
       id: "114",

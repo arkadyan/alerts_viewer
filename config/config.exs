@@ -20,17 +20,17 @@ config :alerts_viewer,
     AlertsViewer.DelayAlertAlgorithm.MedianAndStandardDeviationAdherenceComponent,
     AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousHeadwayComponent,
     AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousHeadwayComponent,
-    AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousMinusScheduledHeadwayComponent,
-    AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousMinusScheduledHeadwayComponent,
+    AlertsViewer.DelayAlertAlgorithm.MedianHeadwayDeviationComponent,
+    AlertsViewer.DelayAlertAlgorithm.StandardDeviationHeadwayDeviationComponent,
     AlertsViewer.DelayAlertAlgorithm.MaxAdherenceComponent,
-    AlertsViewer.DelayAlertAlgorithm.MaxInstantaneousMinusScheduledHeadwayComponent
+    AlertsViewer.DelayAlertAlgorithm.MaxHeadwayDeviationComponent
   ],
   swiftly_authorization_key: {:system, "SWIFTLY_AUTHORIZATION_KEY"},
   swiftly_realtime_vehicles_url: {:system, "SWIFTLY_REALTIME_VEHICLES_URL"},
   start_data_processes: true,
   stop_recommendation_algorithm_components: [
     AlertsViewer.StopRecommendationAlgorithm.AlertDurationComponent,
-    AlertsViewer.StopRecommendationAlgorithm.MedianInstantaneousMinusScheduledMedianHeadwayDiffComponent,
+    AlertsViewer.StopRecommendationAlgorithm.MedianHeadwayDeviationDiffComponent,
     AlertsViewer.StopRecommendationAlgorithm.MedianAdherenceComponent
   ],
   trip_updates_url: {:system, "TRIP_UPDATES_URL"}

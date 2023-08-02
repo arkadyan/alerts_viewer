@@ -88,11 +88,11 @@
       stats_function={&RouteStats.vehicles_instantaneous_headway_secs/2}
     />
   </:col>
-  <:col :let={route} label="Individual Vehicle Instantaneous - Scheduled Headway (minutes)">
+  <:col :let={route} label="Individual Vehicle Headway Deviation (minutes)">
     <.display_minutes
       route={route}
       stats_by_route={@stats_by_route}
-      stats_function={&RouteStats.vehicles_instantaneous_minus_scheduled_headway_secs/2}
+      stats_function={&RouteStats.vehicles_headway_deviation_secs/2}
     />
   </:col>
   <:col :let={route} label="Median Schedule Adherence (minutes)">
@@ -117,16 +117,16 @@
     <%= RouteStats.standard_deviation_of_instantaneous_headway(@stats_by_route, route)
     |> seconds_to_minutes() %>
   </:col>
-  <:col :let={route} label="Median Instantaneous Minus Scheduled Headway (minutes)">
-    <%= RouteStats.median_instantaneous_minus_scheduled_headway(@stats_by_route, route)
+  <:col :let={route} label="Median Headway Deviation (minutes)">
+    <%= RouteStats.median_headway_deviation(@stats_by_route, route)
     |> seconds_to_minutes() %>
   </:col>
   <:col
     :let={route}
     :if={@show_std_dev?}
-    label="Standard Deviation of Instantaneous Minus Scheduled Headway (minutes)"
+    label="Standard Deviation of Headway Deviation (minutes)"
   >
-    <%= RouteStats.standard_deviation_of_instantaneous_minus_scheduled_headway(
+    <%= RouteStats.standard_deviation_of_headway_deviation(
       @stats_by_route,
       route
     )

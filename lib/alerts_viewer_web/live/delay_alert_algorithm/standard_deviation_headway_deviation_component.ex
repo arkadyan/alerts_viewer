@@ -1,4 +1,4 @@
-defmodule AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousMinusScheduledHeadwayComponent do
+defmodule AlertsViewer.DelayAlertAlgorithm.StandardDeviationHeadwayDeviationComponent do
   @moduledoc """
   Component for controlling the standard deviation delay alert recommendation algorithm.
   """
@@ -25,7 +25,7 @@ defmodule AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousMinusSc
           value={@min_value}
           min={@snapshot_min}
           max={@snapshot_max}
-          label="Minumum Standard Deviation of Instantaneous - Scheduled Headway"
+          label="Minumum Standard Deviation of Headway Deviation"
         />
         <span class="ml-2">
           <%= @min_value %>
@@ -39,7 +39,7 @@ defmodule AlertsViewer.DelayAlertAlgorithm.StandardDeviationInstantaneousMinusSc
           boolean()
   defp recommending_alert?(route, stats_by_route, min_value) do
     std =
-      RouteStats.standard_deviation_of_instantaneous_minus_scheduled_headway(
+      RouteStats.standard_deviation_of_headway_deviation(
         stats_by_route,
         route
       )

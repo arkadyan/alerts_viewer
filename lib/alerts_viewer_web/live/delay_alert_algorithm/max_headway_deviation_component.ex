@@ -1,12 +1,12 @@
-defmodule AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousMinusScheduledHeadwayComponent do
+defmodule AlertsViewer.DelayAlertAlgorithm.MaxHeadwayDeviationComponent do
   @moduledoc """
-  Component for controlling the Median delay alert recommendation algorithm.
+  Component for controlling the Max headway deviation delay alert recommendation algorithm.
   """
 
-  @snapshot_min 50
-  @snapshot_max 1500
-  @snapshot_interval 50
-  @default_min_value 1200
+  @snapshot_min 0
+  @snapshot_max 100
+  @snapshot_interval 5
+  @default_min_value 15
 
   use AlertsViewer.DelayAlertAlgorithm.BaseAlgorithmComponents.OneSliderComponent,
     snapshot_min: @snapshot_min,
@@ -23,9 +23,9 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousMinusScheduledHead
           type="range"
           name="min_value"
           value={@min_value}
-          min={@snapshot_min}
-          max={@snapshot_max}
-          label="Minumum Median Instantaneous - Scheduled Headway"
+          min={0}
+          max={100}
+          label="Threshold (minutes)"
         />
         <span class="ml-2">
           <%= @min_value %>
@@ -37,8 +37,8 @@ defmodule AlertsViewer.DelayAlertAlgorithm.MedianInstantaneousMinusScheduledHead
 
   @spec recommending_alert?(Route.t(), RouteStats.stats_by_route(), non_neg_integer()) ::
           boolean()
-  defp recommending_alert?(route, stats_by_route, min_value) do
-    median = RouteStats.median_instantaneous_minus_scheduled_headway(stats_by_route, route)
-    !is_nil(median) and median >= min_value
+  defp recommending_alert?(route, stats_by_route, threshold_in_minutes) do
+    max = RouteStats.max_headway_deviation(stats_by_route, route)
+    !is_nil(max) and max >= threshold_in_minutes * 60
   end
 end

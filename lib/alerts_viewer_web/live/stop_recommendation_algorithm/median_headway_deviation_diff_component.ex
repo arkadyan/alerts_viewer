@@ -1,4 +1,4 @@
-defmodule AlertsViewer.StopRecommendationAlgorithm.MedianInstantaneousMinusScheduledMedianHeadwayDiffComponent do
+defmodule AlertsViewer.StopRecommendationAlgorithm.MedianHeadwayDeviationDiffComponent do
   @moduledoc """
   Component for controlling the headway diff stop recommendation algorithm.
   """
@@ -44,7 +44,7 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.MedianInstantaneousMinusSched
           boolean()
   defp recommending_closure?(route, threshold_in_minutes, {_alerts_by_route, stats_by_route}) do
     median =
-      RouteStats.median_instantaneous_minus_scheduled_headway(
+      RouteStats.median_headway_deviation(
         stats_by_route,
         Atom.to_string(route)
       )
