@@ -150,10 +150,16 @@ defmodule Routes.RouteStatsTest do
 
       assert RouteStats.max_schedule_adherence(stats_by_route, %Route{id: "1"}) == 3
     end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{"1" => %RouteStats{id: "1", vehicles_schedule_adherence_secs: [1, 2, 3]}}
+
+      assert RouteStats.max_schedule_adherence(stats_by_route, "1") == 3
+    end
   end
 
-  describe "standard_deviation_of_schedule_adherence rounded to 1 place" do
-    test "" do
+  describe "standard_deviation_of_schedule_adherence" do
+    test "returns the standard deviation of the adherence values rounded to 1 place" do
       route_stats = %RouteStats{id: "1", vehicles_schedule_adherence_secs: [1, 2]}
 
       assert RouteStats.standard_deviation_of_schedule_adherence(route_stats) == 0.5
@@ -169,6 +175,13 @@ defmodule Routes.RouteStatsTest do
       stats_by_route = %{"1" => %RouteStats{id: "1", vehicles_schedule_adherence_secs: [1, 2]}}
 
       assert RouteStats.standard_deviation_of_schedule_adherence(stats_by_route, %Route{id: "1"}) ==
+               0.5
+    end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{"1" => %RouteStats{id: "1", vehicles_schedule_adherence_secs: [1, 2]}}
+
+      assert RouteStats.standard_deviation_of_schedule_adherence(stats_by_route, "1") ==
                0.5
     end
   end
@@ -193,6 +206,14 @@ defmodule Routes.RouteStatsTest do
 
       assert RouteStats.median_instantaneous_headway(stats_by_route, %Route{id: "1"}) == 2
     end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles_instantaneous_headway_secs: [1, 2, 3]}
+      }
+
+      assert RouteStats.median_instantaneous_headway(stats_by_route, "1") == 2
+    end
   end
 
   describe "standard_deviation_of_instantaneous_headway rounded to 1 place" do
@@ -214,6 +235,13 @@ defmodule Routes.RouteStatsTest do
       assert RouteStats.standard_deviation_of_instantaneous_headway(stats_by_route, %Route{
                id: "1"
              }) ==
+               0.5
+    end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{"1" => %RouteStats{id: "1", vehicles_instantaneous_headway_secs: [1, 2]}}
+
+      assert RouteStats.standard_deviation_of_instantaneous_headway(stats_by_route, "1") ==
                0.5
     end
   end
@@ -238,6 +266,14 @@ defmodule Routes.RouteStatsTest do
 
       assert RouteStats.median_scheduled_headway(stats_by_route, %Route{id: "1"}) == 2
     end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles_scheduled_headway_secs: [1, 2, 3]}
+      }
+
+      assert RouteStats.median_scheduled_headway(stats_by_route, "1") == 2
+    end
   end
 
   describe "standard_deviation_of_scheduled_headway rounded to 1 place" do
@@ -259,6 +295,13 @@ defmodule Routes.RouteStatsTest do
       assert RouteStats.standard_deviation_of_scheduled_headway(stats_by_route, %Route{
                id: "1"
              }) ==
+               0.5
+    end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{"1" => %RouteStats{id: "1", vehicles_scheduled_headway_secs: [1, 2]}}
+
+      assert RouteStats.standard_deviation_of_scheduled_headway(stats_by_route, "1") ==
                0.5
     end
   end
@@ -290,6 +333,17 @@ defmodule Routes.RouteStatsTest do
       assert RouteStats.max_headway_deviation(stats_by_route, %Route{
                id: "1"
              }) == 3
+    end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{
+        "1" => %RouteStats{
+          id: "1",
+          vehicles_headway_deviation_secs: [1, 2, 3]
+        }
+      }
+
+      assert RouteStats.max_headway_deviation(stats_by_route, "1") == 3
     end
   end
 
@@ -362,6 +416,18 @@ defmodule Routes.RouteStatsTest do
                %Route{
                  id: "1"
                }
+             ) ==
+               0.5
+    end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles_headway_deviation_secs: [1, 2]}
+      }
+
+      assert RouteStats.standard_deviation_of_headway_deviation(
+               stats_by_route,
+               "1"
              ) ==
                0.5
     end

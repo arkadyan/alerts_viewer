@@ -21,19 +21,36 @@
   />
 </div>
 
-<.table id="bus_alerts" sticky={true} rows={@alerts_by_route |> Keyword.keys()}>
+<.table id="bus_alerts" sticky={true} rows={Keyword.keys(@alerts_by_route)}>
   <:col :let={route} label="Route Name">
     <%= route %>
   </:col>
   <:col :let={route} label="Alert Ids (sorted by duration)">
-    <%= Enum.map(@alerts_by_route[route], & &1.id) |> Enum.join(", ") %>
+    <%= @alerts_by_route[route] |> Enum.map(& &1.id) |> Enum.join(", ") %>
   </:col>
   <:col :let={route} label="Median Adherence (minutes)">
-    <%= RouteStats.median_schedule_adherence(@stats_by_route, Atom.to_string(route))
+    <%= @stats_by_route
+    |> RouteStats.median_schedule_adherence(Atom.to_string(route))
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Peak Adherence (minutes)">
+    <%= @stats_by_route
+    |> RouteStats.max_schedule_adherence(Atom.to_string(route))
     |> seconds_to_minutes() %>
   </:col>
   <:col :let={route} label="Median Instantaneous Headway (minutes)">
-    <%= RouteStats.median_instantaneous_headway(@stats_by_route, Atom.to_string(route))
+    <%= @stats_by_route
+    |> RouteStats.median_instantaneous_headway(Atom.to_string(route))
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Median Headway Deviation (minutes)">
+    <%= @stats_by_route
+    |> RouteStats.median_headway_deviation(Atom.to_string(route))
+    |> seconds_to_minutes() %>
+  </:col>
+  <:col :let={route} label="Peak Headway Deviation (minutes)">
+    <%= @stats_by_route
+    |> RouteStats.max_headway_deviation(Atom.to_string(route))
     |> seconds_to_minutes() %>
   </:col>
   <:col :let={route} label="Route has Cancelled Trip">
@@ -45,7 +62,10 @@
     <%= Enum.map(@alerts_by_route[route], &Alert.alert_duration(&1)) |> Enum.join(", ") %>
   </:col>
   <:col :let={route} label="Recommending Alert Closure">
-    <span :if={Enum.member?(@routes_with_recommended_closures, route)}>
+    <span
+      :if={Enum.member?(@routes_with_recommended_closures, route)}
+      class="text-red-600 font-bold"
+    >
       Y
     </span>
     <span :if={!Enum.member?(@routes_with_recommended_closures, route)}>

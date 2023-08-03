@@ -4,6 +4,7 @@ defmodule Alerts do
   """
 
   alias Alerts.{Alert, AlertsPubSub}
+  alias Routes.Route
 
   @spec subscribe :: [Alert.t()]
   defdelegate subscribe(), to: AlertsPubSub
@@ -40,7 +41,7 @@ defmodule Alerts do
   @doc """
   Return a map with route ids as string keys and a list of alerts as the value
   """
-  @spec by_route([Alert.t()]) :: %{String.t() => [Alert.t()]}
+  @spec by_route([Alert.t()]) :: %{Route.id() => [Alert.t()]}
   def by_route(alerts) do
     alerts
     |> Enum.filter(&Enum.any?(&1.informed_entity, fn ie -> !is_nil(ie.route) end))

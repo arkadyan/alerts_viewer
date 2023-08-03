@@ -46,10 +46,10 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
   iex> seconds_to_minutes(115)
   2
   """
-  @spec seconds_to_minutes(nil | number) :: nil | float
+  @spec seconds_to_minutes(number() | nil) :: integer() | nil
   def seconds_to_minutes(nil), do: nil
 
   def seconds_to_minutes(seconds) do
-    (seconds / 60) |> round
+    round(seconds / 60)
   end
 end

@@ -15,7 +15,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
     algorithm_options = algorithm_options(stop_recommendation_algorithm_components)
     current_algorithm = hd(stop_recommendation_algorithm_components)
 
-    bus_alerts =
+    alerts =
       if(connected?(socket),
         do: Alerts.subscribe(),
         else: []
@@ -23,7 +23,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
 
     stats_by_route = if(connected?(socket), do: RouteStatsPubSub.subscribe(), else: %{})
 
-    alerts_by_route = alerts_by_route(bus_alerts)
+    alerts_by_route = alerts_by_route(alerts)
 
     block_waivered_routes = if(connected?(socket), do: TripUpdatesPubSub.subscribe(), else: [])
 
@@ -75,14 +75,19 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
     {:noreply, assign(socket, current_algorithm: current_algorithm)}
   end
 
+  @spec alerts_by_route([Alert.t()]) :: keyword([Alert.t()])
   defp alerts_by_route(alerts) do
     alerts
     |> filtered_by_bus()
     |> filtered_by_delay_type()
     |> Alerts.by_route()
-    |> Enum.map(fn {head, tail} -> {String.to_atom(head), tail} end)
+    |> Enum.map(fn {route_id, alerts} -> {String.to_atom(route_id), alerts} end)
     |> Enum.sort_by(
-      fn {_head, tail} -> Enum.max(Enum.map(tail, & &1.created_at), DateTime) end,
+      fn {_route_id, alerts} ->
+        alerts
+        |> Enum.map(& &1.created_at)
+        |> Enum.max(DateTime)
+      end,
       :asc
     )
   end
