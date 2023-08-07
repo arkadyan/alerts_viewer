@@ -4,6 +4,7 @@ defmodule SnapshotLogger.SnapshotLoggerTest do
   import ExUnit.CaptureLog
   alias Alerts.{Alert, AlertsPubSub, Store}
   alias Routes.{RouteStats, RouteStatsPubSub}
+  alias TripUpdates.TripUpdatesPubSub
 
   alias Api.JsonApi.Item
 
@@ -86,6 +87,8 @@ defmodule SnapshotLogger.SnapshotLoggerTest do
       {:ok, alert_pid} = AlertsPubSub.start_link(subscribe_fn: subscribe_fn)
       start_supervised({Registry, keys: :duplicate, name: :route_stats_subscriptions_registry})
       {:ok, routes_pid} = RouteStatsPubSub.start_link()
+      start_supervised({Registry, keys: :duplicate, name: :trip_updates_subscriptions_registry})
+      {:ok, _pid} = TripUpdatesPubSub.start_link()
 
       :sys.replace_state(alert_pid, fn state ->
         store =

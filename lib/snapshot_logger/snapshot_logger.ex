@@ -6,7 +6,9 @@ defmodule SnapshotLogger.SnapshotLogger do
   require Logger
   alias Alerts.Alert
   alias AlertsViewer.DelayAlertAlgorithm
-  alias Routes.{Route, RouteStatsPubSub}
+  alias AlertsViewerWeb.DateTimeHelpers, as: DTH
+  alias Routes.{Route, RouteStats, RouteStatsPubSub}
+  alias TripUpdates.TripUpdatesPubSub
 
   @cadence 5 * 60 * 1000
 
@@ -16,6 +18,15 @@ defmodule SnapshotLogger.SnapshotLogger do
   end
 
   @impl GenServer
+  @spec init(keyword) ::
+          {:ok,
+           %{
+             block_waivered_routes: list,
+             bus_routes: list,
+             delay_alert_algorithm_modules: any,
+             routes_with_current_alerts: list,
+             stats_by_route: map
+           }}
   def init(opts) do
     delay_alert_algorithm_modules =
       Application.get_env(:alerts_viewer, :delay_alert_algorithm_components)
@@ -23,6 +34,7 @@ defmodule SnapshotLogger.SnapshotLogger do
     bus_alerts = Alerts.subscribe() |> filtered_by_bus() |> filtered_by_delay_type()
     bus_routes = opts |> Keyword.get(:route_opts, []) |> Routes.all_bus_routes()
     stats_by_route = RouteStatsPubSub.subscribe()
+    block_waivered_routes = TripUpdatesPubSub.subscribe()
     routes_with_current_alerts = Enum.filter(bus_routes, &delay_alert?(&1, bus_alerts))
     schedule_logs()
 
@@ -31,6 +43,7 @@ defmodule SnapshotLogger.SnapshotLogger do
        bus_routes: bus_routes,
        stats_by_route: stats_by_route,
        routes_with_current_alerts: routes_with_current_alerts,
+       block_waivered_routes: block_waivered_routes,
        delay_alert_algorithm_modules: delay_alert_algorithm_modules
      }}
   end
@@ -38,6 +51,11 @@ defmodule SnapshotLogger.SnapshotLogger do
   @impl GenServer
   def handle_info({:stats_by_route, stats_by_route}, state) do
     {:noreply, Map.put(state, :stats_by_route, stats_by_route)}
+  end
+
+  @impl true
+  def handle_info({:block_waivered_routes, block_waivered_routes}, state) do
+    {:noreply, Map.put(state, :block_waivered_routes, block_waivered_routes)}
   end
 
   @impl GenServer
@@ -63,30 +81,69 @@ defmodule SnapshotLogger.SnapshotLogger do
     snapshot =
       state.delay_alert_algorithm_modules
       |> Enum.reduce(%{}, fn module, acc ->
-        snapshot_data = make_snapshot(module, state)
+        snapshot_data = make_algo_snapshot(module, state)
         Map.put(acc, module_name(module), snapshot_data)
       end)
 
-    best_f_measure_snapshot =
-      snapshot
-      |> Enum.into(%{}, fn {key, value} ->
-        new_value =
-          value
-          |> Enum.map(&Map.take(&1, [:value, :f_measure]))
-          |> Enum.sort_by(& &1.f_measure, :desc)
-          |> hd()
+    to_be_logged = [
+      best_variable_snapshot(snapshot, :f_measure) |> Map.put(:name, "best f_measure snapshot"),
+      best_variable_snapshot(snapshot, :balanced_accuracy)
+      |> Map.put(:name, "best bacc snapshot"),
+      make_bus_route_snapshot(state) |> Map.put(:name, "bus route snapshot"),
+      snapshot |> Map.put(:name, "alert stats snapshot")
+    ]
 
-        {key, new_value}
-      end)
-      |> Map.put(:name, "best_f_measure_snapshot")
-
-    Logger.info(best_f_measure_snapshot |> Jason.encode_to_iodata!())
-    Logger.info(snapshot |> Jason.encode_to_iodata!())
-
+    Enum.each(to_be_logged, &Logger.info(Jason.encode_to_iodata!(&1)))
     {:noreply, state}
   end
 
-  defp make_snapshot(module, state) do
+  defp make_bus_route_snapshot(state) do
+    stats_by_route = state.stats_by_route
+
+    state.bus_routes
+    |> Enum.reduce(%{}, fn route, acc ->
+      route_data = %{
+        individual_vehicle_schedule_adherence:
+          format_stats(route, stats_by_route, &RouteStats.vehicles_schedule_adherence_secs/2),
+        individual_vehicle_instantaneous_headway:
+          format_stats(route, stats_by_route, &RouteStats.vehicles_instantaneous_headway_secs/2),
+        individual_vehicle_headway_deviation:
+          format_stats(route, stats_by_route, &RouteStats.vehicles_headway_deviation_secs/2),
+        median_schedule_adherence:
+          RouteStats.median_schedule_adherence(stats_by_route, route) |> DTH.seconds_to_minutes(),
+        standard_deviation_of_schedule_adherence:
+          RouteStats.standard_deviation_of_schedule_adherence(stats_by_route, route)
+          |> DTH.seconds_to_minutes(),
+        median_instantaneous_headway:
+          RouteStats.median_instantaneous_headway(stats_by_route, route)
+          |> DTH.seconds_to_minutes(),
+        standard_deviation_of_instantaneous_headway:
+          RouteStats.standard_deviation_of_instantaneous_headway(stats_by_route, route)
+          |> DTH.seconds_to_minutes(),
+        median_headway_deviation:
+          RouteStats.median_headway_deviation(stats_by_route, route) |> DTH.seconds_to_minutes(),
+        standard_deviation_of_headway_deviation:
+          RouteStats.standard_deviation_of_headway_deviation(
+            stats_by_route,
+            route
+          )
+          |> DTH.seconds_to_minutes(),
+        route_has_cancelled_trip: Enum.member?(state.block_waivered_routes, Route.name(route)),
+        route_has_current_alert: Enum.member?(state.routes_with_current_alerts, route)
+      }
+
+      Map.put(acc, Route.name(route), route_data)
+    end)
+  end
+
+  defp format_stats(route, stats_by_route, stats_function) do
+    stats_by_route
+    |> stats_function.(route)
+    |> Enum.sort(:desc)
+    |> Enum.map(&DTH.seconds_to_minutes/1)
+  end
+
+  defp make_algo_snapshot(module, state) do
     algorithm_data = module.snapshot(state.bus_routes, state.stats_by_route)
 
     algorithm_data
@@ -108,6 +165,19 @@ defmodule SnapshotLogger.SnapshotLogger do
         recall: PredictionResults.recall(results),
         precision: PredictionResults.precision(results)
       }
+    end)
+  end
+
+  defp best_variable_snapshot(snapshot, variable) do
+    snapshot
+    |> Enum.into(%{}, fn {key, value} ->
+      new_value =
+        value
+        |> Enum.map(&Map.take(&1, [:value, variable]))
+        |> Enum.sort_by(& &1[variable], :desc)
+        |> hd()
+
+      {key, new_value}
     end)
   end
 
