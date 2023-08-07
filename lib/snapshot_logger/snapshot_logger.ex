@@ -85,24 +85,30 @@ defmodule SnapshotLogger.SnapshotLogger do
         Map.put(acc, module_name(module), snapshot_data)
       end)
 
-    to_be_logged = [
-      best_variable_snapshot(snapshot, :f_measure) |> Map.put(:name, "best f_measure snapshot"),
-      best_variable_snapshot(snapshot, :balanced_accuracy)
-      |> Map.put(:name, "best bacc snapshot"),
-      make_bus_route_snapshot(state) |> Map.put(:name, "bus route snapshot"),
-      snapshot |> Map.put(:name, "alert stats snapshot")
-    ]
+    timestamp = DateTime.now!("America/New_York")
+
+    to_be_logged =
+      bus_route_snapshots(state, timestamp) ++
+        [
+          best_variable_snapshot(snapshot, :f_measure)
+          |> Map.put(:name, "best f_measure snapshot"),
+          best_variable_snapshot(snapshot, :balanced_accuracy)
+          |> Map.put(:name, "best bacc snapshot"),
+          snapshot |> Map.put(:name, "alert stats snapshot")
+        ]
 
     Enum.each(to_be_logged, &Logger.info(Jason.encode_to_iodata!(&1)))
     {:noreply, state}
   end
 
-  defp make_bus_route_snapshot(state) do
+  defp bus_route_snapshots(state, timestamp) do
     stats_by_route = state.stats_by_route
 
-    state.bus_routes
-    |> Enum.reduce(%{}, fn route, acc ->
-      route_data = %{
+    Enum.map(state.bus_routes, fn route ->
+      %{
+        name: "bus route snapshot",
+        route: Route.name(route),
+        timestamp: timestamp,
         individual_vehicle_schedule_adherence:
           format_stats(route, stats_by_route, &RouteStats.vehicles_schedule_adherence_secs/2),
         individual_vehicle_instantaneous_headway:
@@ -131,8 +137,6 @@ defmodule SnapshotLogger.SnapshotLogger do
         route_has_cancelled_trip: Enum.member?(state.block_waivered_routes, Route.name(route)),
         route_has_current_alert: Enum.member?(state.routes_with_current_alerts, route)
       }
-
-      Map.put(acc, Route.name(route), route_data)
     end)
   end
 
