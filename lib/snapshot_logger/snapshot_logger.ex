@@ -78,23 +78,19 @@ defmodule SnapshotLogger.SnapshotLogger do
   def handle_info(:log, state) do
     schedule_logs()
 
-    snapshot =
-      state.delay_alert_algorithm_modules
-      |> Enum.reduce(%{}, fn module, acc ->
-        snapshot_data = make_algo_snapshot(module, state)
-        Map.put(acc, module_name(module), snapshot_data)
-      end)
-
     timestamp = DateTime.now!("America/New_York")
+
+    algorithm_snapshots =
+      Enum.map(state.delay_alert_algorithm_modules, fn module ->
+        make_algo_snapshot(module, state, timestamp)
+      end)
 
     to_be_logged =
       bus_route_snapshots(state, timestamp) ++
+        algorithm_snapshots ++
         [
-          best_variable_snapshot(snapshot, :f_measure)
-          |> Map.put(:name, "best f_measure snapshot"),
-          best_variable_snapshot(snapshot, :balanced_accuracy)
-          |> Map.put(:name, "best bacc snapshot"),
-          snapshot |> Map.put(:name, "alert stats snapshot")
+          best_variable_snapshot(algorithm_snapshots, :f_measure, "best f_measure snapshot"),
+          best_variable_snapshot(algorithm_snapshots, :balanced_accuracy, "best bacc snapshot")
         ]
 
     Enum.each(to_be_logged, &Logger.info(Jason.encode_to_iodata!(&1)))
@@ -147,41 +143,55 @@ defmodule SnapshotLogger.SnapshotLogger do
     |> Enum.map(&DTH.seconds_to_minutes/1)
   end
 
-  defp make_algo_snapshot(module, state) do
+  defp make_algo_snapshot(module, state, timestamp) do
     algorithm_data = module.snapshot(state.bus_routes, state.stats_by_route)
 
-    algorithm_data
-    |> Enum.map(fn [
-                     parameters: %{value: value},
-                     routes_with_recommended_alerts: routes_with_recommended_alerts
-                   ] ->
-      results =
-        prediction_results(
-          state.bus_routes,
-          state.routes_with_current_alerts,
-          routes_with_recommended_alerts
-        )
+    samples =
+      Enum.map(algorithm_data, fn [
+                                    parameters: %{value: value},
+                                    routes_with_recommended_alerts: routes_with_recommended_alerts
+                                  ] ->
+        results =
+          prediction_results(
+            state.bus_routes,
+            state.routes_with_current_alerts,
+            routes_with_recommended_alerts
+          )
 
-      %{
-        value: value,
-        balanced_accuracy: PredictionResults.balanced_accuracy(results),
-        f_measure: PredictionResults.f_measure(results),
-        recall: PredictionResults.recall(results),
-        precision: PredictionResults.precision(results)
-      }
-    end)
+        %{
+          value: value,
+          balanced_accuracy: PredictionResults.balanced_accuracy(results),
+          f_measure: PredictionResults.f_measure(results),
+          recall: PredictionResults.recall(results),
+          precision: PredictionResults.precision(results)
+        }
+      end)
+
+    %{
+      name: "algorithm snapshot",
+      algorithm: module_name(module),
+      timestamp: timestamp,
+      samples: samples
+    }
   end
 
-  defp best_variable_snapshot(snapshot, variable) do
-    snapshot
-    |> Enum.into(%{}, fn {key, value} ->
-      new_value =
-        value
+  defp best_variable_snapshot(algorithm_snapshots, variable, name) do
+    timestamp =
+      algorithm_snapshots
+      |> List.first()
+      |> Map.get(:timestamp)
+
+    Enum.into(algorithm_snapshots, %{name: name, timestamp: timestamp}, fn %{
+                                                                             algorithm: algorithm,
+                                                                             samples: samples
+                                                                           } ->
+      best =
+        samples
         |> Enum.map(&Map.take(&1, [:value, variable]))
         |> Enum.sort_by(& &1[variable], :desc)
         |> hd()
 
-      {key, new_value}
+      {algorithm, best}
     end)
   end
 

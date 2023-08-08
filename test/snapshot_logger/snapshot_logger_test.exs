@@ -122,8 +122,19 @@ defmodule SnapshotLogger.SnapshotLoggerTest do
         pid |> :sys.get_state()
       end
 
-      assert capture_log([format: "$message"], fun) =~
-               "{\"max_adherence\":[{\"balanced_accuracy\":50,\"f_measure\":86,\"precision\":75,\"recall\":100,\"value\":0},"
+      captured = capture_log([format: "$message"], fun)
+
+      assert captured =~ "algorithm snapshot"
+      assert captured =~ "bus route snapshot"
+      assert captured =~ "best f_measure snapshot"
+      assert captured =~ "best bacc snapshot"
+
+      assert captured =~
+               "{\"algorithm\":\"max_adherence\",\"name\":\"algorithm snapshot\",\"samples\":[{\"balanced_accuracy\":50,\"f_measure\":86,\"precision\":75,\"recall\":100,\"value\":0}"
+
+      assert captured =~ "max_adherence\":{\"balanced_accuracy\":50"
+
+      assert captured =~ "{\"max_adherence\":{\"f_measure\":86,\"value\":0}"
     end
   end
 end
