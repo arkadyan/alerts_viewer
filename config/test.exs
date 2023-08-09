@@ -21,3 +21,8 @@ config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :exvcr,
+  vcr_cassette_library_dir: "test/support/fixtures/vcr_cassettes",
+  custom_cassette_library_dir: "test/support/fixtures/custom_cassettes",
+  filter_request_headers: ["x-api-key"]

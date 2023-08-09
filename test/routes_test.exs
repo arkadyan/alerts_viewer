@@ -76,4 +76,13 @@ defmodule RoutesTest do
       Enum.all?(results, &match?(%Route{type: 3}, &1))
     end
   end
+
+  describe "get by id/1" do
+    test "returns a route from list of all routes given an id" do
+      route1 = %Route{id: "1", type: 3, short_name: "short", long_name: "long"}
+      route2 = %Route{id: "2", type: 3, short_name: "short2", long_name: "long2"}
+
+      assert Routes.get_by_id([route1, route2], "1") == route1
+    end
+  end
 end

@@ -12,7 +12,8 @@ defmodule AlertsViewer.MixProject do
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
-        "coveralls.html": :test
+        "coveralls.html": :test,
+        vcr: :test
       ],
       deps: deps()
     ]
@@ -65,7 +66,8 @@ defmodule AlertsViewer.MixProject do
       # Specify a reference until https://github.com/msharp/elixir-statistics/pull/28 is included in a version number
       {:statistics, "~> 0.6.2",
        git: "https://github.com/msharp/elixir-statistics", ref: "897851f"},
-      {:csv, "~> 3.0"}
+      {:csv, "~> 3.0"},
+      {:exvcr, "~> 0.13.0", only: :test}
     ]
   end
 

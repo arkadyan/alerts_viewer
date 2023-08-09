@@ -15,6 +15,8 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
     algorithm_options = algorithm_options(stop_recommendation_algorithm_components)
     current_algorithm = hd(stop_recommendation_algorithm_components)
 
+    bus_routes = Routes.all_bus_routes()
+
     alerts =
       if(connected?(socket),
         do: Alerts.subscribe(),
@@ -23,7 +25,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
 
     stats_by_route = if(connected?(socket), do: RouteStatsPubSub.subscribe(), else: %{})
 
-    alerts_by_route = alerts_by_route(alerts)
+    alerts_by_route = alerts_by_route(alerts, bus_routes)
 
     block_waivered_routes = if(connected?(socket), do: TripUpdatesPubSub.subscribe(), else: [])
 
@@ -32,6 +34,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
         algorithm_options: algorithm_options,
         current_algorithm: current_algorithm,
         stats_by_route: stats_by_route,
+        bus_routes: bus_routes,
         block_waivered_routes: block_waivered_routes,
         alerts_by_route: alerts_by_route,
         routes_with_recommended_closures: []
@@ -42,7 +45,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
 
   @impl true
   def handle_info({:alerts, alerts}, socket) do
-    alerts_by_route = alerts_by_route(alerts)
+    alerts_by_route = alerts_by_route(alerts, socket.assigns.bus_routes)
     {:noreply, assign(socket, alerts_by_route: alerts_by_route)}
   end
 
@@ -75,12 +78,17 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
     {:noreply, assign(socket, current_algorithm: current_algorithm)}
   end
 
-  @spec alerts_by_route([Alert.t()]) :: keyword([Alert.t()])
-  defp alerts_by_route(alerts) do
+  @spec alerts_by_route([Alert.t()], [Route.t()]) :: keyword([Alert.t()])
+  defp alerts_by_route(alerts, bus_routes) do
+    route_ids = Enum.map(bus_routes, & &1.id)
+
     alerts
     |> filtered_by_bus()
     |> filtered_by_delay_type()
     |> Alerts.by_route()
+    |> Enum.filter(fn {route_id, _alerts} ->
+      Enum.member?(route_ids, route_id)
+    end)
     |> Enum.map(fn {route_id, alerts} -> {String.to_atom(route_id), alerts} end)
     |> Enum.sort_by(
       fn {_route_id, alerts} ->

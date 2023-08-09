@@ -1,0 +1,28 @@
+[
+    {
+        "request": {
+            "body": "",
+            "headers": {
+                "x-api-key": "***"
+            },
+            "method": "get",
+            "options": {
+                "recv_timeout": 5000
+            },
+            "request_body": "",
+            "url": "http://localhost:54292/routes?type=3"
+        },
+        "response": {
+            "binary": false,
+            "body": "{\"data\":[{\"attributes\":{\"color\":\"FFC72C\",\"description\":\"Key Bus\",\"direction_destinations\":[\"Harvard Square\",\"Nubian Station\"],\"direction_names\":[\"Outbound\",\"Inbound\"],\"fare_class\":\"Local Bus\",\"long_name\":\"Harvard Square - Nubian Station\",\"short_name\":\"Cool Bus Route\",\"sort_order\":50010,\"text_color\":\"000000\",\"type\":3},\"id\":\"1\",\"links\":{\"self\":\"/routes/1\"},\"relationships\":{\"line\":{\"data\":{\"id\":\"line-1\",\"type\":\"line\"}}},\"type\":\"route\"},{\"attributes\":{\"color\":\"FFC72C\",\"description\":\"Commuter Bus\",\"direction_destinations\":[\"North Station\",\"Tide Street\"],\"direction_names\":[\"Outbound\",\"Inbound\"],\"fare_class\":\"Local Bus\",\"long_name\":\"North Station - Tide Street\",\"short_name\":\"Cooler Bus Route\",\"sort_order\":50040,\"text_color\":\"000000\",\"type\":3},\"id\":\"4\",\"links\":{\"self\":\"/routes/4\"},\"relationships\":{\"line\":{\"data\":{\"id\":\"line-4\",\"type\":\"line\"}}},\"type\":\"route\"},{\"attributes\":{\"color\":\"FFC72C\",\"description\":\"Local Bus\",\"direction_destinations\":[\"City Point\",\"Otis Street & Summer Street\"],\"direction_names\":[\"Outbound\",\"Inbound\"],\"fare_class\":\"Local Bus\",\"long_name\":\"City Point - Otis Street & Summer Street\",\"short_name\":\"7\",\"sort_order\":50070,\"text_color\":\"000000\",\"type\":3},\"id\":\"7\",\"links\":{\"self\":\"/routes/7\"},\"relationships\":{\"line\":{\"data\":{\"id\":\"line-7\",\"type\":\"line\"}}},\"type\":\"route\"},{\"attributes\":{\"color\":\"FFC72C\",\"description\":\"Local Bus\",\"direction_destinations\":[\"Harbor Point\",\"Kenmore Station\"],\"direction_names\":[\"Outbound\",\"Inbound\"],\"fare_class\":\"Local Bus\",\"long_name\":\"Harbor Point - Kenmore Station\",\"short_name\":\"8\",\"sort_order\":50080,\"text_color\":\"000000\",\"type\":3},\"id\":\"8\",\"links\":{\"self\":\"/routes/8\"},\"relationships\":{\"line\":{\"data\":{\"id\":\"line-8\",\"type\":\"line\"}}},\"type\":\"route\"}],\"jsonapi\":{\"version\":\"1.0\"}}",
+            "headers": {
+                "cache-control": "max-age=0, private, must-revalidate",
+                "content-length": "12",
+                "date": "Thu, 20 Jul 2023 12:40:05 GMT",
+                "server": "Cowboy"
+            },
+            "status_code": 200,
+            "type": "ok"
+        }
+    }
+]

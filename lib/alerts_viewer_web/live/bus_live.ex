@@ -3,7 +3,6 @@ defmodule AlertsViewerWeb.BusLive do
   LiveView for presenting a list of bus routes and showing which currently have active alerts.
   """
   use AlertsViewerWeb, :live_view
-
   alias Alerts.Alert
   alias AlertsViewer.DelayAlertAlgorithm
   alias Routes.{Route, RouteStats, RouteStatsPubSub}
@@ -30,7 +29,6 @@ defmodule AlertsViewerWeb.BusLive do
     block_waivered_routes = if(connected?(socket), do: TripUpdatesPubSub.subscribe(), else: [])
 
     routes_with_current_alerts = Enum.filter(bus_routes, &delay_alert?(&1, bus_alerts))
-
     alerts_by_route = Alerts.by_route(bus_alerts)
 
     socket =
