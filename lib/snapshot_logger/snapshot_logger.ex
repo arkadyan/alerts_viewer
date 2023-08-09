@@ -111,6 +111,8 @@ defmodule SnapshotLogger.SnapshotLogger do
           format_stats(route, stats_by_route, &RouteStats.vehicles_instantaneous_headway_secs/2),
         individual_vehicle_headway_deviation:
           format_stats(route, stats_by_route, &RouteStats.vehicles_headway_deviation_secs/2),
+        max_schedule_adherence:
+          RouteStats.max_schedule_adherence(stats_by_route, route) |> DTH.seconds_to_minutes(),
         median_schedule_adherence:
           RouteStats.median_schedule_adherence(stats_by_route, route) |> DTH.seconds_to_minutes(),
         standard_deviation_of_schedule_adherence:
@@ -122,6 +124,8 @@ defmodule SnapshotLogger.SnapshotLogger do
         standard_deviation_of_instantaneous_headway:
           RouteStats.standard_deviation_of_instantaneous_headway(stats_by_route, route)
           |> DTH.seconds_to_minutes(),
+        max_headway_deviation:
+          RouteStats.max_headway_deviation(stats_by_route, route) |> DTH.seconds_to_minutes(),
         median_headway_deviation:
           RouteStats.median_headway_deviation(stats_by_route, route) |> DTH.seconds_to_minutes(),
         standard_deviation_of_headway_deviation:
