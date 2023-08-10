@@ -144,7 +144,10 @@
     >
       <div>
         <span class="absolute hidden group-hover:flex -left-2 -top-2 -translate-y-full w-36 px-2 py-1 bg-gray-700 rounded-lg text-center text-white text-sm z-50">
-          Open for <%= Alert.alert_duration(hd(@alerts_by_route[route.id])) %> hours
+          Open for <%= @alerts_by_route[route.id]
+          |> hd()
+          |> Alert.alert_duration()
+          |> friendly_duration() %>
         </span>
         <.alert_icon />
       </div>

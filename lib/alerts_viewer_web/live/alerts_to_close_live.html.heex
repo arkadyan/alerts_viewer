@@ -59,7 +59,10 @@
     </span>
   </:col>
   <:col :let={route} label="Alert Duration (hours)">
-    <%= Enum.map(@alerts_by_route[route], &Alert.alert_duration(&1)) |> Enum.join(", ") %>
+    <%= @alerts_by_route[route]
+    |> Enum.max_by(&Alert.alert_duration/1)
+    |> Alert.alert_duration()
+    |> friendly_duration() %>
   </:col>
   <:col :let={route} label="Recommending Alert Closure">
     <span

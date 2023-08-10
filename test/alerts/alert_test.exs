@@ -171,7 +171,7 @@ defmodule Alerts.AlertTest do
   end
 
   describe "alert_duration/2" do
-    test "returns duration of alert in hours" do
+    test "returns duration of alert in seconds" do
       current_time = DateTime.new!(~D[2023-07-21], ~T[09:26:08.003], "America/New_York")
 
       alert = %Alert{
@@ -184,7 +184,7 @@ defmodule Alerts.AlertTest do
         ]
       }
 
-      assert Alert.alert_duration(alert, current_time) == 1.5
+      assert Alert.alert_duration(alert, current_time) == 5400
     end
   end
 end

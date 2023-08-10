@@ -3,6 +3,9 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
   Utility functions for formatting dates and times.
   """
 
+  @one_minute_in_seconds 60
+  @one_hour_in_seconds @one_minute_in_seconds * 60
+
   @doc """
   Return a human-friendly date-time string relative to "now".
   Use the time (converted to EST) if today, the month and day if this year, and the month and
@@ -20,6 +23,7 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
   @spec friendly_date_time(DateTime.t() | nil) :: String.t()
   @spec friendly_date_time(DateTime.t() | nil, DateTime.t()) :: String.t()
   def friendly_date_time(dt, now \\ DateTime.now!("America/New_York"))
+
   def friendly_date_time(nil, _now), do: ""
 
   def friendly_date_time(dt, now) do
@@ -27,10 +31,33 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
     Calendar.strftime(DateTime.shift_zone!(dt, "America/New_York"), format)
   end
 
-  @spec date_time_format(DateTime.t(), DateTime.t()) :: String.t()
-  defp date_time_format(dt, now) when dt.day == now.day, do: "%-I:%M %p"
-  defp date_time_format(dt, now) when dt.year == now.year, do: "%b %-d"
-  defp date_time_format(_, _), do: "%b %Y"
+  @doc """
+  Return a human-friendly time duration string. Display in hours, rounded down,
+  if greater than 1 hour, otherwise in minutes rounded down.
+
+  iex> friendly_duration(7400)
+  "2 hours"
+  iex> friendly_duration(120)
+  "2 minutes"
+  iex> friendly_duration(5400)
+  "1 hour"
+  iex> friendly_duration(70)
+  "1 minute"
+  """
+  @spec friendly_duration(integer()) :: String.t()
+  def friendly_duration(time_in_secs)
+      when time_in_secs >= @one_hour_in_seconds and time_in_secs < 2 * @one_hour_in_seconds,
+      do: "1 hour"
+
+  def friendly_duration(time_in_secs) when time_in_secs >= @one_hour_in_seconds,
+    do: "#{floor(time_in_secs / @one_hour_in_seconds)} hours"
+
+  def friendly_duration(time_in_secs)
+      when time_in_secs >= @one_minute_in_seconds and time_in_secs < 2 * @one_minute_in_seconds,
+      do: "1 minute"
+
+  def friendly_duration(time_in_secs),
+    do: "#{floor(time_in_secs / @one_minute_in_seconds)} minutes"
 
   @doc """
   Change seconds into minutes, rounded to an integer
@@ -52,4 +79,9 @@ defmodule AlertsViewerWeb.DateTimeHelpers do
   def seconds_to_minutes(seconds) do
     round(seconds / 60)
   end
+
+  @spec date_time_format(DateTime.t(), DateTime.t()) :: String.t()
+  defp date_time_format(dt, now) when dt.day == now.day, do: "%-I:%M %p"
+  defp date_time_format(dt, now) when dt.year == now.year, do: "%b %-d"
+  defp date_time_format(_, _), do: "%b %Y"
 end

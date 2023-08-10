@@ -255,12 +255,11 @@ defmodule Alerts.Alert do
     do: matches_route(alert, route_id) and matches_effect(alert, effect)
 
   @doc """
-  Duration of alert in hours, to 1 decimal point
+  Duration of alert in seconds
   """
-  @spec alert_duration(t()) :: float()
+  @spec alert_duration(t()) :: integer()
   def alert_duration(alert, current_time \\ DateTime.now!("America/New_York")) do
-    (DateTime.diff(current_time, alert.created_at) / 3600)
-    |> Float.round(1)
+    DateTime.diff(current_time, alert.created_at)
   end
 
   @spec activities_inclued_facility_activities(informed_entity()) :: boolean()
