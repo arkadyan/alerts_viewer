@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Convert Splunk CSV exports into JSON
+#
+# Our "snapshot" data is saved in Splunk as JSON, but in plaintext lines that
+# also contain other data. This prevents us from exporting just the snapshot
+# data lines. This script allows us to export these log lines from Splunk as a
+# CSV file, and then running this strips the extra bits and formats the results as proper JSON.
+#
+# Run like: ./bin/splunk-csv-to-json /path/to/input.csv /path/to/output.json
+#
+# Depends on csvkit, which can be installed via homebrew using:
+#     brew install csvkit
+
+if [ $# -ne 2 ]
+then
+  echo "Missing arguments. Run like: ./bin/splunk-csv-to-json /path/to/input.csv /path/to/output.json"
+  exit 1
+fi
+
+echo "Reading from: $1…"
+
+echo "[" > "$2"
+
+# Remove the header line and take the first "_raw" column
+csvcut -K 1 -c 1 "$1" |
+# Don't use double quotes in output
+csvformat --out-quoting 3 --out-no-doublequote --out-escapechar "\\" |
+# Add a comma to the end of each line except the last line
+sed -E '$ ! s/$/,/' |
+# Remove the instance ID, timestamp, and log level that come before the JSON
+sed -E 's/^.+\[info\] //' |
+# Un-escape commas
+sed -E 's/\\,/,/g' |
+# Un-escape quotes and write to output file
+sed -E 's/\\\"/\"/g' >> "$2"
+
+echo "]" >> "$2"
+
+echo "Wrote to: $2"
