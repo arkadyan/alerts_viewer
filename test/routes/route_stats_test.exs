@@ -133,7 +133,7 @@ defmodule Routes.RouteStatsTest do
   end
 
   describe "max_schedule_adherence" do
-    test "returns the median schedule adherence for all vehicles" do
+    test "returns the max schedule adherence for all vehicles" do
       route_stats = %RouteStats{id: "1", vehicles_schedule_adherence_secs: [1, 2, 3]}
 
       assert RouteStats.max_schedule_adherence(route_stats) == 3
@@ -183,6 +183,36 @@ defmodule Routes.RouteStatsTest do
 
       assert RouteStats.standard_deviation_of_schedule_adherence(stats_by_route, "1") ==
                0.5
+    end
+  end
+
+  describe "max_instantaneous_headway" do
+    test "returns the max instantaneous headway for all vehicles" do
+      route_stats = %RouteStats{id: "1", vehicles_instantaneous_headway_secs: [1, 2, 3]}
+
+      assert RouteStats.max_instantaneous_headway(route_stats) == 3
+    end
+
+    test "returns nil if no vehicles_instantaneous_headway_secs values" do
+      route_stats = %RouteStats{id: "1", vehicles_instantaneous_headway_secs: []}
+
+      assert RouteStats.max_instantaneous_headway(route_stats) == nil
+    end
+
+    test "accepts stats_by_route and a route" do
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles_instantaneous_headway_secs: [1, 2, 3]}
+      }
+
+      assert RouteStats.max_instantaneous_headway(stats_by_route, %Route{id: "1"}) == 3
+    end
+
+    test "accepts stats_by_route and a route id" do
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles_instantaneous_headway_secs: [1, 2, 3]}
+      }
+
+      assert RouteStats.max_instantaneous_headway(stats_by_route, "1") == 3
     end
   end
 

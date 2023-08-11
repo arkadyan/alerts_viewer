@@ -10,7 +10,7 @@ defmodule SnapshotLogger.SnapshotLogger do
   alias Routes.{Route, RouteStats, RouteStatsPubSub}
   alias TripUpdates.TripUpdatesPubSub
 
-  @cadence 5 * 60 * 1000
+  @cadence 5 * 60 * 10
 
   @spec start_link(any) :: :ignore | {:error, any} | {:ok, pid}
   def start_link(opts) do
@@ -105,6 +105,8 @@ defmodule SnapshotLogger.SnapshotLogger do
         name: "bus route snapshot",
         route: Route.name(route),
         timestamp: timestamp,
+        num_vehicles:
+          stats_by_route |> RouteStats.vehicles_schedule_adherence_secs(route) |> length(),
         individual_vehicle_schedule_adherence:
           format_stats(route, stats_by_route, &RouteStats.vehicles_schedule_adherence_secs/2),
         individual_vehicle_instantaneous_headway:
@@ -117,6 +119,9 @@ defmodule SnapshotLogger.SnapshotLogger do
           RouteStats.median_schedule_adherence(stats_by_route, route) |> DTH.seconds_to_minutes(),
         standard_deviation_of_schedule_adherence:
           RouteStats.standard_deviation_of_schedule_adherence(stats_by_route, route)
+          |> DTH.seconds_to_minutes(),
+        max_instantaneous_headway:
+          RouteStats.max_instantaneous_headway(stats_by_route, route)
           |> DTH.seconds_to_minutes(),
         median_instantaneous_headway:
           RouteStats.median_instantaneous_headway(stats_by_route, route)

@@ -147,6 +147,21 @@ defmodule Routes.RouteStats do
   end
 
   ########### Algorithms for Instantaneous_headway
+  @spec max_instantaneous_headway(t()) :: number() | nil
+  @spec max_instantaneous_headway(stats_by_route(), Route.t()) :: number() | nil
+  @spec max_instantaneous_headway(stats_by_route(), Route.id()) :: number() | nil
+  def max_instantaneous_headway(route_stats) do
+    route_stats
+    |> vehicles_instantaneous_headway_secs()
+    |> Enum.max(fn -> nil end)
+  end
+
+  def max_instantaneous_headway(stats_by_route, route_or_route_id) do
+    stats_by_route
+    |> stats_for_route(route_or_route_id)
+    |> max_instantaneous_headway()
+  end
+
   @spec median_instantaneous_headway(t()) ::
           number() | nil
   @spec median_instantaneous_headway(stats_by_route(), Route.t()) ::
