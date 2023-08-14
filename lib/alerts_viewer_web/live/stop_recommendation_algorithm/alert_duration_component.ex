@@ -37,15 +37,13 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.AlertDurationComponent do
   end
 
   @spec recommending_closure?(
-          atom(),
+          Alert.t(),
           non_neg_integer(),
-          {Keyword.t(), RouteStats.stats_by_route()}
+          RouteStats.stats_by_route()
         ) ::
           boolean()
-  defp recommending_closure?(route, threshold_in_minutes, {alerts_by_route, _stats_by_route}) do
-    current_time = DateTime.now!("America/New_York")
-    max = Enum.max(Enum.map(alerts_by_route[route], & &1.created_at), DateTime)
-    duration = DateTime.diff(current_time, max, :minute)
+  defp recommending_closure?(alert, threshold_in_minutes, _stats_by_route) do
+    duration = DateTime.diff(DateTime.now!("America/New_York"), alert.created_at, :minute)
     duration >= threshold_in_minutes
   end
 end

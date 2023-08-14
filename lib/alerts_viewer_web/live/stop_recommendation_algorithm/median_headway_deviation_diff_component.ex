@@ -37,17 +37,23 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.MedianHeadwayDeviationDiffCom
   end
 
   @spec recommending_closure?(
-          atom(),
+          Alert.t(),
           non_neg_integer(),
-          {Keyword.t(), RouteStats.stats_by_route()}
+          RouteStats.stats_by_route()
         ) ::
           boolean()
-  defp recommending_closure?(route, threshold_in_minutes, {_alerts_by_route, stats_by_route}) do
+  defp recommending_closure?(alert, threshold_in_minutes, stats_by_route) do
+    route_ids = Alert.route_ids(alert)
+
     median =
-      RouteStats.median_headway_deviation(
-        stats_by_route,
-        Atom.to_string(route)
-      )
+      route_ids
+      |> Enum.map(fn route_id ->
+        RouteStats.median_headway_deviation(
+          stats_by_route,
+          route_id
+        )
+      end)
+      |> Enum.max()
 
     !is_nil(median) and median >= threshold_in_minutes * 60
   end

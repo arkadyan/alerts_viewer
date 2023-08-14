@@ -262,6 +262,17 @@ defmodule Alerts.Alert do
     DateTime.diff(current_time, alert.created_at)
   end
 
+  @spec route_ids(t()) :: [String.t()]
+  def route_ids(alert) do
+    alert.informed_entity
+    |> Enum.map(&route_ids_from_informed_entity/1)
+    |> Enum.reject(&is_nil/1)
+  end
+
+  @spec route_ids_from_informed_entity(informed_entity()) :: boolean() | nil
+  defp route_ids_from_informed_entity(%{route: route}), do: route
+  defp route_ids_from_informed_entity(_), do: nil
+
   @spec activities_inclued_facility_activities(informed_entity()) :: boolean()
   defp activities_inclued_facility_activities(%{activities: activities}),
     do: Enum.any?(activities, &Enum.member?(@facility_activies, &1))

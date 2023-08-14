@@ -33,34 +33,30 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.AdherenceComponent do
 
   @impl true
   def update(assigns, socket) do
-    alerts_by_route = Map.get(assigns, :alerts_by_route, [])
+    alerts = Map.get(assigns, :alerts, [])
     stats_by_route = Map.get(assigns, :stats_by_route, %{})
 
-    route_id_atoms = Keyword.keys(alerts_by_route)
-
-    routes_with_recommended_closures =
+    alerts_with_recommended_closures =
       Enum.filter(
-        route_id_atoms,
+        socket.assigns.alerts,
         &recommending_closure?(
           &1,
           socket.assigns.duration,
           socket.assigns.median,
           socket.assigns.peak,
-          alerts_by_route,
           stats_by_route
         )
       )
 
     send(
       self(),
-      {:updated_routes_with_recommended_closures, routes_with_recommended_closures}
+      {:updated_alerts_with_recommended_closures, alerts_with_recommended_closures}
     )
 
     {:ok,
      assign(socket,
-       route_id_atoms: route_id_atoms,
        stats_by_route: stats_by_route,
-       alerts_by_route: alerts_by_route
+       alerts: alerts
      )}
   end
 
@@ -126,64 +122,63 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.AdherenceComponent do
     median = String.to_integer(median_str)
     peak = String.to_integer(peak_str)
 
-    routes_with_recommended_closures =
+    alerts_with_recommended_closures =
       Enum.filter(
-        socket.assigns.route_id_atoms,
+        socket.assigns.alerts,
         &recommending_closure?(
           &1,
           duration,
           median,
           peak,
-          socket.assigns.alerts_by_route,
           socket.assigns.stats_by_route
         )
       )
 
     send(
       self(),
-      {:updated_routes_with_recommended_closures, routes_with_recommended_closures}
+      {:updated_alerts_with_recommended_closures, alerts_with_recommended_closures}
     )
 
     {:noreply, assign(socket, duration: duration, median: median, peak: peak)}
   end
 
   @spec recommending_closure?(
-          atom(),
+          Alert.t(),
           integer(),
           integer(),
           integer(),
-          keyword([Alert.t()]),
           RouteStats.stats_by_route()
         ) ::
           boolean()
   defp recommending_closure?(
-         route_id_atom,
+         alert,
          duration_threshold_in_minutes,
          median_threshold_in_minutes,
          peak_threshold_in_minutes,
-         alerts_by_route,
          stats_by_route
        ) do
     current_time = DateTime.now!("America/New_York")
-    route_id = Atom.to_string(route_id_atom)
+    route_ids = Alert.route_ids(alert)
 
-    max =
-      alerts_by_route
-      |> Keyword.get(route_id_atom)
-      |> Enum.map(& &1.created_at)
-      |> Enum.max(DateTime)
-
-    duration = DateTime.diff(current_time, max, :minute)
+    duration = DateTime.diff(current_time, alert.created_at, :minute)
 
     median =
-      stats_by_route
-      |> RouteStats.median_schedule_adherence(route_id)
-      |> DateTimeHelpers.seconds_to_minutes()
+      route_ids
+      |> Enum.map(fn route_id ->
+        stats_by_route
+        |> RouteStats.median_schedule_adherence(route_id)
+        |> DateTimeHelpers.seconds_to_minutes()
+      end)
+      |> Enum.max()
 
     peak =
-      stats_by_route
-      |> RouteStats.max_schedule_adherence(route_id)
-      |> DateTimeHelpers.seconds_to_minutes()
+      route_ids
+      |> Enum.map(fn route_id ->
+        stats_by_route
+        |> RouteStats.max_schedule_adherence(route_id)
+        |> DateTimeHelpers.seconds_to_minutes()
+      end)
+      |> Enum.max()
 
     duration >= duration_threshold_in_minutes and
       (!is_nil(median) and median <= median_threshold_in_minutes) and

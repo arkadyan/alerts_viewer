@@ -12,6 +12,7 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.BaseAlgorithmComponents.OneSl
 
       use AlertsViewerWeb, :live_component
 
+      alias Alerts.Alert
       alias Routes.{Route, RouteStats}
 
       @impl true
@@ -31,29 +32,29 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.BaseAlgorithmComponents.OneSl
       @impl true
       def update(assigns, socket) do
         stats_by_route = Map.get(assigns, :stats_by_route, %{})
-        alerts_by_route = Map.get(assigns, :alerts_by_route, [])
-        routes = Keyword.keys(alerts_by_route)
+        alerts = Map.get(assigns, :alerts, [])
+        routes = Map.keys(stats_by_route)
 
-        routes_with_recommended_closures =
+        alerts_with_recommended_closures =
           Enum.filter(
-            routes,
+            alerts,
             &recommending_closure?(
               &1,
               socket.assigns.min_value,
-              {alerts_by_route, stats_by_route}
+              stats_by_route
             )
           )
 
         send(
           self(),
-          {:updated_routes_with_recommended_closures, routes_with_recommended_closures}
+          {:updated_alerts_with_recommended_closures, alerts_with_recommended_closures}
         )
 
         {:ok,
          assign(socket,
            routes: routes,
            stats_by_route: stats_by_route,
-           alerts_by_route: alerts_by_route
+           alerts: alerts
          )}
       end
 
@@ -61,19 +62,19 @@ defmodule AlertsViewer.StopRecommendationAlgorithm.BaseAlgorithmComponents.OneSl
       def handle_event("update-controls", %{"min_value" => min_value_str}, socket) do
         min_value = String.to_integer(min_value_str)
 
-        routes_with_recommended_closures =
+        alerts_with_recommended_closures =
           Enum.filter(
-            socket.assigns.routes,
+            socket.assigns.alerts,
             &recommending_closure?(
               &1,
               min_value,
-              {socket.assigns.alerts_by_route, socket.assigns.stats_by_route}
+              socket.assigns.stats_by_route
             )
           )
 
         send(
           self(),
-          {:updated_routes_with_recommended_closures, routes_with_recommended_closures}
+          {:updated_alerts_with_recommended_closures, alerts_with_recommended_closures}
         )
 
         {:noreply, assign(socket, min_value: min_value)}
