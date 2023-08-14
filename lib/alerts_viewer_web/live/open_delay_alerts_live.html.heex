@@ -1,6 +1,25 @@
 <.header>
-  Canidates to Close
+  Open Delay Alerts
 </.header>
+
+<div class="flex gap-8">
+  <.controls_form phx-change="select-algorithm">
+    <.input
+      type="select"
+      name="algorithm"
+      label="Algorithm"
+      value={@current_algorithm}
+      options={@algorithm_options}
+    />
+  </.controls_form>
+
+  <.live_component
+    module={@current_algorithm}
+    id={:algorithm_controls}
+    alerts={@sorted_alerts}
+    stats_by_route={@stats_by_route}
+  />
+</div>
 
 <.table id="bus_alerts" sticky={true} rows={@sorted_alerts}>
   <:col :let={alert} label="Alert Id (sorted by duration)">
