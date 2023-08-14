@@ -10,7 +10,7 @@ defmodule SnapshotLogger.SnapshotLogger do
   alias Routes.{Route, RouteStats, RouteStatsPubSub}
   alias TripUpdates.TripUpdatesPubSub
 
-  @cadence 5 * 60 * 10
+  @cadence 5 * 60 * 1000
 
   @spec start_link(any) :: :ignore | {:error, any} | {:ok, pid}
   def start_link(opts) do
