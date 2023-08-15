@@ -1,0 +1,210 @@
+# Bus Route Alert Regression
+
+```elixir
+Mix.install([
+  {:nx, "~> 0.5.3"},
+  {:scholar, "~> 0.1.0"},
+  {:kino_explorer, "~> 0.1.4"},
+  {:jason, "~> 1.4"},
+  {:kino_vega_lite, "~> 0.1.9"}
+])
+```
+
+## Setup
+
+```elixir
+require Explorer.DataFrame, as: DF
+
+alias Explorer.Series
+alias VegaLite, as: Vl
+
+num_classes = 2
+
+feature_columns = ~w(
+  num_vehicles
+
+  max_schedule_adherence
+  median_schedule_adherence
+  standard_deviation_of_schedule_adherence
+
+  max_instantaneous_headway
+  median_instantaneous_headway
+  standard_deviation_of_instantaneous_headway
+
+  max_headway_deviation
+  median_headway_deviation
+  standard_deviation_of_headway_deviation
+
+  route_has_cancelled_trip
+)a
+
+category_column = :route_has_current_alert
+
+:ok
+```
+
+## Load Data
+
+```elixir
+defmodule InputData do
+  @spec numberify(data :: term()) :: number()
+  def numberify(true), do: 1
+  def numberify(false), do: 0
+  def numberify(data), do: data
+end
+```
+
+Enter JSON data file.
+
+```elixir
+file_input = Kino.Input.file("Input data file (JSON)")
+```
+
+Read input file and parse the JSON data.
+
+```elixir
+input_data =
+  file_input
+  |> Kino.Input.read()
+  |> Map.get(:file_ref)
+  |> Kino.Input.file_path()
+  |> File.read!()
+  |> Jason.decode!()
+```
+
+## Prep Data
+
+Format data as an Explorer DataFrame.
+
+```elixir
+inputs =
+  feature_columns
+  |> Enum.map(fn feature ->
+    values = Enum.map(input_data, &InputData.numberify(&1[Atom.to_string(feature)]))
+    {feature, values}
+  end)
+
+target_values = Enum.map(input_data, &InputData.numberify(&1[Atom.to_string(category_column)]))
+
+route_data =
+  Explorer.DataFrame.new([
+    {category_column, target_values}
+    | inputs
+  ])
+```
+
+Filter out rows with nil data and shuffle.
+
+```elixir
+route_data =
+  route_data
+  |> DF.drop_nil()
+  |> DF.shuffle()
+```
+
+Split data into training and testing groups.
+
+```elixir
+train_cap = floor(DF.n_rows(route_data) * 0.8)
+
+train_df = DF.slice(route_data, 0..(train_cap - 1))
+test_df = DF.slice(route_data, train_cap..-1)
+
+"Total: #{DF.n_rows(route_data)}, Training: #{DF.n_rows(train_df)}, Testing: #{DF.n_rows(test_df)}"
+```
+
+Convert training and testing data to Nx tensors.
+
+```elixir
+train_inputs = Nx.stack(train_df[feature_columns], axis: 1)
+```
+
+```elixir
+train_targets = Series.to_tensor(train_df[category_column])
+```
+
+```elixir
+test_inputs = Nx.stack(test_df[feature_columns], axis: 1)
+```
+
+```elixir
+test_targets = Series.to_tensor(test_df[category_column])
+```
+
+Squeeze input features between 0 and 1.
+
+```elixir
+train_inputs = Scholar.Preprocessing.min_max_scale(train_inputs)
+```
+
+```elixir
+test_inputs = Scholar.Preprocessing.min_max_scale(test_inputs)
+```
+
+## Model
+
+Train a logistic regression model.
+
+```elixir
+model =
+  Scholar.Linear.LogisticRegression.fit(
+    train_inputs,
+    train_targets,
+    num_classes: num_classes,
+    learning_rate: 0.1
+  )
+```
+
+## Test
+
+Use the model to make predictions on the test set.
+
+```elixir
+test_preds = Scholar.Linear.LogisticRegression.predict(model, test_inputs)
+```
+
+Analyze the performance of the model.
+
+<!-- livebook:{"break_markdown":true} -->
+
+**Accuracy**
+
+```elixir
+accuracy = Scholar.Metrics.accuracy(test_targets, test_preds)
+```
+
+**F-measure**
+
+```elixir
+f_measure = Scholar.Metrics.f1_score(test_targets, test_preds, num_classes: num_classes)
+```
+
+**Recall**
+
+```elixir
+recall = Scholar.Metrics.binary_recall(test_targets, test_preds)
+```
+
+**Precision**
+
+```elixir
+precision = Scholar.Metrics.binary_precision(test_targets, test_preds)
+```
+
+Render test results as a confusion matrix.
+
+```elixir
+Scholar.Metrics.confusion_matrix(test_targets, test_preds, num_classes: num_classes)
+```
+
+```elixir
+Vl.new(title: "Confusion Matrix", width: 860, height: 680)
+|> Vl.data_from_values(%{
+  predicted: Nx.to_flat_list(test_preds),
+  actual: Nx.to_flat_list(test_targets)
+})
+|> Vl.mark(:rect)
+|> Vl.encode_field(:x, "predicted")
+|> Vl.encode_field(:y, "actual")
+|> Vl.encode(:color, aggregate: :count)
+```
