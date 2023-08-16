@@ -27,13 +27,15 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
 
     block_waivered_routes = if(connected?(socket), do: TripUpdatesPubSub.subscribe(), else: [])
 
+    recommended_closures = recommended_closures(sorted_alerts, stats_by_route)
+
     socket =
       assign(socket,
         stats_by_route: stats_by_route,
         bus_routes: bus_routes,
         block_waivered_routes: block_waivered_routes,
         sorted_alerts: sorted_alerts,
-        alerts_with_recommended_closures: []
+        alerts_with_recommended_closures: recommended_closures
       )
 
     {:ok, socket}
@@ -135,6 +137,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
         |> RouteStats.max_headway_deviation(route_id)
         |> DateTimeHelpers.seconds_to_minutes()
       end)
+      |> Enum.reject(&is_nil/1)
       |> Enum.max()
 
     duration >= duration_threshold_in_minutes and

@@ -84,10 +84,7 @@
     |> Enum.join(",") %>
   </:col>
   <:col :let={alert} label="Route has Cancelled Trip">
-    <span :if={
-      length(@block_waivered_routes -- Alert.route_ids(alert)) <
-        length(@block_waivered_routes)
-    }>
+    <span :if={Alert.route_ids(alert) |> Enum.any?(&Enum.member?(@block_waivered_routes, &1))}>
       ❌
     </span>
   </:col>

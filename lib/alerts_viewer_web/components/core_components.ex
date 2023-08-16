@@ -517,11 +517,13 @@ defmodule AlertsViewerWeb.CoreComponents do
 
   @doc ~S"""
   Renders a table with generic styling.
+  You can style rows by giving the row map a :row_class key with the classes as the value
+  Eg: rows |> Enum.map(& Map.put(&1, :row_class, "text-fuchsia-500 bg-orange-300"))
 
   ## Examples
 
       <.table id="users" rows={@users}>
-        <:col :let={user} label="id"><%= user.id %></:col>
+        <:col :let={user} label="id" title="hello world"><%= user.id %></:col>
         <:col :let={user} label="username"><%= user.username %></:col>
       </.table>
   """
@@ -538,6 +540,7 @@ defmodule AlertsViewerWeb.CoreComponents do
 
   slot :col, required: true do
     attr(:label, :string)
+    attr(:title, :string, required: false)
   end
 
   slot(:action, doc: "the slot for showing user actions in the last table column")
@@ -553,7 +556,9 @@ defmodule AlertsViewerWeb.CoreComponents do
       <table class="mt-11 w-[40rem] sm:w-full">
         <thead class={"text-left text-[0.8125rem] leading-6 text-zinc-500 z-10 #{if(@sticky, do: ~s(sticky top-0  bg-white), else: ~s())}"}>
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
+            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal" title={Map.get(col, :title, "")}>
+              <%= col[:label] %>
+            </th>
             <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>
           </tr>
         </thead>
@@ -570,7 +575,11 @@ defmodule AlertsViewerWeb.CoreComponents do
             >
               <div class="block py-4 pr-6">
                 <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
-                <span class={["relative", i == 0 && "font-semibold text-zinc-900"]}>
+                <span class={[
+                  "relative",
+                  i == 0 && "font-semibold text-zinc-900",
+                  Map.get(row, :row_class, "")
+                ]}>
                   <%= render_slot(col, @row_item.(row)) %>
                 </span>
               </div>
