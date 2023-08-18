@@ -11,22 +11,40 @@ defmodule AlertsViewerWeb.AlertsToCloseLiveTest do
   alias TripUpdates.TripUpdatesPubSub
 
   @alerts [
-    %Alert{
+    _too_short = %Alert{
       id: "1",
       header: "Alert 1",
       effect: :delay,
-      created_at: DateTime.now!("America/New_York") |> DateTime.add(-1, :hour),
+      created_at: DateTime.now!("America/New_York") |> DateTime.add(-59, :minute),
       informed_entity: [
         %{activities: [:board, :exit, :ride], route: "1", route_type: 3}
       ]
     },
-    %Alert{
+    _peak_too_high = %Alert{
       id: "4",
       header: "Alert 2",
       effect: :delay,
       created_at: DateTime.now!("America/New_York") |> DateTime.add(-2, :hour),
       informed_entity: [
         %{activities: [:board, :exit, :ride], route: "4", route_type: 3}
+      ]
+    },
+    _just_right = %Alert{
+      id: "5",
+      header: "Alert 2",
+      effect: :delay,
+      created_at: DateTime.now!("America/New_York") |> DateTime.add(-2, :hour),
+      informed_entity: [
+        %{activities: [:board, :exit, :ride], route: "5", route_type: 3}
+      ]
+    },
+    _no_headways = %Alert{
+      id: "7",
+      header: "Alert 2",
+      effect: :delay,
+      created_at: DateTime.now!("America/New_York") |> DateTime.add(-2, :hour),
+      informed_entity: [
+        %{activities: [:board, :exit, :ride], route: "7", route_type: 3}
       ]
     }
   ]
@@ -45,6 +63,13 @@ defmodule AlertsViewerWeb.AlertsToCloseLiveTest do
       vehicles_instantaneous_headway_secs: [1500, 2000],
       vehicles_scheduled_headway_secs: [400, 880],
       vehicles_headway_deviation_secs: [1100, 1120]
+    },
+    "5" => %RouteStats{
+      id: "5",
+      vehicles_schedule_adherence_secs: [100, 200],
+      vehicles_instantaneous_headway_secs: [500, 1000],
+      vehicles_scheduled_headway_secs: [40, 80],
+      vehicles_headway_deviation_secs: [460, 920]
     }
   }
 
@@ -88,6 +113,15 @@ defmodule AlertsViewerWeb.AlertsToCloseLiveTest do
         assert html =~ ~r/Cool Bus Route/
         assert html =~ ~r/Cooler Bus Route/
       end
+    end
+  end
+
+  describe "recommended_closures" do
+    test "recommends correct routes for closure" do
+      [recommended_closure] =
+        AlertsViewerWeb.AlertsToCloseLive.recommended_closures(@alerts, @stats_by_route)
+
+      assert recommended_closure.id == "5"
     end
   end
 end

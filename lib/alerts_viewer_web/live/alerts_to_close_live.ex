@@ -130,7 +130,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
 
     duration = DateTime.diff(current_time, alert.created_at, :minute)
 
-    peak =
+    headways =
       route_ids
       |> Enum.map(fn route_id ->
         stats_by_route
@@ -138,7 +138,12 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
         |> DateTimeHelpers.seconds_to_minutes()
       end)
       |> Enum.reject(&is_nil/1)
-      |> Enum.max()
+
+    peak =
+      case headways do
+        [_ | _] -> Enum.max(headways)
+        [] -> nil
+      end
 
     duration >= duration_threshold_in_minutes and
       (!is_nil(peak) and peak <= peak_threshold_in_minutes)
