@@ -26,7 +26,10 @@ defmodule TripUpdates.Parser.GTFSRealtimeEnhanced do
     trip = decode_trip(Map.get(trip_update, "trip"))
 
     stop_time_updates =
-      Map.get(trip_update, "stop_time_update") |> Enum.map(&decode_stop_update(&1))
+      case is_nil(Map.get(trip_update, "stop_time_update")) do
+        true -> []
+        false -> Map.get(trip_update, "stop_time_update") |> Enum.map(&decode_stop_update(&1))
+      end
 
     [
       TripUpdate.new(
