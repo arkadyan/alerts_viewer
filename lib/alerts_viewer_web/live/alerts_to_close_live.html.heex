@@ -1,5 +1,5 @@
 <.header>
-  Canidates to Close
+  Candidates to Close
 </.header>
 
 <.table
@@ -15,7 +15,10 @@
     end)
   }
 >
-  <:col :let={alert} label="Alert Id (sorted by duration)">
+  <:col :let={alert} label="Route(s)">
+    <.informed_entity_icons entities={route_names_from_alert(alert, @bus_routes)} />
+  </:col>
+  <:col :let={alert} label="Alert Id">
     <button
       phx-click={JS.dispatch("alerts_viewer:clipcopy", to: "#alert#{alert.id}")}
       title="Copy ID to Clipboard"
@@ -28,10 +31,7 @@
       </div>
     </button>
   </:col>
-  <:col :let={alert} label="Route Names">
-    <.informed_entity_icons entities={route_names_from_alert(alert, @bus_routes)} />
-  </:col>
-  <:col :let={alert} label="Average Adherence (minutes)">
+  <:col :let={alert} label="Adherence (Avg.)">
     <%= alert
     |> Alert.route_ids()
     |> Enum.map(fn route_id ->
@@ -44,7 +44,7 @@
   </:col>
   <:col
     :let={alert}
-    label="Peak Headway Deviation (minutes)⇪"
+    label="Peak Headway Deviation Ⓘ"
     title="The difference between a vehicle's actual headway and its scheduled headway."
   >
     <%= alert
