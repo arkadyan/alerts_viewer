@@ -3,7 +3,8 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
   alias TripUpdates.{StopTimeUpdate, TripUpdate, TripUpdatesPubSub}
 
   @stop_time_update_with_waiver %StopTimeUpdate{
-    arrival_time: DateTime.now!("America/New_York") |> DateTime.add(2, :hour),
+    arrival_time:
+      DateTime.now!("America/New_York") |> DateTime.add(2, :hour) |> DateTime.to_unix(),
     departure_time: nil,
     cause_id: 12,
     cause_description: nil,
@@ -16,7 +17,7 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
   }
 
   @stop_time_update_without_waiver %StopTimeUpdate{
-    arrival_time: DateTime.now!("America/New_York"),
+    arrival_time: DateTime.now!("America/New_York") |> DateTime.to_unix(),
     departure_time: nil,
     cause_id: nil,
     cause_description: nil,
@@ -130,14 +131,14 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
         Map.put(
           @stop_time_update_with_waiver,
           :arrival_time,
-          DateTime.add(current_time, 1, :hour)
+          DateTime.add(current_time, 1, :hour) |> DateTime.to_unix()
         )
 
       stale_stoptime =
         Map.put(
           @stop_time_update_with_waiver,
           :arrival_time,
-          DateTime.add(current_time, -1, :hour)
+          DateTime.add(current_time, -1, :hour) |> DateTime.to_unix()
         )
 
       stale_tripupdate = %TripUpdate{
@@ -162,6 +163,7 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
           @stop_time_update_with_waiver,
           :arrival_time,
           DateTime.add(current_time, -2, :hour)
+          |> DateTime.to_unix()
         )
 
       staler_stoptime =
@@ -169,6 +171,7 @@ defmodule TripUpdates.TripUpdatesPubSubTest do
           @stop_time_update_with_waiver,
           :arrival_time,
           DateTime.add(current_time, -3, :hour)
+          |> DateTime.to_unix()
         )
 
       stale_tripupdate = %TripUpdate{

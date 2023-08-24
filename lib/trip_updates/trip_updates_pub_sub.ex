@@ -120,6 +120,7 @@ defmodule TripUpdates.TripUpdatesPubSub do
     trip_update.stop_time_update
     |> Enum.map(& &1.arrival_time)
     |> Enum.reject(&is_nil(&1))
+    |> Enum.map(&DateTime.from_unix!(&1))
     |> Enum.max(DateTime, fn -> nil end)
   end
 end
