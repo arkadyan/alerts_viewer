@@ -553,10 +553,14 @@ defmodule AlertsViewerWeb.CoreComponents do
 
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="mt-11 w-[40rem] sm:w-full">
+      <table class="mt-11 w-[40rem] sm:w-full text-center">
         <thead class={"text-left text-[0.8125rem] leading-6 text-zinc-500 z-10 #{if(@sticky, do: ~s(sticky top-0  bg-white), else: ~s())}"}>
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal" title={Map.get(col, :title, "")}>
+            <th
+              :for={col <- @col}
+              class="p-0 pb-4 pr-6 font-normal text-center"
+              title={Map.get(col, :title, "")}
+            >
               <%= col[:label] %>
             </th>
             <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>
@@ -609,7 +613,7 @@ defmodule AlertsViewerWeb.CoreComponents do
 
   def informed_entity_icons(assigns) do
     ~H"""
-    <ul class="flex flex-wrap gap-1">
+    <ul class="flex flex-wrap gap-1 justify-center">
       <li :for={entity <- @entities}>
         <.mode_icon type={entity} />
       </li>

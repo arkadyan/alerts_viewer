@@ -3,7 +3,7 @@ defmodule TripUpdates.TripUpdatesPubSub do
   Publish a list of blocked routes to subscribers.
   """
   use GenServer
-  alias TripUpdates.{StopTimeUpdate, TripUpdate, TripUpdates}
+  alias TripUpdates.{TripUpdate, TripUpdates}
 
   defstruct block_waivered_routes: []
 
@@ -41,11 +41,11 @@ defmodule TripUpdates.TripUpdatesPubSub do
         ) :: :ok
   def update_block_waivered_routes(trip_updates, server \\ __MODULE__) do
     # puts into state a list of routes which have gotten a trip update
-    # where all the stop updates have a cancellation reason
+    # where the trip has a schedule relationship of CANCELED
 
     block_waivered_routes =
       trip_updates
-      |> Enum.filter(&(are_all_cancelled?(&1) and is_it_fresh?(&1)))
+      |> Enum.filter(&(&1.trip.schedule_relationship == :CANCELED))
       |> Enum.group_by(& &1.trip.route_id)
       |> Map.keys()
 
@@ -99,28 +99,4 @@ defmodule TripUpdates.TripUpdatesPubSub do
 
   defp send_data({pid, _}, block_waivered_routes),
     do: send(pid, {:block_waivered_routes, block_waivered_routes})
-
-  defp are_all_cancelled?(trip_update) do
-    Enum.all?(trip_update.stop_time_update, fn update ->
-      StopTimeUpdate.is_block_waiver?(update)
-    end)
-  end
-
-  def is_it_fresh?(trip_update, current_time \\ DateTime.now!("America/New_York")) do
-    # returns true if most recent arrival time in a stop update is in the future
-    with %DateTime{} = last_stop <- last_stop_arrival(trip_update),
-         :gt <- DateTime.compare(last_stop, current_time) do
-      true
-    else
-      _ -> false
-    end
-  end
-
-  defp last_stop_arrival(trip_update) do
-    trip_update.stop_time_update
-    |> Enum.map(& &1.arrival_time)
-    |> Enum.reject(&is_nil(&1))
-    |> Enum.map(&DateTime.from_unix!(&1))
-    |> Enum.max(DateTime, fn -> nil end)
-  end
 end

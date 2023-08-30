@@ -1,35 +1,27 @@
 defmodule TripUpdates.TripUpdatesTest do
   use ExUnit.Case
 
-  alias TripUpdates.{StopTimeUpdate, TripUpdate, TripUpdates}
+  alias TripUpdates.{StopTimeUpdate, Trip, TripUpdate, TripUpdates}
 
-  @trip %{
+  @trip_with_waiver %Trip{
     trip_id: "t1",
-    route_id: "2"
+    route_id: "2",
+    schedule_relationship: :CANCELED
   }
 
-  @stop_time_update_with_waiver %StopTimeUpdate{
+  @trip_without_waiver %Trip{
+    trip_id: "t1",
+    route_id: "3",
+    schedule_relationship: :SKIPPED
+  }
+
+  @stop_time_update %StopTimeUpdate{
     arrival_time:
       DateTime.new!(~D[2023-07-21], ~T[09:26:08.003], "America/New_York") |> DateTime.to_unix(),
     departure_time: nil,
     cause_id: 12,
     cause_description: nil,
     remark: nil,
-    schedule_relationship: :SKIPPED,
-    status: nil,
-    stop_id: "s1",
-    stop_sequence: nil,
-    uncertainty: nil
-  }
-
-  @stop_time_update_without_waiver %StopTimeUpdate{
-    arrival_time:
-      DateTime.new!(~D[2023-07-21], ~T[09:26:08.003], "America/New_York") |> DateTime.to_unix(),
-    departure_time: nil,
-    cause_id: nil,
-    cause_description: nil,
-    remark: nil,
-    schedule_relationship: :SKIPPED,
     status: nil,
     stop_id: "s1",
     stop_sequence: nil,
@@ -41,19 +33,19 @@ defmodule TripUpdates.TripUpdatesTest do
       start_date: nil,
       start_time: nil,
       stop_time_update: [
-        @stop_time_update_with_waiver,
-        @stop_time_update_with_waiver
+        @stop_time_update,
+        @stop_time_update
       ],
-      trip: @trip
+      trip: @trip_with_waiver
     },
     %TripUpdate{
       start_date: nil,
       start_time: nil,
       stop_time_update: [
-        @stop_time_update_with_waiver,
-        @stop_time_update_without_waiver
+        @stop_time_update,
+        @stop_time_update
       ],
-      trip: @trip
+      trip: @trip_without_waiver
     }
   ]
 
