@@ -124,4 +124,33 @@ defmodule AlertsViewerWeb.AlertsToCloseLiveTest do
       assert recommended_closure.id == "5"
     end
   end
+
+  describe "Laboratory flags" do
+    setup do
+      start_supervised({Registry, keys: :duplicate, name: :alerts_subscriptions_registry})
+      {:ok, _pid} = AlertsPubSub.start_link(subscribe_fn: fn _, _ -> :ok end)
+      start_supervised({Registry, keys: :duplicate, name: :route_stats_subscriptions_registry})
+      {:ok, _pid} = RouteStatsPubSub.start_link()
+      start_supervised({Registry, keys: :duplicate, name: :trip_updates_subscriptions_registry})
+      {:ok, _pid} = TripUpdatesPubSub.start_link()
+      reassign_env(:alerts_viewer, :api_url, "http://localhost:#{54_292}")
+
+      {:ok, %{}}
+    end
+
+    test "Extra links not shown if internal_pages flag is not set", %{conn: conn} do
+      use_cassette "routes", custom: true, clear_mock: true, match_requests_on: [:query] do
+        {:ok, _view, html} = live(conn, "/alerts-to-close")
+        refute html =~ ~r/a href="\/alerts"/
+      end
+    end
+
+    test "Extra links shown if internal_pages flag is set", %{conn: conn} do
+      use_cassette "routes", custom: true, clear_mock: true, match_requests_on: [:query] do
+        conn = conn |> put_resp_cookie("show_internal_pages_flag", "true")
+        {:ok, _view, html} = live(conn, "/alerts-to-close")
+        assert html =~ ~r/a href="\/alerts"/
+      end
+    end
+  end
 end

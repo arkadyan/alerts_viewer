@@ -15,7 +15,10 @@ defmodule AlertsViewer.MixProject do
         "coveralls.html": :test,
         vcr: :test
       ],
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+        plt_add_apps: [:laboratory]
+      ]
     ]
   end
 
@@ -25,6 +28,7 @@ defmodule AlertsViewer.MixProject do
   def application do
     [
       mod: {AlertsViewer.Application, []},
+      included_applications: [:laboratory],
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -67,7 +71,8 @@ defmodule AlertsViewer.MixProject do
       {:statistics, "~> 0.6.2",
        git: "https://github.com/msharp/elixir-statistics", ref: "897851f"},
       {:csv, "~> 3.0"},
-      {:exvcr, "~> 0.14.3", only: :test}
+      {:exvcr, "~> 0.14.3", only: :test},
+      {:laboratory, github: "paulswartz/laboratory", ref: "cookie_opts"}
     ]
   end
 

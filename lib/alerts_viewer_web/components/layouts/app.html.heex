@@ -7,8 +7,8 @@
     </div>
     <nav class="flex items-center gap-4">
       <.link patch={~p"/alerts-to-close"}>Alerts to Close</.link>
-      <.link patch={~p"/alerts"}>Alerts</.link>
-      <.link patch={~p"/bus"}>Bus</.link>
+      <.link :if={@show_internal_pages_flag} patch={~p"/alerts"}>Alerts</.link>
+      <.link :if={@show_internal_pages_flag} patch={~p"/bus"}>Bus</.link>
       <.link patch={~p"/open-delay-alerts"}>Open Delay Alerts</.link>
     </nav>
   </div>

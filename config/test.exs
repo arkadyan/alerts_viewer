@@ -26,3 +26,14 @@ config :exvcr,
   vcr_cassette_library_dir: "test/support/fixtures/vcr_cassettes",
   custom_cassette_library_dir: "test/support/fixtures/custom_cassettes",
   filter_request_headers: ["x-api-key"]
+
+config :laboratory,
+  features: [
+    {:test_flag, "Cool Bean", "cool bean for test"},
+    {:show_internal_pages_flag, "Internal Pages", "Makes links to internal-only pages visible"}
+  ],
+  cookie: [
+    # one month,
+    max_age: 3600 * 24 * 30,
+    http_only: true
+  ]
