@@ -41,3 +41,7 @@ To start your Phoenix server:
 - Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+## Flags
+
+This project uses the [Laboratory](https://github.com/paulswartz/laboratory) library to manage user flags. These flags are per-user, saved in local browser storage, and expire every 30 days. To see what flags are available and set them for yourself, visit the `/_flags` route (you may need to refresh the page to see a change). To add new flags, set them in the config file. They will automatically be available as assigns in both regular and live view pages.
