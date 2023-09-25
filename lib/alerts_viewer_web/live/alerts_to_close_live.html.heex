@@ -31,16 +31,11 @@
       </div>
     </button>
   </:col>
-  <:col :let={alert} label="Adherence (Avg.)">
-    <%= alert
-    |> Alert.route_ids()
-    |> Enum.map(fn route_id ->
-      @stats_by_route
-      |> RouteStats.median_schedule_adherence(route_id)
-      |> seconds_to_minutes()
-    end)
-    |> Enum.reject(&is_nil/1)
-    |> Enum.join(",") %>
+  <:col :let={alert} label="Alert Open For">
+    <%= Alert.alert_duration(alert) |> friendly_duration() %>
+  </:col>
+  <:col :let={alert} label="Delay Estimate">
+    <%= severity_to_minutes(alert.severity) %>
   </:col>
   <:col
     :let={alert}
@@ -63,14 +58,10 @@
       class="flex justify-center"
     >
       <Heroicons.minus_circle
-        class={"text-red-#{if Enum.member?(@alerts_with_recommended_closures, alert), do: "400", else: "200"} w-7 h-7"}
+        class={"text-red-#{if Enum.member?(@alerts_with_recommended_closures, alert), do: "600", else: "200"} w-7 h-7"}
         title="Dropped Trip"
       />
     </span>
-  </:col>
-
-  <:col :let={alert} label="Alert Open For">
-    <%= Alert.alert_duration(alert) |> friendly_duration() %>
   </:col>
   <:col :let={alert} label="Recommending Closure">
     <span

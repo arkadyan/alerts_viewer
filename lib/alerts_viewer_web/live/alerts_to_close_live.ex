@@ -148,4 +148,14 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
     duration >= duration_threshold_in_minutes and
       (!is_nil(peak) and peak <= peak_threshold_in_minutes)
   end
+
+  @spec severity_to_minutes(integer()) :: String.t()
+  def severity_to_minutes(severity) when severity < 3, do: "<10"
+  def severity_to_minutes(3), do: "10"
+  def severity_to_minutes(4), do: "15"
+  def severity_to_minutes(5), do: "20"
+  def severity_to_minutes(6), do: "25"
+  def severity_to_minutes(7), do: "30"
+  def severity_to_minutes(8), do: "30+"
+  def severity_to_minutes(severity) when severity >= 9, do: "60+"
 end
