@@ -1,5 +1,5 @@
 # --- Set up Elixir build ---
-FROM hexpm/elixir:1.14.4-erlang-25.3.2-debian-bullseye-20230227-slim as elixir-builder
+FROM hexpm/elixir:1.15.6-erlang-26.1.1-debian-bullseye-20230612-slim as elixir-builder
 
 ENV LANG=C.UTF-8 MIX_ENV=prod
 

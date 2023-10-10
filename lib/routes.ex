@@ -49,7 +49,7 @@ defmodule Routes do
   end
 
   defp handle_response({:error, reason}) do
-    Logger.warn(fn -> Log.line("Error getting routes from the API", error: reason) end)
+    Logger.warning(fn -> Log.line("Error getting routes from the API", error: reason) end)
     {:error, reason}
   end
 
