@@ -68,7 +68,8 @@ defmodule AlertsViewer.Application do
       :api_key,
       :swiftly_authorization_key,
       :swiftly_realtime_vehicles_url,
-      :trip_updates_url
+      :trip_updates_url,
+      :google_tag_manager_id
     ]
 
     for application_key <- application_keys do

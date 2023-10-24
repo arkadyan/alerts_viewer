@@ -35,7 +35,8 @@ config :alerts_viewer,
     AlertsViewer.StopRecommendationAlgorithm.HeadwayDeviationComponent,
     AlertsViewer.StopRecommendationAlgorithm.AdherenceComponent
   ],
-  trip_updates_url: {:system, "TRIP_UPDATES_URL"}
+  trip_updates_url: {:system, "TRIP_UPDATES_URL"},
+  google_tag_manager_id: {:system, "GOOGLE_TAG_MANAGER_ID"}
 
 # Configures the endpoint
 config :alerts_viewer, AlertsViewerWeb.Endpoint,
