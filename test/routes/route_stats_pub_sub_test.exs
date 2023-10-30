@@ -4,24 +4,30 @@ defmodule Routes.RouteStatsPubSubTest do
   alias Routes.{RouteStats, RouteStatsPubSub}
   alias Vehicles.Vehicle
 
+  @vehicle1 %Vehicle{schedule_adherence_secs: 10}
+  @vehicle2 %Vehicle{schedule_adherence_secs: 20}
+  @vehicle3 %Vehicle{schedule_adherence_secs: 30}
+
   @vehicles_by_route %{
     "39" => [
-      %Vehicle{schedule_adherence_secs: 10},
-      %Vehicle{schedule_adherence_secs: 20}
+      @vehicle1,
+      @vehicle2
     ],
     "66" => [
-      %Vehicle{schedule_adherence_secs: 30}
+      @vehicle3
     ]
   }
 
   @stats_by_route %{
     "39" => %RouteStats{
       id: "39",
-      vehicles_schedule_adherence_secs: [10, 20]
+      vehicles_schedule_adherence_secs: [10, 20],
+      vehicles: [@vehicle1, @vehicle2]
     },
     "66" => %RouteStats{
       id: "66",
-      vehicles_schedule_adherence_secs: [30]
+      vehicles_schedule_adherence_secs: [30],
+      vehicles: [@vehicle3]
     }
   }
 

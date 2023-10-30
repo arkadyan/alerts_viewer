@@ -52,6 +52,17 @@
     |> Enum.reject(&is_nil/1)
     |> Enum.join(",") %>
   </:col>
+  <:col :let={alert} label="Vehicle #">
+    <%= alert
+    |> Alert.route_ids()
+    |> Enum.map(fn route_id ->
+      @stats_by_route
+      |> RouteStats.vehicle_with_max_headway_deviation(route_id)
+      |> Vehicle.id()
+    end)
+    |> Enum.reject(&(&1 == ""))
+    |> Enum.join(",") %>
+  </:col>
   <:col :let={alert} label="Route has Dropped Trip">
     <span
       :if={Alert.route_ids(alert) |> Enum.any?(&Enum.member?(@block_waivered_routes, &1))}

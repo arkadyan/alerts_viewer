@@ -65,6 +65,20 @@ defmodule Vehicles.Vehicle do
   defp rounded_or_nil(secs) when is_number(secs), do: round(secs)
 
   @doc """
+  Return the ID for the vehicle.
+
+  iex> Vehicle.id(%Vehicle{id: "1234"})
+  "1234"
+  iex> Vehicle.id(%Vehicle{})
+  ""
+  iex> Vehicle.id(nil)
+  ""
+  """
+  @spec id(t() | nil) :: String.t()
+  def id(%__MODULE__{id: id}) when id != nil, do: id
+  def id(_), do: ""
+
+  @doc """
   Returns whether or noth the vehicle has a route ID.
 
   iex> Vehicle.route_id?(%Vehicle{route_id: "39"})
@@ -138,4 +152,40 @@ defmodule Vehicles.Vehicle do
 
   def scheduled_headway_secs(_),
     do: nil
+
+  @doc """
+  Returns the headway deviation (instantaneous - schedule headway) for a
+  vehicle. If either of these values is missing, returns nil.
+
+  iex> Vehicle.headway_deviation(%Vehicle{instantaneous_headway_secs: 25, scheduled_headway_secs: 22})
+  3
+  iex> Vehicle.headway_deviation(%Vehicle{instantaneous_headway_secs: nil, scheduled_headway_secs: 22})
+  nil
+  iex> Vehicle.headway_deviation(%Vehicle{instantaneous_headway_secs: 25, scheduled_headway_secs: nil})
+  nil
+  """
+  @spec headway_deviation(t()) :: integer() | nil
+  def headway_deviation(%__MODULE__{instantaneous_headway_secs: nil}), do: nil
+  def headway_deviation(%__MODULE__{scheduled_headway_secs: nil}), do: nil
+
+  def headway_deviation(%__MODULE__{
+        instantaneous_headway_secs: instantaneous_headway_secs,
+        scheduled_headway_secs: scheduled_headway_secs
+      }),
+      do: instantaneous_headway_secs - scheduled_headway_secs
+
+  @doc """
+  Returns whether or not the vehicle has a known headway deviation. This
+  requires having a value for both the scheduled and instantaneus headway
+  values.
+
+  iex> Vehicle.headway_deviation?(%Vehicle{instantaneous_headway_secs: 25, scheduled_headway_secs: 22})
+  true
+  iex> Vehicle.headway_deviation?(%Vehicle{instantaneous_headway_secs: nil, scheduled_headway_secs: 22})
+  false
+  iex> Vehicle.headway_deviation?(%Vehicle{instantaneous_headway_secs: 25, scheduled_headway_secs: nil})
+  false
+  """
+  @spec headway_deviation?(t()) :: boolean()
+  def headway_deviation?(vehicle), do: !is_nil(headway_deviation(vehicle))
 end

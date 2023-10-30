@@ -8,11 +8,13 @@ defmodule Routes.RouteStatsTest do
     test "constructs a RouteStats struct from a list of Vehicles" do
       vehicles = [
         %Vehicle{
+          id: "v1",
           schedule_adherence_secs: 10,
           instantaneous_headway_secs: 500,
           scheduled_headway_secs: 40
         },
         %Vehicle{
+          id: "V2",
           schedule_adherence_secs: 20,
           instantaneous_headway_secs: 1000,
           scheduled_headway_secs: 80
@@ -24,7 +26,8 @@ defmodule Routes.RouteStatsTest do
                vehicles_schedule_adherence_secs: [10, 20],
                vehicles_instantaneous_headway_secs: [500, 1000],
                vehicles_scheduled_headway_secs: [40, 80],
-               vehicles_headway_deviation_secs: [460, 920]
+               vehicles_headway_deviation_secs: [460, 920],
+               vehicles: vehicles
              }
     end
   end
@@ -418,8 +421,8 @@ defmodule Routes.RouteStatsTest do
     end
   end
 
-  describe "standard_deviation_of_headway_deviation rounded to 1 place" do
-    test "" do
+  describe "standard_deviation_of_headway_deviation" do
+    test "returns the standard deviation of headway deviation for all vehicles rounded to 1 place" do
       route_stats = %RouteStats{
         id: "1",
         vehicles_headway_deviation_secs: [1, 2]
@@ -490,6 +493,93 @@ defmodule Routes.RouteStatsTest do
 
     test "returns an empty RouteStats struct if the requested route isn't found" do
       assert RouteStats.stats_for_route(%{}, %Route{id: "unknown"}) == %RouteStats{}
+    end
+  end
+
+  describe "vehicle_with_max_headway_deviation" do
+    test "returns the vehcile with the greatest headway deviation" do
+      vehicle1 = %Vehicle{
+        id: "v1",
+        instantaneous_headway_secs: 500,
+        scheduled_headway_secs: 40
+      }
+
+      vehicle2 = %Vehicle{
+        id: "V2",
+        instantaneous_headway_secs: 1000,
+        scheduled_headway_secs: 80
+      }
+
+      route_stats = %RouteStats{
+        id: "1",
+        vehicles: [vehicle1, vehicle2]
+      }
+
+      assert RouteStats.vehicle_with_max_headway_deviation(route_stats) == vehicle2
+    end
+
+    test "returns nil if no headway deviations" do
+      vehicle1 = %Vehicle{
+        id: "v1",
+        instantaneous_headway_secs: nil,
+        scheduled_headway_secs: 40
+      }
+
+      vehicle2 = %Vehicle{
+        id: "V2",
+        instantaneous_headway_secs: 1000,
+        scheduled_headway_secs: nil
+      }
+
+      route_stats = %RouteStats{
+        id: "1",
+        vehicles: [vehicle1, vehicle2]
+      }
+
+      assert RouteStats.vehicle_with_max_headway_deviation(route_stats) == nil
+    end
+
+    test "accepts stats_by_route and a route" do
+      vehicle1 = %Vehicle{
+        id: "v1",
+        instantaneous_headway_secs: 500,
+        scheduled_headway_secs: 40
+      }
+
+      vehicle2 = %Vehicle{
+        id: "V2",
+        instantaneous_headway_secs: 1000,
+        scheduled_headway_secs: 80
+      }
+
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles: [vehicle1, vehicle2]}
+      }
+
+      assert RouteStats.vehicle_with_max_headway_deviation(
+               stats_by_route,
+               %Route{id: "1"}
+             ) == vehicle2
+    end
+
+    test "accepts stats_by_route and a route id" do
+      vehicle1 = %Vehicle{
+        id: "v1",
+        instantaneous_headway_secs: 500,
+        scheduled_headway_secs: 40
+      }
+
+      vehicle2 = %Vehicle{
+        id: "V2",
+        instantaneous_headway_secs: 1000,
+        scheduled_headway_secs: 80
+      }
+
+      stats_by_route = %{
+        "1" => %RouteStats{id: "1", vehicles: [vehicle1, vehicle2]}
+      }
+
+      assert RouteStats.vehicle_with_max_headway_deviation(stats_by_route, "1") == vehicle2
     end
   end
 end

@@ -7,6 +7,7 @@ defmodule AlertsViewerWeb.AlertsToCloseLive do
   alias AlertsViewerWeb.DateTimeHelpers
   alias Routes.{Route, RouteStats, RouteStatsPubSub}
   alias TripUpdates.TripUpdatesPubSub
+  alias Vehicles.Vehicle
 
   @max_alert_duration 60
   @min_peak_headway 15
