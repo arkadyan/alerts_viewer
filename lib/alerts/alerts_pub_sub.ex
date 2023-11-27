@@ -5,6 +5,7 @@ defmodule Alerts.AlertsPubSub do
 
   use GenServer
 
+  require Logger
   alias Alerts.{Alert, Store}
 
   @enforce_keys [:store]
@@ -133,6 +134,10 @@ defmodule Alerts.AlertsPubSub do
 
     alerts = Store.all(store)
 
+    Logger.info(
+      "Stored alerts count=#{length(alerts)} min_age=#{min_age(alerts)} median_age=#{median_age(alerts)} max_age=#{max_age(alerts)}"
+    )
+
     Registry.dispatch(:alerts_subscriptions_registry, registry_key, fn entries ->
       Enum.each(entries, &send_data(&1, alerts))
     end)
@@ -140,4 +145,25 @@ defmodule Alerts.AlertsPubSub do
 
   @spec send_data({pid(), any()}, [Alert.t()]) :: broadcast_message()
   defp send_data({pid, _}, alerts), do: send(pid, {:alerts, alerts})
+
+  @spec min_age([Alert.t()]) :: integer()
+  defp min_age(alerts) do
+    alerts
+    |> Enum.map(&Alert.alert_duration/1)
+    |> Enum.min()
+  end
+
+  @spec median_age([Alert.t()]) :: number()
+  defp median_age(alerts) do
+    alerts
+    |> Enum.map(&Alert.alert_duration/1)
+    |> Statistics.median()
+  end
+
+  @spec max_age([Alert.t()]) :: integer()
+  defp max_age(alerts) do
+    alerts
+    |> Enum.map(&Alert.alert_duration/1)
+    |> Enum.max()
+  end
 end
