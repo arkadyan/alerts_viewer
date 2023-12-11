@@ -71,7 +71,7 @@ defmodule AlertsViewer.MixProject do
       {:statistics, "~> 0.6.2",
        git: "https://github.com/msharp/elixir-statistics", ref: "897851f"},
       {:csv, "~> 3.0"},
-      {:exvcr, "~> 0.14.3", only: :test},
+      {:exvcr, "~> 0.15.0", only: :test},
       {:laboratory, github: "paulswartz/laboratory", ref: "cookie_opts"}
     ]
   end
