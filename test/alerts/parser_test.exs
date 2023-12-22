@@ -92,6 +92,18 @@ defmodule Alerts.ParserTest do
                url: "https://mbta.com/test-example"
              }
     end
+
+    test "handles an unknown cause" do
+      json_item = %Item{
+        @alert_json_item
+        | attributes: %{
+            @alert_json_item.attributes
+            | "cause" => "NEVER_SEEN_THIS_BEFORE"
+          }
+      }
+
+      assert %Alert{cause: :other_cause} = Parser.parse(json_item)
+    end
   end
 
   defp shift_five_hours(date, time) do

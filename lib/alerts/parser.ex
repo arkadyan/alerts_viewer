@@ -81,7 +81,6 @@ defmodule Alerts.Parser do
   defp cause("MAINTENANCE"), do: :maintenance
   defp cause("MECHANICAL_PROBLEM"), do: :mechanical_problem
   defp cause("MEDICAL_EMERGENCY"), do: :medical_emergency
-  defp cause("OTHER_CAUSE"), do: :other_cause
   defp cause("PARADE"), do: :parade
   defp cause("POLICE_ACTION"), do: :police_action
   defp cause("POLICE_ACTIVITY"), do: :police_activity
@@ -94,6 +93,7 @@ defmodule Alerts.Parser do
   defp cause("SPECIAL_EVENT"), do: :special_event
   defp cause("SPEED_RESTRICTION"), do: :speed_restriction
   defp cause("STRIKE"), do: :strike
+  defp cause("SWITCH_ISSUE"), do: :switch_problem
   defp cause("SWITCH_PROBLEM"), do: :switch_problem
   defp cause("TECHNICAL_PROBLEM"), do: :technical_problem
   defp cause("TIE_REPLACEMENT"), do: :tie_replacement
@@ -103,6 +103,7 @@ defmodule Alerts.Parser do
   defp cause("UNKNOWN_CAUSE"), do: :unknown_cause
   defp cause("UNRULY_PASSENGER"), do: :unruly_passenger
   defp cause("WEATHER"), do: :weather
+  defp cause(_), do: :other_cause
 
   @spec effect(String.t()) :: Alert.effect()
   defp effect("ACCESS_ISSUE"), do: :access_issue
