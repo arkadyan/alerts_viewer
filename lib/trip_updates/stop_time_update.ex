@@ -46,13 +46,4 @@ defmodule TripUpdates.StopTimeUpdate do
   def new(fields) do
     struct!(__MODULE__, fields)
   end
-
-  @spec is_block_waiver?(__MODULE__.t()) :: boolean()
-  def is_block_waiver?(stop_time_update) do
-    # cause_id 33 is bad TransitMaster units.
-    # Since we can fall back to swiftly data,
-    # these block waivers don't matter to people using skate.
-    stop_time_update.cause_id != nil and
-      stop_time_update.cause_id != 33
-  end
 end
